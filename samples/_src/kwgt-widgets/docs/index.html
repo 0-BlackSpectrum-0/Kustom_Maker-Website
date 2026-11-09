@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>KWGT Widgets</title>
+  <meta name="description"
+    content="KWGT Widgets offers a curated collection of customizable home screen widgets for Android. Enhance your device with dynamic and beautiful widget designs. Includes widgets based on Interstellar Movie theme, Nothing OS, Material OS, and many more." />
+
+  <!-- Keywords & Author -->
+  <meta name="keywords"
+    content="KWGT Widgets, Android Widgets, Customizable Widgets, Home Screen, Android Customization, Nothing OS, Nothing Widgets, Nothing Phone 1" />
+  <meta name="author" content="Om Gupta" />
+
+  <!-- Robots & Canonical URL -->
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://aumgupta.github.io/KWGT-Widgets/" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="KWGT Widgets - Customizable Home Screen Widgets for Android" />
+  <meta property="og:description"
+    content="KWGT Widgets offers a curated collection of customizable home screen widgets for Android. Enhance your device with dynamic and beautiful widget designs." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aumgupta.github.io/KWGT-Widgets/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="KWGT Widgets - Customizable Home Screen Widgets for Android" />
+  <meta name="twitter:description"
+    content="KWGT Widgets offers a curated collection of customizable home screen widgets for Android. Enhance your device with dynamic and beautiful widget designs." />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+
+  <!-- External Fonts & Styles -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+
+<body>
+  <!-- Container for consistent horizontal padding -->
+  <div class="container">
+    <!-- Introductory Section -->
+    <header class="intro">
+      <div class="intro-stack">
+        <img id="logo" src="assets/logo.webp" alt="logo.webp">
+        <h1><a href="https://github.com/AumGupta/KWGT-Widgets/">KWGT Widgets</a></h1>
+      </div>
+      <h2>Customizable Home Screen Widgets for Android</h2>
+      <p>Explore a curated collection of beautifully designed, fully customizable widgets created with KWGT. <em>Star the
+        repository on <a href="https://github.com/AumGupta/KWGT-Widgets/">GitHub</a> for latest updates</em>. Contributions
+        are always welcomed.</p>
+      <br>
+      <p>Includes widgtes inspired from UIs like NOTHING OS, Material You, etc and movies like Interstellar 2014, and many more exciting widgets.</p>
+    </header>
+
+    <!-- Widget Grid -->
+    <div class="grid" id="widgets-container"></div>
+  </div>
+
+  <footer class="outro">
+    <div class="container">
+      <p>Maintained by <a href="https://aaumgupta.pages.dev" target="_blank">Om Gupta</a></p>
+      <div class="social-links">
+        <a href="https://github.com/AumGupta/" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/aaumgupta" target="_blank">LinkedIn</a>
+        <a href="https://www.kaggle.com/aaumgupta" target="_blank">Kaggle</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Navbar -->
+  <nav>
+    <div class="navbar-left">
+      <h1>KWGT-Widgets</h1>
+      <p>view <a href="https://github.com/AumGupta/KWGT-Widgets/" target="_blank"><strong>Repository</strong></a></p>
+    </div>
+    <div class="navbar-right">
+      <button class="scroll-to-top" id="scroll-to-top">
+        <span class="material-icons">arrow_upward</span>
+      </button>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-icon" class="material-icons">dark_mode</span>
+        <span id="theme-text">Dark Mode</span>
+      </button>
+    </div>
+  </nav>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

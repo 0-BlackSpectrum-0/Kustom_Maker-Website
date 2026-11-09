@@ -1,0 +1,9 @@
+{
+  "name": "KustomWeb - KLWP & KWGT Editor",
+  "short_name": "KustomWeb",
+  "description": "Offline-capable web editor for KLWP, KWGT, and KOMP files",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#18181b",
+  "theme_color": "#e11d48"
+}

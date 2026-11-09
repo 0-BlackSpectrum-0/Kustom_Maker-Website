@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build
+dist/
+reports/
+scratch/
+.work/
+
+# References & Decompiled (read-only reference, never shipped)
+reference/
+references/decompiled/
+
+# System / logs
+*.log
+.DS_Store
+Thumbs.db

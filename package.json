@@ -1,0 +1,35 @@
+{
+  "name": "kustomweb",
+  "version": "0.1.0",
+  "description": "Browser-Based KLWP / KWGT Editor",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "fetch": "node tools/fetch-samples.mjs",
+    "inventory": "node tools/inventory.mjs",
+    "spec:extract": "node tools/spec-extract/extract.mjs",
+    "test": "vitest run",
+    "size": "node tools/check-size.mjs",
+    "verify": "node tools/verify/verify.mjs",
+    "verify:struct": "node tools/verify/verify.mjs --struct",
+    "verify:visual": "node tools/verify/verify.mjs --visual",
+    "verify:export": "node tools/verify/verify.mjs --export",
+    "kweb": "node tools/cli/kweb.mjs"
+  },
+  "dependencies": {
+    "@preact/signals": "^2.0.1",
+    "fflate": "^0.8.2",
+    "preact": "^10.25.4"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "^1.1.0",
+    "@preact/preset-vite": "^2.9.4",
+    "@types/node": "^26.6.6",
+    "pixelmatch": "^8.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vitest": "^3.0.0"
+  }
+}

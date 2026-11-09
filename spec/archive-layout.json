@@ -1,0 +1,87 @@
+{
+  "archiveType": "ZIP",
+  "compressionMethod": "deflate",
+  "allowDirectoryEntries": false,
+  "entryOrder": [
+    "preset.json",
+    "preset_thumb_portrait.jpg",
+    "preset_thumb_landscape.jpg",
+    "assets"
+  ],
+  "komponentEntryOrder": [
+    "komponent.json",
+    "komponent_thumb.jpg",
+    "assets"
+  ],
+  "thumbnail": {
+    "format": "WEBP",
+    "namingExtension": ".jpg",
+    "klwpDimensions": {
+      "portrait": [
+        460,
+        1024
+      ],
+      "landscape": [
+        1024,
+        460
+      ]
+    },
+    "kwgtDimensions": {
+      "longEdge": 1024,
+      "aspectRule": "match_preset_info_aspect"
+    },
+    "kompDimensions": {
+      "maxDimension": 256
+    }
+  },
+  "presetInfoFields": {
+    "generationOld": [
+      "version",
+      "title",
+      "description",
+      "author",
+      "email",
+      "width",
+      "height",
+      "features",
+      "release",
+      "locked",
+      "pflags"
+    ],
+    "generationNew": [
+      "archive",
+      "author",
+      "description",
+      "email",
+      "features",
+      "pflags",
+      "height",
+      "locked",
+      "release",
+      "title",
+      "version",
+      "width",
+      "xscreens",
+      "yscreens",
+      "hash",
+      "id",
+      "ts"
+    ],
+    "defaultVersion": 13,
+    "defaultRelease": 377435216
+  },
+  "resourcePathPatterns": {
+    "providerPrefix": "kfile://org.kustom.provider/",
+    "folders": [
+      "bitmaps/",
+      "fonts/",
+      "icons/"
+    ],
+    "bitmapNaming": "IMG<32hex>",
+    "iconPackPair": [
+      "icons/<set>.ttf",
+      "icons/<set>.json"
+    ],
+    "aliasPattern": "^(widgets|wallpapers|komponents)/[^/]+\\.(kwgt|klwp|komp)/(.+)$"
+  }
+}

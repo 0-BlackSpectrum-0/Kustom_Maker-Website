@@ -1,0 +1,333 @@
+{
+  "gv": {
+    "tier": "T1",
+    "desc": "Global variable access",
+    "args": [
+      "name"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/globals"
+  },
+  "ce": {
+    "tier": "T1",
+    "desc": "Colour editor",
+    "args": [
+      "color",
+      "op",
+      "amount"
+    ],
+    "returnType": "color",
+    "provenance": "docs:reference/functions/ce"
+  },
+  "si": {
+    "tier": "T1",
+    "desc": "System info",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/si"
+  },
+  "tc": {
+    "tier": "T1",
+    "desc": "Text converter",
+    "args": [
+      "mode",
+      "...args"
+    ],
+    "returnType": "text",
+    "provenance": "docs:reference/functions/tc"
+  },
+  "if": {
+    "tier": "T1",
+    "desc": "Conditional branch",
+    "args": [
+      "cond",
+      "then",
+      "...elseIf",
+      "else"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/if"
+  },
+  "df": {
+    "tier": "T1",
+    "desc": "Date and time formatting",
+    "args": [
+      "format",
+      "date?"
+    ],
+    "returnType": "text",
+    "provenance": "docs:reference/functions/df"
+  },
+  "mu": {
+    "tier": "T1",
+    "desc": "Math utilities",
+    "args": [
+      "op",
+      "...args"
+    ],
+    "returnType": "number",
+    "provenance": "docs:reference/functions/mu"
+  },
+  "lv": {
+    "tier": "T1",
+    "desc": "Local variable setter/getter",
+    "args": [
+      "name",
+      "value?"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/lv"
+  },
+  "tf": {
+    "tier": "T1",
+    "desc": "Time span formatting",
+    "args": [
+      "seconds",
+      "format?"
+    ],
+    "returnType": "text",
+    "provenance": "docs:reference/functions/tf"
+  },
+  "cm": {
+    "tier": "T1",
+    "desc": "Colour maker",
+    "args": [
+      "alpha",
+      "red",
+      "green",
+      "blue"
+    ],
+    "returnType": "color",
+    "provenance": "docs:reference/functions/cm"
+  },
+  "fl": {
+    "tier": "T1",
+    "desc": "Loop generator",
+    "args": [
+      "start",
+      "end",
+      "step",
+      "expr"
+    ],
+    "returnType": "text",
+    "provenance": "docs:reference/functions/fl"
+  },
+  "dp": {
+    "tier": "T1",
+    "desc": "Date parse to timestamp",
+    "args": [
+      "dateString"
+    ],
+    "returnType": "number",
+    "provenance": "docs:reference/functions/dp"
+  },
+  "mi": {
+    "tier": "T2",
+    "desc": "Music playback metadata",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/mi"
+  },
+  "bi": {
+    "tier": "T2",
+    "desc": "Battery status and power",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/bi"
+  },
+  "wi": {
+    "tier": "T2",
+    "desc": "Weather current information",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/wi"
+  },
+  "wf": {
+    "tier": "T2",
+    "desc": "Weather forecast array",
+    "args": [
+      "field",
+      "day",
+      "hour?"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/wf"
+  },
+  "ai": {
+    "tier": "T2",
+    "desc": "Astronomy & solar/lunar position",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/ai"
+  },
+  "ci": {
+    "tier": "T2",
+    "desc": "Calendar event information",
+    "args": [
+      "key",
+      "eventIndex?"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/ci"
+  },
+  "rm": {
+    "tier": "T2",
+    "desc": "RAM & storage metrics",
+    "args": [
+      "key"
+    ],
+    "returnType": "number",
+    "provenance": "docs:reference/functions/rm"
+  },
+  "mq": {
+    "tier": "T2",
+    "desc": "Media queue",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/mq"
+  },
+  "nc": {
+    "tier": "T2",
+    "desc": "Network connectivity info",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/nc"
+  },
+  "ni": {
+    "tier": "T2",
+    "desc": "Notifications count and info",
+    "args": [
+      "key",
+      "index?"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/ni"
+  },
+  "bp": {
+    "tier": "T2",
+    "desc": "Bitmap palette extraction",
+    "args": [
+      "type",
+      "imageUri"
+    ],
+    "returnType": "color",
+    "provenance": "docs:reference/functions/bp"
+  },
+  "aq": {
+    "tier": "T2",
+    "desc": "Air quality index",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/aq"
+  },
+  "li": {
+    "tier": "T2",
+    "desc": "Location details",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/li"
+  },
+  "uc": {
+    "tier": "T2",
+    "desc": "Unread counts (calls, sms)",
+    "args": [
+      "key"
+    ],
+    "returnType": "number",
+    "provenance": "docs:reference/functions/uc"
+  },
+  "fd": {
+    "tier": "T2",
+    "desc": "Fitness data",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/fd"
+  },
+  "ts": {
+    "tier": "T2",
+    "desc": "Traffic & commute stats",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/ts"
+  },
+  "tu": {
+    "tier": "T2",
+    "desc": "Timer utilities",
+    "args": [
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/tu"
+  },
+  "gh": {
+    "tier": "T2",
+    "desc": "GitHub info / repository stats",
+    "args": [
+      "repo",
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/gh"
+  },
+  "sh": {
+    "tier": "T3",
+    "desc": "Shell command execution",
+    "args": [
+      "cmd"
+    ],
+    "returnType": "text",
+    "provenance": "docs:reference/functions/sh"
+  },
+  "wg": {
+    "tier": "T3",
+    "desc": "Web get URL/RSS data",
+    "args": [
+      "url",
+      "mode",
+      "param?"
+    ],
+    "returnType": "text",
+    "provenance": "docs:reference/functions/wg"
+  },
+  "br": {
+    "tier": "T3",
+    "desc": "Broadcast receiver listener",
+    "args": [
+      "package",
+      "key"
+    ],
+    "returnType": "any",
+    "provenance": "docs:reference/functions/br"
+  },
+  "cd": {
+    "tier": "T3",
+    "desc": "Countdown / event timer",
+    "args": [
+      "date"
+    ],
+    "returnType": "text",
+    "provenance": "docs:reference/functions/cd"
+  }
+}

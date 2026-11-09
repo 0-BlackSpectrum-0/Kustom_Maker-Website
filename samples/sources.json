@@ -1,0 +1,89 @@
+{
+  "fetchedAt": "2026-11-09T15:51:38.641Z",
+  "repos": {
+    "kwgt-widgets": {
+      "url": "https://github.com/AumGupta/KWGT-Widgets.git",
+      "dir": "samples/_src/kwgt-widgets",
+      "head": "96ca27be4cbff35efec5a86c64dd39fd065c958f"
+    },
+    "darkwave": {
+      "url": "https://github.com/walleewoo/DarkWave_KLWP_THEME.git",
+      "dir": "samples/_src/darkwave",
+      "head": "f7806ffb8771b9d25bdd5e328f6f6f5e4e7bbd9c"
+    },
+    "klwp-viewer": {
+      "url": "https://github.com/damiante/klwp-viewer.git",
+      "dir": "reference/klwp-viewer",
+      "head": "86778890c3c623651dc1765d26390b8a4f2005b3"
+    }
+  },
+  "screenshots": {
+    "637b0168-3dfc-4233-b9f7-b3459c7a8a94": {
+      "status": "present",
+      "file": "637b0168-3dfc-4233-b9f7-b3459c7a8a94.png"
+    },
+    "d065beb4-5dc4-4a82-9aad-a56f3a290f0c": {
+      "status": "present",
+      "file": "d065beb4-5dc4-4a82-9aad-a56f3a290f0c.png"
+    },
+    "11845180-86a9-4ef5-9687-cf97e81c77e0": {
+      "status": "present",
+      "file": "11845180-86a9-4ef5-9687-cf97e81c77e0.mp4"
+    },
+    "ae111594-e31a-46ef-9997-6adb68249dc9": {
+      "status": "present",
+      "file": "ae111594-e31a-46ef-9997-6adb68249dc9.png"
+    },
+    "6601f876-6256-4e9d-b7ad-2e80e983c566": {
+      "status": "present",
+      "file": "6601f876-6256-4e9d-b7ad-2e80e983c566.png"
+    },
+    "f36f1ba7-a2a7-46e4-91f4-f42c417758be": {
+      "status": "present",
+      "file": "f36f1ba7-a2a7-46e4-91f4-f42c417758be.jpg"
+    },
+    "8313732a-d980-40f4-9e64-1f83bf23c8ab": {
+      "status": "present",
+      "file": "8313732a-d980-40f4-9e64-1f83bf23c8ab.png"
+    },
+    "fc03d10c-5202-4a48-a25d-d8c824f9ef95": {
+      "status": "present",
+      "file": "fc03d10c-5202-4a48-a25d-d8c824f9ef95.png"
+    }
+  },
+  "extras": [
+    "05_19_25_DarkWave_Release.klwp",
+    "Clock_01.komp",
+    "Clock_01.kwgt"
+  ],
+  "iconpacks": [
+    {
+      "set": "OS-ICONS_v1-9",
+      "files": [
+        "OS-ICONS_1-9.json",
+        "OS-ICONS_1-9.ttf"
+      ]
+    },
+    {
+      "set": "OVERSIZED_v4-5",
+      "files": [
+        "WALLSTARS_OVERSIZED_v4-5.json",
+        "WALLSTARS_OVERSIZED_v4-5.ttf"
+      ]
+    },
+    {
+      "set": "WALLSTARS_MAIN_v18-1",
+      "files": [
+        "WALLSTARS_FONTICONS_v18-1.json",
+        "WALLSTARS_FONTICONS_v18-1.ttf"
+      ]
+    },
+    {
+      "set": "WALLSTARS_OVERSIZED_v5-0",
+      "files": [
+        "WALLSTARS_OVERSIZED_v5-0.json",
+        "WALLSTARS_OVERSIZED_v5-0.ttf"
+      ]
+    }
+  ]
+}

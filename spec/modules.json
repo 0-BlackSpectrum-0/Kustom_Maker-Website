@@ -1,0 +1,1854 @@
+{
+  "RootLayerModule": {
+    "sections": {
+      "layer": [
+        {
+          "key": "config_scale_value",
+          "type": "number",
+          "default": 100,
+          "desc": "Scale (%) applied inside layer"
+        },
+        {
+          "key": "config_visible",
+          "type": "enum",
+          "default": "ALWAYS",
+          "enum": "visible",
+          "desc": "Layer visibility"
+        },
+        {
+          "key": "config_rotate_mode",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "rotate",
+          "desc": "Rotation mode"
+        },
+        {
+          "key": "config_rotate_offset",
+          "type": "angle",
+          "default": 0,
+          "desc": "Rotation offset in degrees"
+        },
+        {
+          "key": "config_alpha",
+          "type": "percent",
+          "default": 100,
+          "desc": "Layer opacity (0..100)"
+        },
+        {
+          "key": "config_fx",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "layerFx",
+          "desc": "Layer visual effect"
+        }
+      ],
+      "background": [
+        {
+          "key": "background_type",
+          "type": "enum",
+          "default": "SOLID",
+          "enum": "backgroundType",
+          "desc": "Background type"
+        },
+        {
+          "key": "background_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Solid background colour"
+        },
+        {
+          "key": "background_bitmap",
+          "type": "bitmap",
+          "default": "",
+          "desc": "Background wallpaper image"
+        },
+        {
+          "key": "background_scroll",
+          "type": "enum",
+          "default": "NORMAL",
+          "enum": "backgroundScroll",
+          "desc": "Wallpaper scrolling mode"
+        },
+        {
+          "key": "background_bitmap_scale",
+          "type": "enum",
+          "default": "CENTER_CROP",
+          "enum": "bitmapScale",
+          "desc": "Bitmap scaling mode"
+        }
+      ]
+    }
+  },
+  "OverlapLayerModule": {
+    "sections": {
+      "position": [
+        {
+          "key": "position_anchor",
+          "type": "enum",
+          "default": "CENTER",
+          "enum": "anchor",
+          "desc": "Where the module sits inside its parent"
+        },
+        {
+          "key": "position_offset_x",
+          "type": "number",
+          "default": 0,
+          "desc": "Horizontal offset from the anchor in units"
+        },
+        {
+          "key": "position_offset_y",
+          "type": "number",
+          "default": 0,
+          "desc": "Vertical offset from the anchor in units"
+        },
+        {
+          "key": "position_padding_left",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding left in units"
+        },
+        {
+          "key": "position_padding_top",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding top in units"
+        },
+        {
+          "key": "position_padding_right",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding right in units"
+        },
+        {
+          "key": "position_padding_bottom",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding bottom in units"
+        }
+      ],
+      "layer": [
+        {
+          "key": "config_scale_value",
+          "type": "number",
+          "default": 100,
+          "desc": "Scale (%) applied inside layer"
+        },
+        {
+          "key": "config_visible",
+          "type": "enum",
+          "default": "ALWAYS",
+          "enum": "visible",
+          "desc": "Layer visibility"
+        },
+        {
+          "key": "config_rotate_mode",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "rotate",
+          "desc": "Rotation mode"
+        },
+        {
+          "key": "config_rotate_offset",
+          "type": "angle",
+          "default": 0,
+          "desc": "Rotation offset in degrees"
+        },
+        {
+          "key": "config_alpha",
+          "type": "percent",
+          "default": 100,
+          "desc": "Layer opacity (0..100)"
+        },
+        {
+          "key": "config_fx",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "layerFx",
+          "desc": "Layer visual effect"
+        }
+      ]
+    }
+  },
+  "StackLayerModule": {
+    "sections": {
+      "position": [
+        {
+          "key": "position_anchor",
+          "type": "enum",
+          "default": "CENTER",
+          "enum": "anchor",
+          "desc": "Where the module sits inside its parent"
+        },
+        {
+          "key": "position_offset_x",
+          "type": "number",
+          "default": 0,
+          "desc": "Horizontal offset from the anchor in units"
+        },
+        {
+          "key": "position_offset_y",
+          "type": "number",
+          "default": 0,
+          "desc": "Vertical offset from the anchor in units"
+        },
+        {
+          "key": "position_padding_left",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding left in units"
+        },
+        {
+          "key": "position_padding_top",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding top in units"
+        },
+        {
+          "key": "position_padding_right",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding right in units"
+        },
+        {
+          "key": "position_padding_bottom",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding bottom in units"
+        }
+      ],
+      "layer": [
+        {
+          "key": "config_stacking",
+          "type": "enum",
+          "default": "VERTICAL_LEFT",
+          "enum": "stacking",
+          "desc": "Stack direction and alignment"
+        },
+        {
+          "key": "config_margin",
+          "type": "number",
+          "default": 0,
+          "desc": "Gap between stacked children"
+        },
+        {
+          "key": "config_scale_value",
+          "type": "number",
+          "default": 100,
+          "desc": "Scale (%) applied inside layer"
+        },
+        {
+          "key": "config_visible",
+          "type": "enum",
+          "default": "ALWAYS",
+          "enum": "visible",
+          "desc": "Layer visibility"
+        },
+        {
+          "key": "config_rotate_mode",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "rotate",
+          "desc": "Rotation mode"
+        },
+        {
+          "key": "config_rotate_offset",
+          "type": "angle",
+          "default": 0,
+          "desc": "Rotation offset in degrees"
+        },
+        {
+          "key": "config_alpha",
+          "type": "percent",
+          "default": 100,
+          "desc": "Layer opacity (0..100)"
+        },
+        {
+          "key": "config_fx",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "layerFx",
+          "desc": "Layer visual effect"
+        }
+      ]
+    }
+  },
+  "ShapeModule": {
+    "sections": {
+      "position": [
+        {
+          "key": "position_anchor",
+          "type": "enum",
+          "default": "CENTER",
+          "enum": "anchor",
+          "desc": "Where the module sits inside its parent"
+        },
+        {
+          "key": "position_offset_x",
+          "type": "number",
+          "default": 0,
+          "desc": "Horizontal offset from the anchor in units"
+        },
+        {
+          "key": "position_offset_y",
+          "type": "number",
+          "default": 0,
+          "desc": "Vertical offset from the anchor in units"
+        },
+        {
+          "key": "position_padding_left",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding left in units"
+        },
+        {
+          "key": "position_padding_top",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding top in units"
+        },
+        {
+          "key": "position_padding_right",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding right in units"
+        },
+        {
+          "key": "position_padding_bottom",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding bottom in units"
+        }
+      ],
+      "shape": [
+        {
+          "key": "shape_type",
+          "type": "enum",
+          "default": "SQUARE",
+          "enum": "shape",
+          "desc": "Shape geometry"
+        },
+        {
+          "key": "shape_width",
+          "type": "number",
+          "default": 100,
+          "desc": "Shape width in units"
+        },
+        {
+          "key": "shape_height",
+          "type": "number",
+          "default": 100,
+          "desc": "Shape height in units"
+        },
+        {
+          "key": "shape_corners",
+          "type": "number",
+          "default": 0,
+          "desc": "Corner radius in units"
+        },
+        {
+          "key": "shape_angle",
+          "type": "angle",
+          "default": 0,
+          "desc": "Sweep angle for ARC/SLICE in degrees"
+        },
+        {
+          "key": "shape_path",
+          "type": "text",
+          "default": "",
+          "desc": "SVG Path data when shape_type is PATH"
+        },
+        {
+          "key": "shape_path_scale",
+          "type": "enum",
+          "default": "AUTO",
+          "enum": "pathScale",
+          "desc": "Path scaling mode"
+        },
+        {
+          "key": "shape_rotate_mode",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "rotate",
+          "desc": "Shape rotation mode"
+        },
+        {
+          "key": "shape_rotate_offset",
+          "type": "angle",
+          "default": 0,
+          "desc": "Shape rotation offset"
+        }
+      ],
+      "paint": [
+        {
+          "key": "paint_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Fill or stroke colour"
+        },
+        {
+          "key": "paint_style",
+          "type": "enum",
+          "default": "FILL",
+          "enum": "paintStyle",
+          "desc": "Fill or Stroke outline"
+        },
+        {
+          "key": "paint_stroke",
+          "type": "number",
+          "default": 1,
+          "desc": "Stroke width in units"
+        },
+        {
+          "key": "paint_mode",
+          "type": "enum",
+          "default": "NORMAL",
+          "enum": "paintMode",
+          "desc": "Blend mode"
+        },
+        {
+          "key": "paint_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "colorFilter",
+          "desc": "Colour filter"
+        },
+        {
+          "key": "paint_filter_amount",
+          "type": "percent",
+          "default": 100,
+          "desc": "Filter amount (0..100)"
+        },
+        {
+          "key": "paint_filter_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Filter colour"
+        },
+        {
+          "key": "paint_blur",
+          "type": "number",
+          "default": 0,
+          "desc": "Blur radius in units"
+        }
+      ],
+      "fx": [
+        {
+          "key": "fx_gradient",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "gradient",
+          "desc": "Gradient mode"
+        },
+        {
+          "key": "fx_gradient_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Second gradient colour"
+        },
+        {
+          "key": "fx_gradient_width",
+          "type": "percent",
+          "default": 100,
+          "desc": "Gradient spread"
+        },
+        {
+          "key": "fx_gradient_offset",
+          "type": "percent",
+          "default": 50,
+          "desc": "Gradient centre position"
+        },
+        {
+          "key": "fx_gradient_offset_x",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre X"
+        },
+        {
+          "key": "fx_gradient_offset_y",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre Y"
+        },
+        {
+          "key": "fx_gradient_bitmap",
+          "type": "bitmap",
+          "default": "",
+          "desc": "Image used when gradient is BITMAP"
+        },
+        {
+          "key": "fx_gradient_bitmap_mode",
+          "type": "enum",
+          "default": "FIT_CENTER",
+          "enum": "tileMode",
+          "desc": "Gradient image tile mode"
+        },
+        {
+          "key": "fx_gradient_bitmap_width",
+          "type": "number",
+          "default": 20,
+          "desc": "Tile width in units"
+        },
+        {
+          "key": "fx_shadow",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "shadow",
+          "desc": "Drop shadow mode"
+        },
+        {
+          "key": "fx_shadow_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Shadow colour"
+        },
+        {
+          "key": "fx_shadow_blur",
+          "type": "number",
+          "default": 30,
+          "desc": "Shadow softness"
+        },
+        {
+          "key": "fx_shadow_distance",
+          "type": "number",
+          "default": 15,
+          "desc": "Shadow offset in units"
+        },
+        {
+          "key": "fx_shadow_direction",
+          "type": "angle",
+          "default": 45,
+          "desc": "Shadow direction in degrees"
+        },
+        {
+          "key": "fx_mask",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "mask",
+          "desc": "Masking effect"
+        }
+      ]
+    }
+  },
+  "TextModule": {
+    "sections": {
+      "position": [
+        {
+          "key": "position_anchor",
+          "type": "enum",
+          "default": "CENTER",
+          "enum": "anchor",
+          "desc": "Where the module sits inside its parent"
+        },
+        {
+          "key": "position_offset_x",
+          "type": "number",
+          "default": 0,
+          "desc": "Horizontal offset from the anchor in units"
+        },
+        {
+          "key": "position_offset_y",
+          "type": "number",
+          "default": 0,
+          "desc": "Vertical offset from the anchor in units"
+        },
+        {
+          "key": "position_padding_left",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding left in units"
+        },
+        {
+          "key": "position_padding_top",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding top in units"
+        },
+        {
+          "key": "position_padding_right",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding right in units"
+        },
+        {
+          "key": "position_padding_bottom",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding bottom in units"
+        }
+      ],
+      "text": [
+        {
+          "key": "text_expression",
+          "type": "formula",
+          "default": "Text",
+          "desc": "Text formula expression"
+        },
+        {
+          "key": "text_size",
+          "type": "number",
+          "default": 40,
+          "desc": "Font size in units"
+        },
+        {
+          "key": "text_size_type",
+          "type": "enum",
+          "default": "SINGLE_FONT_HEIGHT",
+          "enum": "fontSize",
+          "desc": "Text sizing mode"
+        },
+        {
+          "key": "text_width",
+          "type": "number",
+          "default": 720,
+          "desc": "Fixed width in units when size type is FIXED_WIDTH"
+        },
+        {
+          "key": "text_lines",
+          "type": "number",
+          "default": 1,
+          "desc": "Maximum number of lines"
+        },
+        {
+          "key": "text_family",
+          "type": "font",
+          "default": "",
+          "desc": "Font file URI (kfile://org.kustom.provider/fonts/...)"
+        },
+        {
+          "key": "text_align",
+          "type": "enum",
+          "default": "LEFT",
+          "enum": "textAlign",
+          "desc": "Horizontal text alignment"
+        },
+        {
+          "key": "text_rotate_mode",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "rotate",
+          "desc": "Text rotation mode"
+        },
+        {
+          "key": "text_rotate_offset",
+          "type": "angle",
+          "default": 0,
+          "desc": "Text rotation offset in degrees"
+        }
+      ],
+      "paint": [
+        {
+          "key": "paint_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Fill or stroke colour"
+        },
+        {
+          "key": "paint_style",
+          "type": "enum",
+          "default": "FILL",
+          "enum": "paintStyle",
+          "desc": "Fill or Stroke outline"
+        },
+        {
+          "key": "paint_stroke",
+          "type": "number",
+          "default": 1,
+          "desc": "Stroke width in units"
+        },
+        {
+          "key": "paint_mode",
+          "type": "enum",
+          "default": "NORMAL",
+          "enum": "paintMode",
+          "desc": "Blend mode"
+        },
+        {
+          "key": "paint_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "colorFilter",
+          "desc": "Colour filter"
+        },
+        {
+          "key": "paint_filter_amount",
+          "type": "percent",
+          "default": 100,
+          "desc": "Filter amount (0..100)"
+        },
+        {
+          "key": "paint_filter_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Filter colour"
+        },
+        {
+          "key": "paint_blur",
+          "type": "number",
+          "default": 0,
+          "desc": "Blur radius in units"
+        }
+      ],
+      "fx": [
+        {
+          "key": "fx_gradient",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "gradient",
+          "desc": "Gradient mode"
+        },
+        {
+          "key": "fx_gradient_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Second gradient colour"
+        },
+        {
+          "key": "fx_gradient_width",
+          "type": "percent",
+          "default": 100,
+          "desc": "Gradient spread"
+        },
+        {
+          "key": "fx_gradient_offset",
+          "type": "percent",
+          "default": 50,
+          "desc": "Gradient centre position"
+        },
+        {
+          "key": "fx_gradient_offset_x",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre X"
+        },
+        {
+          "key": "fx_gradient_offset_y",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre Y"
+        },
+        {
+          "key": "fx_gradient_bitmap",
+          "type": "bitmap",
+          "default": "",
+          "desc": "Image used when gradient is BITMAP"
+        },
+        {
+          "key": "fx_gradient_bitmap_mode",
+          "type": "enum",
+          "default": "FIT_CENTER",
+          "enum": "tileMode",
+          "desc": "Gradient image tile mode"
+        },
+        {
+          "key": "fx_gradient_bitmap_width",
+          "type": "number",
+          "default": 20,
+          "desc": "Tile width in units"
+        },
+        {
+          "key": "fx_shadow",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "shadow",
+          "desc": "Drop shadow mode"
+        },
+        {
+          "key": "fx_shadow_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Shadow colour"
+        },
+        {
+          "key": "fx_shadow_blur",
+          "type": "number",
+          "default": 30,
+          "desc": "Shadow softness"
+        },
+        {
+          "key": "fx_shadow_distance",
+          "type": "number",
+          "default": 15,
+          "desc": "Shadow offset in units"
+        },
+        {
+          "key": "fx_shadow_direction",
+          "type": "angle",
+          "default": 45,
+          "desc": "Shadow direction in degrees"
+        },
+        {
+          "key": "fx_mask",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "mask",
+          "desc": "Masking effect"
+        }
+      ]
+    }
+  },
+  "FontIconModule": {
+    "sections": {
+      "position": [
+        {
+          "key": "position_anchor",
+          "type": "enum",
+          "default": "CENTER",
+          "enum": "anchor",
+          "desc": "Where the module sits inside its parent"
+        },
+        {
+          "key": "position_offset_x",
+          "type": "number",
+          "default": 0,
+          "desc": "Horizontal offset from the anchor in units"
+        },
+        {
+          "key": "position_offset_y",
+          "type": "number",
+          "default": 0,
+          "desc": "Vertical offset from the anchor in units"
+        },
+        {
+          "key": "position_padding_left",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding left in units"
+        },
+        {
+          "key": "position_padding_top",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding top in units"
+        },
+        {
+          "key": "position_padding_right",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding right in units"
+        },
+        {
+          "key": "position_padding_bottom",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding bottom in units"
+        }
+      ],
+      "icon": [
+        {
+          "key": "icon_set",
+          "type": "iconset",
+          "default": "",
+          "desc": "Icon font TTF URI"
+        },
+        {
+          "key": "icon_icon",
+          "type": "icon",
+          "default": "",
+          "desc": "Icon glyph name from paired JSON"
+        },
+        {
+          "key": "icon_size",
+          "type": "number",
+          "default": 40,
+          "desc": "Icon size in units"
+        },
+        {
+          "key": "icon_color_mode",
+          "type": "enum",
+          "default": "DEFAULT",
+          "enum": "iconColor",
+          "desc": "Icon color mode"
+        },
+        {
+          "key": "icon_rotate_mode",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "rotate",
+          "desc": "Icon rotation mode"
+        },
+        {
+          "key": "icon_rotate_offset",
+          "type": "angle",
+          "default": 0,
+          "desc": "Icon rotation offset in degrees"
+        }
+      ],
+      "paint": [
+        {
+          "key": "paint_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Fill or stroke colour"
+        },
+        {
+          "key": "paint_style",
+          "type": "enum",
+          "default": "FILL",
+          "enum": "paintStyle",
+          "desc": "Fill or Stroke outline"
+        },
+        {
+          "key": "paint_stroke",
+          "type": "number",
+          "default": 1,
+          "desc": "Stroke width in units"
+        },
+        {
+          "key": "paint_mode",
+          "type": "enum",
+          "default": "NORMAL",
+          "enum": "paintMode",
+          "desc": "Blend mode"
+        },
+        {
+          "key": "paint_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "colorFilter",
+          "desc": "Colour filter"
+        },
+        {
+          "key": "paint_filter_amount",
+          "type": "percent",
+          "default": 100,
+          "desc": "Filter amount (0..100)"
+        },
+        {
+          "key": "paint_filter_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Filter colour"
+        },
+        {
+          "key": "paint_blur",
+          "type": "number",
+          "default": 0,
+          "desc": "Blur radius in units"
+        }
+      ],
+      "fx": [
+        {
+          "key": "fx_gradient",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "gradient",
+          "desc": "Gradient mode"
+        },
+        {
+          "key": "fx_gradient_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Second gradient colour"
+        },
+        {
+          "key": "fx_gradient_width",
+          "type": "percent",
+          "default": 100,
+          "desc": "Gradient spread"
+        },
+        {
+          "key": "fx_gradient_offset",
+          "type": "percent",
+          "default": 50,
+          "desc": "Gradient centre position"
+        },
+        {
+          "key": "fx_gradient_offset_x",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre X"
+        },
+        {
+          "key": "fx_gradient_offset_y",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre Y"
+        },
+        {
+          "key": "fx_gradient_bitmap",
+          "type": "bitmap",
+          "default": "",
+          "desc": "Image used when gradient is BITMAP"
+        },
+        {
+          "key": "fx_gradient_bitmap_mode",
+          "type": "enum",
+          "default": "FIT_CENTER",
+          "enum": "tileMode",
+          "desc": "Gradient image tile mode"
+        },
+        {
+          "key": "fx_gradient_bitmap_width",
+          "type": "number",
+          "default": 20,
+          "desc": "Tile width in units"
+        },
+        {
+          "key": "fx_shadow",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "shadow",
+          "desc": "Drop shadow mode"
+        },
+        {
+          "key": "fx_shadow_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Shadow colour"
+        },
+        {
+          "key": "fx_shadow_blur",
+          "type": "number",
+          "default": 30,
+          "desc": "Shadow softness"
+        },
+        {
+          "key": "fx_shadow_distance",
+          "type": "number",
+          "default": 15,
+          "desc": "Shadow offset in units"
+        },
+        {
+          "key": "fx_shadow_direction",
+          "type": "angle",
+          "default": 45,
+          "desc": "Shadow direction in degrees"
+        },
+        {
+          "key": "fx_mask",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "mask",
+          "desc": "Masking effect"
+        }
+      ]
+    }
+  },
+  "ProgressModule": {
+    "sections": {
+      "position": [
+        {
+          "key": "position_anchor",
+          "type": "enum",
+          "default": "CENTER",
+          "enum": "anchor",
+          "desc": "Where the module sits inside its parent"
+        },
+        {
+          "key": "position_offset_x",
+          "type": "number",
+          "default": 0,
+          "desc": "Horizontal offset from the anchor in units"
+        },
+        {
+          "key": "position_offset_y",
+          "type": "number",
+          "default": 0,
+          "desc": "Vertical offset from the anchor in units"
+        },
+        {
+          "key": "position_padding_left",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding left in units"
+        },
+        {
+          "key": "position_padding_top",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding top in units"
+        },
+        {
+          "key": "position_padding_right",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding right in units"
+        },
+        {
+          "key": "position_padding_bottom",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding bottom in units"
+        }
+      ],
+      "progress": [
+        {
+          "key": "progress_mode",
+          "type": "enum",
+          "default": "PROGRESS",
+          "enum": "progressMode",
+          "desc": "Progress data mode"
+        },
+        {
+          "key": "progress_level",
+          "type": "number",
+          "default": 0,
+          "desc": "Custom progress level (0..100)"
+        },
+        {
+          "key": "progress_min",
+          "type": "number",
+          "default": 0,
+          "desc": "Minimum value"
+        },
+        {
+          "key": "progress_max",
+          "type": "number",
+          "default": 100,
+          "desc": "Maximum value"
+        },
+        {
+          "key": "progress_count",
+          "type": "number",
+          "default": 10,
+          "desc": "Section count for split styles"
+        },
+        {
+          "key": "progress_style",
+          "type": "enum",
+          "default": "LINEAR",
+          "enum": "progressStyle",
+          "desc": "Progress visual style"
+        },
+        {
+          "key": "progress_shape",
+          "type": "enum",
+          "default": "RECT",
+          "enum": "progressShape",
+          "desc": "Shape used for split progress items"
+        },
+        {
+          "key": "progress_size",
+          "type": "number",
+          "default": 100,
+          "desc": "Progress diameter or width"
+        },
+        {
+          "key": "progress_height",
+          "type": "number",
+          "default": 20,
+          "desc": "Progress bar height"
+        },
+        {
+          "key": "progress_width",
+          "type": "number",
+          "default": 200,
+          "desc": "Progress bar width"
+        },
+        {
+          "key": "progress_rotate_mode",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "rotate",
+          "desc": "Progress rotation mode"
+        },
+        {
+          "key": "progress_rotate_offset",
+          "type": "angle",
+          "default": 0,
+          "desc": "Progress rotation offset"
+        }
+      ],
+      "paint": [
+        {
+          "key": "paint_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Fill or stroke colour"
+        },
+        {
+          "key": "paint_style",
+          "type": "enum",
+          "default": "FILL",
+          "enum": "paintStyle",
+          "desc": "Fill or Stroke outline"
+        },
+        {
+          "key": "paint_stroke",
+          "type": "number",
+          "default": 1,
+          "desc": "Stroke width in units"
+        },
+        {
+          "key": "paint_mode",
+          "type": "enum",
+          "default": "NORMAL",
+          "enum": "paintMode",
+          "desc": "Blend mode"
+        },
+        {
+          "key": "paint_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "colorFilter",
+          "desc": "Colour filter"
+        },
+        {
+          "key": "paint_filter_amount",
+          "type": "percent",
+          "default": 100,
+          "desc": "Filter amount (0..100)"
+        },
+        {
+          "key": "paint_filter_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Filter colour"
+        },
+        {
+          "key": "paint_blur",
+          "type": "number",
+          "default": 0,
+          "desc": "Blur radius in units"
+        }
+      ],
+      "fx": [
+        {
+          "key": "fx_gradient",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "gradient",
+          "desc": "Gradient mode"
+        },
+        {
+          "key": "fx_gradient_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Second gradient colour"
+        },
+        {
+          "key": "fx_gradient_width",
+          "type": "percent",
+          "default": 100,
+          "desc": "Gradient spread"
+        },
+        {
+          "key": "fx_gradient_offset",
+          "type": "percent",
+          "default": 50,
+          "desc": "Gradient centre position"
+        },
+        {
+          "key": "fx_gradient_offset_x",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre X"
+        },
+        {
+          "key": "fx_gradient_offset_y",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre Y"
+        },
+        {
+          "key": "fx_gradient_bitmap",
+          "type": "bitmap",
+          "default": "",
+          "desc": "Image used when gradient is BITMAP"
+        },
+        {
+          "key": "fx_gradient_bitmap_mode",
+          "type": "enum",
+          "default": "FIT_CENTER",
+          "enum": "tileMode",
+          "desc": "Gradient image tile mode"
+        },
+        {
+          "key": "fx_gradient_bitmap_width",
+          "type": "number",
+          "default": 20,
+          "desc": "Tile width in units"
+        },
+        {
+          "key": "fx_shadow",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "shadow",
+          "desc": "Drop shadow mode"
+        },
+        {
+          "key": "fx_shadow_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Shadow colour"
+        },
+        {
+          "key": "fx_shadow_blur",
+          "type": "number",
+          "default": 30,
+          "desc": "Shadow softness"
+        },
+        {
+          "key": "fx_shadow_distance",
+          "type": "number",
+          "default": 15,
+          "desc": "Shadow offset in units"
+        },
+        {
+          "key": "fx_shadow_direction",
+          "type": "angle",
+          "default": 45,
+          "desc": "Shadow direction in degrees"
+        },
+        {
+          "key": "fx_mask",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "mask",
+          "desc": "Masking effect"
+        }
+      ]
+    }
+  },
+  "CurvedTextModule": {
+    "sections": {
+      "position": [
+        {
+          "key": "position_anchor",
+          "type": "enum",
+          "default": "CENTER",
+          "enum": "anchor",
+          "desc": "Where the module sits inside its parent"
+        },
+        {
+          "key": "position_offset_x",
+          "type": "number",
+          "default": 0,
+          "desc": "Horizontal offset from the anchor in units"
+        },
+        {
+          "key": "position_offset_y",
+          "type": "number",
+          "default": 0,
+          "desc": "Vertical offset from the anchor in units"
+        },
+        {
+          "key": "position_padding_left",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding left in units"
+        },
+        {
+          "key": "position_padding_top",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding top in units"
+        },
+        {
+          "key": "position_padding_right",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding right in units"
+        },
+        {
+          "key": "position_padding_bottom",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding bottom in units"
+        }
+      ],
+      "curved": [
+        {
+          "key": "curved_expression",
+          "type": "formula",
+          "default": "Curved Text",
+          "desc": "Text formula expression"
+        },
+        {
+          "key": "curved_radius",
+          "type": "number",
+          "default": 100,
+          "desc": "Curve radius in units"
+        },
+        {
+          "key": "curved_size",
+          "type": "number",
+          "default": 40,
+          "desc": "Text font size in units"
+        },
+        {
+          "key": "curved_angle",
+          "type": "angle",
+          "default": 0,
+          "desc": "Starting angle in degrees"
+        },
+        {
+          "key": "curved_mode",
+          "type": "enum",
+          "default": "NORMAL",
+          "enum": "curvedMode",
+          "desc": "Curving direction"
+        },
+        {
+          "key": "curved_family",
+          "type": "font",
+          "default": "",
+          "desc": "Font file URI"
+        },
+        {
+          "key": "curved_rotate_mode",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "rotate",
+          "desc": "Rotation mode"
+        },
+        {
+          "key": "curved_rotate_offset",
+          "type": "angle",
+          "default": 0,
+          "desc": "Rotation offset in degrees"
+        }
+      ],
+      "paint": [
+        {
+          "key": "paint_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Fill or stroke colour"
+        },
+        {
+          "key": "paint_style",
+          "type": "enum",
+          "default": "FILL",
+          "enum": "paintStyle",
+          "desc": "Fill or Stroke outline"
+        },
+        {
+          "key": "paint_stroke",
+          "type": "number",
+          "default": 1,
+          "desc": "Stroke width in units"
+        },
+        {
+          "key": "paint_mode",
+          "type": "enum",
+          "default": "NORMAL",
+          "enum": "paintMode",
+          "desc": "Blend mode"
+        },
+        {
+          "key": "paint_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "colorFilter",
+          "desc": "Colour filter"
+        },
+        {
+          "key": "paint_filter_amount",
+          "type": "percent",
+          "default": 100,
+          "desc": "Filter amount (0..100)"
+        },
+        {
+          "key": "paint_filter_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Filter colour"
+        },
+        {
+          "key": "paint_blur",
+          "type": "number",
+          "default": 0,
+          "desc": "Blur radius in units"
+        }
+      ],
+      "fx": [
+        {
+          "key": "fx_gradient",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "gradient",
+          "desc": "Gradient mode"
+        },
+        {
+          "key": "fx_gradient_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Second gradient colour"
+        },
+        {
+          "key": "fx_gradient_width",
+          "type": "percent",
+          "default": 100,
+          "desc": "Gradient spread"
+        },
+        {
+          "key": "fx_gradient_offset",
+          "type": "percent",
+          "default": 50,
+          "desc": "Gradient centre position"
+        },
+        {
+          "key": "fx_gradient_offset_x",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre X"
+        },
+        {
+          "key": "fx_gradient_offset_y",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre Y"
+        },
+        {
+          "key": "fx_gradient_bitmap",
+          "type": "bitmap",
+          "default": "",
+          "desc": "Image used when gradient is BITMAP"
+        },
+        {
+          "key": "fx_gradient_bitmap_mode",
+          "type": "enum",
+          "default": "FIT_CENTER",
+          "enum": "tileMode",
+          "desc": "Gradient image tile mode"
+        },
+        {
+          "key": "fx_gradient_bitmap_width",
+          "type": "number",
+          "default": 20,
+          "desc": "Tile width in units"
+        },
+        {
+          "key": "fx_shadow",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "shadow",
+          "desc": "Drop shadow mode"
+        },
+        {
+          "key": "fx_shadow_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Shadow colour"
+        },
+        {
+          "key": "fx_shadow_blur",
+          "type": "number",
+          "default": 30,
+          "desc": "Shadow softness"
+        },
+        {
+          "key": "fx_shadow_distance",
+          "type": "number",
+          "default": 15,
+          "desc": "Shadow offset in units"
+        },
+        {
+          "key": "fx_shadow_direction",
+          "type": "angle",
+          "default": 45,
+          "desc": "Shadow direction in degrees"
+        },
+        {
+          "key": "fx_mask",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "mask",
+          "desc": "Masking effect"
+        }
+      ]
+    }
+  },
+  "BitmapModule": {
+    "sections": {
+      "position": [
+        {
+          "key": "position_anchor",
+          "type": "enum",
+          "default": "CENTER",
+          "enum": "anchor",
+          "desc": "Where the module sits inside its parent"
+        },
+        {
+          "key": "position_offset_x",
+          "type": "number",
+          "default": 0,
+          "desc": "Horizontal offset from the anchor in units"
+        },
+        {
+          "key": "position_offset_y",
+          "type": "number",
+          "default": 0,
+          "desc": "Vertical offset from the anchor in units"
+        },
+        {
+          "key": "position_padding_left",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding left in units"
+        },
+        {
+          "key": "position_padding_top",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding top in units"
+        },
+        {
+          "key": "position_padding_right",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding right in units"
+        },
+        {
+          "key": "position_padding_bottom",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding bottom in units"
+        }
+      ],
+      "bitmap": [
+        {
+          "key": "bitmap_mode",
+          "type": "enum",
+          "default": "BITMAP",
+          "enum": "bitmapMode",
+          "desc": "Image type (raster or SVG vector)"
+        },
+        {
+          "key": "bitmap_bitmap",
+          "type": "bitmap",
+          "default": "",
+          "desc": "Image file URI"
+        },
+        {
+          "key": "bitmap_width",
+          "type": "number",
+          "default": 100,
+          "desc": "Bitmap display width"
+        },
+        {
+          "key": "bitmap_height",
+          "type": "number",
+          "default": 100,
+          "desc": "Bitmap display height"
+        },
+        {
+          "key": "bitmap_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "colorFilter",
+          "desc": "Bitmap filter"
+        },
+        {
+          "key": "bitmap_filter_amount",
+          "type": "percent",
+          "default": 100,
+          "desc": "Filter amount"
+        },
+        {
+          "key": "bitmap_filter_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Filter colour"
+        },
+        {
+          "key": "bitmap_scale",
+          "type": "enum",
+          "default": "FIT_WIDTH",
+          "enum": "bitmapScale",
+          "desc": "Scaling mode"
+        },
+        {
+          "key": "bitmap_rotate_mode",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "rotate",
+          "desc": "Bitmap rotation mode"
+        },
+        {
+          "key": "bitmap_rotate_offset",
+          "type": "angle",
+          "default": 0,
+          "desc": "Bitmap rotation offset"
+        }
+      ],
+      "fx": [
+        {
+          "key": "fx_gradient",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "gradient",
+          "desc": "Gradient mode"
+        },
+        {
+          "key": "fx_gradient_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Second gradient colour"
+        },
+        {
+          "key": "fx_gradient_width",
+          "type": "percent",
+          "default": 100,
+          "desc": "Gradient spread"
+        },
+        {
+          "key": "fx_gradient_offset",
+          "type": "percent",
+          "default": 50,
+          "desc": "Gradient centre position"
+        },
+        {
+          "key": "fx_gradient_offset_x",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre X"
+        },
+        {
+          "key": "fx_gradient_offset_y",
+          "type": "percent",
+          "default": 50,
+          "desc": "Radial/sweep centre Y"
+        },
+        {
+          "key": "fx_gradient_bitmap",
+          "type": "bitmap",
+          "default": "",
+          "desc": "Image used when gradient is BITMAP"
+        },
+        {
+          "key": "fx_gradient_bitmap_mode",
+          "type": "enum",
+          "default": "FIT_CENTER",
+          "enum": "tileMode",
+          "desc": "Gradient image tile mode"
+        },
+        {
+          "key": "fx_gradient_bitmap_width",
+          "type": "number",
+          "default": 20,
+          "desc": "Tile width in units"
+        },
+        {
+          "key": "fx_shadow",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "shadow",
+          "desc": "Drop shadow mode"
+        },
+        {
+          "key": "fx_shadow_color",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Shadow colour"
+        },
+        {
+          "key": "fx_shadow_blur",
+          "type": "number",
+          "default": 30,
+          "desc": "Shadow softness"
+        },
+        {
+          "key": "fx_shadow_distance",
+          "type": "number",
+          "default": 15,
+          "desc": "Shadow offset in units"
+        },
+        {
+          "key": "fx_shadow_direction",
+          "type": "angle",
+          "default": 45,
+          "desc": "Shadow direction in degrees"
+        },
+        {
+          "key": "fx_mask",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "mask",
+          "desc": "Masking effect"
+        }
+      ]
+    }
+  },
+  "KomponentModule": {
+    "sections": {
+      "position": [
+        {
+          "key": "position_anchor",
+          "type": "enum",
+          "default": "CENTER",
+          "enum": "anchor",
+          "desc": "Where the module sits inside its parent"
+        },
+        {
+          "key": "position_offset_x",
+          "type": "number",
+          "default": 0,
+          "desc": "Horizontal offset from the anchor in units"
+        },
+        {
+          "key": "position_offset_y",
+          "type": "number",
+          "default": 0,
+          "desc": "Vertical offset from the anchor in units"
+        },
+        {
+          "key": "position_padding_left",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding left in units"
+        },
+        {
+          "key": "position_padding_top",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding top in units"
+        },
+        {
+          "key": "position_padding_right",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding right in units"
+        },
+        {
+          "key": "position_padding_bottom",
+          "type": "number",
+          "default": 0,
+          "desc": "Padding bottom in units"
+        }
+      ],
+      "layer": [
+        {
+          "key": "config_scale_value",
+          "type": "number",
+          "default": 100,
+          "desc": "Scale (%) applied inside layer"
+        },
+        {
+          "key": "config_visible",
+          "type": "enum",
+          "default": "ALWAYS",
+          "enum": "visible",
+          "desc": "Layer visibility"
+        },
+        {
+          "key": "config_rotate_mode",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "rotate",
+          "desc": "Rotation mode"
+        },
+        {
+          "key": "config_rotate_offset",
+          "type": "angle",
+          "default": 0,
+          "desc": "Rotation offset in degrees"
+        },
+        {
+          "key": "config_alpha",
+          "type": "percent",
+          "default": 100,
+          "desc": "Layer opacity (0..100)"
+        },
+        {
+          "key": "config_fx",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "layerFx",
+          "desc": "Layer visual effect"
+        }
+      ]
+    }
+  }
+}

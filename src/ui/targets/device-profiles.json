@@ -1,0 +1,68 @@
+[
+  {
+    "id": "pixel-8",
+    "name": "Google Pixel 8",
+    "width": 1080,
+    "height": 2400,
+    "density": 2.625,
+    "statusBarHeight": 96,
+    "navBarHeight": 64,
+    "cornerRadius": 48,
+    "homeGrid": { "cols": 4, "rows": 5 }
+  },
+  {
+    "id": "pixel-8-pro",
+    "name": "Google Pixel 8 Pro",
+    "width": 1344,
+    "height": 2992,
+    "density": 3.0,
+    "statusBarHeight": 110,
+    "navBarHeight": 70,
+    "cornerRadius": 52,
+    "homeGrid": { "cols": 5, "rows": 5 }
+  },
+  {
+    "id": "galaxy-s24",
+    "name": "Samsung Galaxy S24",
+    "width": 1080,
+    "height": 2340,
+    "density": 2.625,
+    "statusBarHeight": 90,
+    "navBarHeight": 60,
+    "cornerRadius": 44,
+    "homeGrid": { "cols": 4, "rows": 5 }
+  },
+  {
+    "id": "galaxy-s24-ultra",
+    "name": "Samsung Galaxy S24 Ultra",
+    "width": 1440,
+    "height": 3120,
+    "density": 3.5,
+    "statusBarHeight": 115,
+    "navBarHeight": 75,
+    "cornerRadius": 24,
+    "homeGrid": { "cols": 5, "rows": 6 }
+  },
+  {
+    "id": "nothing-phone-2",
+    "name": "Nothing Phone (2)",
+    "width": 1080,
+    "height": 2412,
+    "density": 2.625,
+    "statusBarHeight": 94,
+    "navBarHeight": 62,
+    "cornerRadius": 46,
+    "homeGrid": { "cols": 4, "rows": 5 }
+  },
+  {
+    "id": "generic-1080p",
+    "name": "Generic 1080 x 1920 (16:9)",
+    "width": 1080,
+    "height": 1920,
+    "density": 2.0,
+    "statusBarHeight": 72,
+    "navBarHeight": 48,
+    "cornerRadius": 0,
+    "homeGrid": { "cols": 4, "rows": 4 }
+  }
+]

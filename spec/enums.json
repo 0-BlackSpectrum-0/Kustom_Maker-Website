@@ -1,0 +1,1046 @@
+{
+  "AnchorMode": [
+    "BOTTOM",
+    "BOTTOMLEFT",
+    "BOTTOMRIGHT",
+    "CENTER",
+    "CENTERLEFT",
+    "CENTERRIGHT",
+    "TOP",
+    "TOPLEFT",
+    "TOPRIGHT"
+  ],
+  "AnimationAction": [
+    "ADVANCED",
+    "COLOR",
+    "COLOR_INVERTED",
+    "FADE",
+    "FADE_INVERTED",
+    "FLIP_HORIZONTAL",
+    "FLIP_VERTICAL",
+    "ROTATE",
+    "ROTATE_INVERTED",
+    "SCALE",
+    "SCALE_INVERTED",
+    "SCALE_X",
+    "SCALE_Y",
+    "SCROLL",
+    "SCROLL_INVERTED",
+    "SHADER",
+    "SHADER_INVERTED",
+    "SKEW_X",
+    "SKEW_Y"
+  ],
+  "AnimationAnchor": [
+    "MODULE_BOTTOM",
+    "MODULE_BOTTOM_LEFT",
+    "MODULE_BOTTOM_RIGHT",
+    "MODULE_CENTER",
+    "MODULE_LEFT",
+    "MODULE_RIGHT",
+    "MODULE_TOP",
+    "MODULE_TOP_LEFT",
+    "MODULE_TOP_RIGHT",
+    "SCREEN_BOTTOM",
+    "SCREEN_BOTTOM_LEFT",
+    "SCREEN_BOTTOM_RIGHT",
+    "SCREEN_CENTER",
+    "SCREEN_LEFT",
+    "SCREEN_RIGHT",
+    "SCREEN_TOP",
+    "SCREEN_TOP_LEFT",
+    "SCREEN_TOP_RIGHT"
+  ],
+  "AnimationAxis": [
+    "COMPASS",
+    "X",
+    "XY",
+    "Y",
+    "Z"
+  ],
+  "AnimationCenter": [
+    "CENTER",
+    "CENTER_M1",
+    "CENTER_M2",
+    "CENTER_M3",
+    "CENTER_P1",
+    "CENTER_P2",
+    "CENTER_P3",
+    "FIRST",
+    "LAST",
+    "SCREEN1",
+    "SCREEN2",
+    "SCREEN3",
+    "SCREEN4",
+    "SCREEN5",
+    "SCREEN6",
+    "SCREEN7",
+    "SCREEN8",
+    "SCREEN9"
+  ],
+  "AnimationEase": [
+    "ACCELERATE",
+    "ANTICIPATE",
+    "ANTICIPATE_OVERSHOOT",
+    "BOUNCE",
+    "DECELERATE",
+    "INVERTED",
+    "LINEAR",
+    "NORMAL",
+    "NORMAL_2W",
+    "OVERSHOOT",
+    "STRAIGHT",
+    "STRAIGHT_2W"
+  ],
+  "AnimationFilter": [
+    "BRIGHTEN",
+    "CONTRAST",
+    "DARKEN",
+    "DESATURATE",
+    "HUE_ROTATE",
+    "INVERT",
+    "SEPIA"
+  ],
+  "AnimationMode": [
+    "BACKWARD",
+    "FORWARD",
+    "INVERTED",
+    "NORMAL"
+  ],
+  "AnimationRule": [
+    "AFTER_CENTER",
+    "BEFORE_CENTER",
+    "CENTER",
+    "FROM_CENTER",
+    "UP_TO_CENTER"
+  ],
+  "AnimationType": [
+    "DISABLED",
+    "FORMULA",
+    "GYRO",
+    "LOOP_2W",
+    "LOOP_FW",
+    "SCROLL",
+    "SCROLL_Y",
+    "SWITCH",
+    "UNLOCK",
+    "VISIBILITY",
+    "VISUALIZER"
+  ],
+  "AnimatorProperty": [
+    "BRIGHTNESS",
+    "DESATURATE",
+    "FLIP_DISTANCE",
+    "FLIP_X",
+    "FLIP_Y",
+    "HUE",
+    "INVERT",
+    "OPACITY",
+    "ROTATE",
+    "ROTATE_X_CENTER",
+    "ROTATE_Y_CENTER",
+    "SCALE_X",
+    "SCALE_XY",
+    "SCALE_X_CENTER",
+    "SCALE_Y",
+    "SCALE_Y_CENTER",
+    "SEPIA",
+    "SHADER_INTENSITY",
+    "SHADER_PARAM",
+    "SHADER_PARAM2",
+    "SHADER_SCROLL",
+    "SKEW_X",
+    "SKEW_XY",
+    "SKEW_X_CENTER",
+    "SKEW_Y",
+    "SKEW_Y_CENTER",
+    "X_OFFSET",
+    "Y_OFFSET"
+  ],
+  "BackgroundScroll": [
+    "INVERTED",
+    "NONE",
+    "NORMAL"
+  ],
+  "BackgroundType": [
+    "IMAGE",
+    "SOLID"
+  ],
+  "BitmapColorFilter": [
+    "BRIGHTEN",
+    "BW",
+    "COLORIZE",
+    "CONTRAST",
+    "DARKEN",
+    "DESATURATE",
+    "HUE",
+    "INVERT",
+    "NONE",
+    "SEPIA"
+  ],
+  "BitmapMode": [
+    "BITMAP",
+    "MOVIE",
+    "VECTOR"
+  ],
+  "BitmapScaleMode": [
+    "CENTER_CROP",
+    "CENTER_FIT",
+    "FIT_HEIGHT",
+    "FIT_WIDTH"
+  ],
+  "BitmapTileMode": [
+    "FIT_CENTER",
+    "MIRROR",
+    "REPEAT"
+  ],
+  "ClickAction": [
+    "LAUNCH_APP",
+    "NONE",
+    "OPEN_EDITOR",
+    "TOGGLE_SWITCH"
+  ],
+  "ClockMode": [
+    "AUTO",
+    "H12",
+    "H24"
+  ],
+  "CurvedTextMode": [
+    "AUTO",
+    "JUSTIFY"
+  ],
+  "DayOfWeek": [
+    "FRIDAY",
+    "MONDAY",
+    "SATURDAY",
+    "SUNDAY",
+    "THURSDAY",
+    "TUESDAY",
+    "WEDNESDAY"
+  ],
+  "FontSize": [
+    "FIT_TO_BOX",
+    "FIXED_WIDTH",
+    "SINGLE_FIXED_WIDTH",
+    "SINGLE_FONT_HEIGHT"
+  ],
+  "GlobalPersistenceMode": [
+    "ALWAYS",
+    "IF_CHANGED",
+    "NEVER"
+  ],
+  "GlobalSwitchMode": [
+    "MANUAL",
+    "MANUAL_FORMULA",
+    "MANUAL_TIMER"
+  ],
+  "GlobalType": [
+    "ANCHORMODE",
+    "BITMAP",
+    "COLOR",
+    "FOLDER",
+    "FONT",
+    "LIST",
+    "NUMBER",
+    "SECRET",
+    "SWITCH",
+    "TEXT"
+  ],
+  "Gradient": [
+    "BITMAP",
+    "HORIZONTAL",
+    "NONE",
+    "RADIAL",
+    "SWEEP",
+    "VERTICAL"
+  ],
+  "GrowMode": [
+    "CURRENT",
+    "PROGRESSIVE"
+  ],
+  "IconColorMode": [
+    "COLORIZE",
+    "DEFAULT",
+    "INVERT",
+    "MONOCHROME"
+  ],
+  "KustomAction": [
+    "ADVANCED_EDITOR",
+    "BITMAP_UPDATE",
+    "CRASH",
+    "NOTIF_CLOSE",
+    "NOTIF_CLOSE_ALL",
+    "NOTIF_OPEN",
+    "TEXT_UPDATE",
+    "TOGGLE_BT",
+    "TOGGLE_WIFI",
+    "UNLOCK",
+    "WEATHER_UPDATE"
+  ],
+  "Language": [
+    "ARMENIAN",
+    "AUTO",
+    "BULGARIAN",
+    "CATALAN",
+    "CHINESE",
+    "CHINESE_TRADITIONAL",
+    "CZECH",
+    "DUTCH",
+    "ENGLISH",
+    "FRENCH",
+    "GERMAN",
+    "HEBREW",
+    "HINDI",
+    "HUNGARIAN",
+    "INDONESIAN",
+    "ITALIAN",
+    "JAPANESE",
+    "KOREAN",
+    "LATVIAN",
+    "LITHUANIAN",
+    "NORWEGIAN",
+    "PERSIAN",
+    "POLISH",
+    "PORTOGUESE",
+    "PORTOGUESE_BRAZIL",
+    "ROMANIAN",
+    "RUSSIAN",
+    "SLOVAK",
+    "SPANISH",
+    "SWEDISH",
+    "TURKISH",
+    "UKRAINIAN",
+    "VIETNAMESE"
+  ],
+  "LayerFx": [
+    "CHROMATIC_ABERRATION",
+    "CRT_CURVATURE",
+    "DROP_SHADOW",
+    "DUOTONE",
+    "EDGE_GLOW",
+    "EMBOSS",
+    "FILM_GRAIN",
+    "FROSTED_GLASS",
+    "HALFTONE",
+    "HEAT_HAZE",
+    "LONG_SHADOW_BL",
+    "LONG_SHADOW_BR",
+    "LONG_SHADOW_TL",
+    "LONG_SHADOW_TR",
+    "NONE",
+    "PIXELATE",
+    "RIPPLE",
+    "SCANLINE",
+    "SCANLINE_FADE",
+    "THERMAL",
+    "VHS_GLITCH",
+    "VIGNETTE"
+  ],
+  "LayerStacking": [
+    "HORIZONTAL_BOTTOM",
+    "HORIZONTAL_CENTER",
+    "HORIZONTAL_TOP",
+    "VERTICAL_CENTER",
+    "VERTICAL_LEFT",
+    "VERTICAL_RIGHT"
+  ],
+  "LayerTileMode": [
+    "MIRROR",
+    "MIRROR_HORIZONTAL",
+    "MIRROR_LEFT",
+    "MIRROR_RIGHT",
+    "MIRROR_VERTICAL",
+    "NORMAL",
+    "REPEAT",
+    "REPEAT_HORIZONTAL",
+    "REPEAT_LEFT",
+    "REPEAT_RIGHT",
+    "REPEAT_VERTICAL"
+  ],
+  "Location": [
+    "ALT1",
+    "ALT2",
+    "ALT3",
+    "DEFAULT",
+    "PRIMARY"
+  ],
+  "LocationMode": [
+    "HIGH_ACCURACY",
+    "LOW_POWER",
+    "MID_POWER",
+    "NO_POWER"
+  ],
+  "MaskFilter": [
+    "BACKGROUND",
+    "BLURRED",
+    "CLIP_ALL",
+    "CLIP_NEXT",
+    "LIQUID_GLASS",
+    "NONE"
+  ],
+  "MeasureUnit": [
+    "AUTO",
+    "IMPERIAL",
+    "METRIC"
+  ],
+  "MovieMode": [
+    "LOOP",
+    "STOP"
+  ],
+  "MusicAction": [
+    "NEXT",
+    "OPEN_APP",
+    "PLAY_PAUSE",
+    "PREVIOUS",
+    "VOLUME_DOWN",
+    "VOLUME_UP"
+  ],
+  "NetworkRefreshRate": [
+    "M120",
+    "M240",
+    "M30",
+    "M480",
+    "M60"
+  ],
+  "NotifyIcon": [
+    "CUSTOM_TEXT",
+    "DATE",
+    "KUSTOM_ICON",
+    "TEMPERATURE"
+  ],
+  "NotifyMode": [
+    "ALWAYS",
+    "AUTO",
+    "DISABLED"
+  ],
+  "NotifyStyle": [
+    "FULL_NORMAL",
+    "FULL_SMALL"
+  ],
+  "NotifyVisibility": [
+    "ALWAYS_SHOW",
+    "HIDE_ON_LOCK_SCREEN"
+  ],
+  "PaintMode": [
+    "ADD",
+    "CLEAR",
+    "DARKEN",
+    "DST",
+    "LIGHTEN",
+    "MULTIPLY",
+    "NORMAL",
+    "OVERLAY",
+    "SCREEN",
+    "SRC",
+    "XOR"
+  ],
+  "PaintStyle": [
+    "FILL",
+    "STROKE"
+  ],
+  "PathScaleMode": [
+    "AUTO",
+    "CENTER_FIT"
+  ],
+  "PreviewBg": [
+    "ALPHA",
+    "DK_GRAY",
+    "LT_GRAY",
+    "WHITE",
+    "WP"
+  ],
+  "PreviewBGStyle": [
+    "DARK_ALPHA_PATTERN",
+    "LIGHT_ALPHA_PATTERN",
+    "SYSTEM_BACKGROUND"
+  ],
+  "PreviewRatio": [
+    "DEFAULT",
+    "F_16_10",
+    "F_16_9",
+    "F_18_9",
+    "F_195_9",
+    "F_3_2",
+    "F_4_3"
+  ],
+  "Progress": [
+    "BATTERY",
+    "CUSTOM",
+    "H12",
+    "H24",
+    "MINS",
+    "MINS_5",
+    "MUSIC",
+    "MUSIC_VOLUME",
+    "SECS"
+  ],
+  "ProgressAlign": [
+    "BOTTOM",
+    "CENTER",
+    "TOP"
+  ],
+  "ProgressColorMode": [
+    "CURRENT",
+    "FLAT",
+    "GRADIENT",
+    "MULTI_COLOR"
+  ],
+  "ProgressMode": [
+    "FLAT",
+    "SHAPES",
+    "SPLIT"
+  ],
+  "ProgressShape": [
+    "CIRCLE",
+    "RECT",
+    "SQUARE",
+    "TRIANGLE"
+  ],
+  "ProgressStyle": [
+    "CIRCLE",
+    "LINEAR"
+  ],
+  "RefreshRate": [
+    "DEFAULT",
+    "FAST",
+    "HZ120",
+    "HZ30",
+    "HZ45",
+    "HZ60",
+    "HZ90",
+    "SLOW"
+  ],
+  "ReverseGeocoderSource": [
+    "ANDROID",
+    "AUTO",
+    "GOOGLE_MAPS",
+    "KUSTOM",
+    "OSM"
+  ],
+  "Rotate": [
+    "CLOCK_HOUR",
+    "CLOCK_HOUR_SMOOTH",
+    "CLOCK_MINUTE",
+    "CLOCK_MINUTE_SMOOTH",
+    "CLOCK_SECOND",
+    "CLOCK_SECOND_SMOOTH",
+    "DEG180",
+    "DEG270",
+    "DEG90",
+    "FLIP_X",
+    "FLIP_Y",
+    "MANUAL",
+    "NONE"
+  ],
+  "ScrollDirection": [
+    "BOTTOM",
+    "LEFT",
+    "RIGHT",
+    "TOP"
+  ],
+  "SeriesMode": [
+    "BATTERY",
+    "BATTERY_10",
+    "CUSTOM",
+    "DAY_OF_MONTH",
+    "DAY_OF_MONTH_NUM",
+    "DAY_OF_MONTH_SHORT",
+    "DAY_OF_WEEK",
+    "DAY_OF_WEEK_NUM",
+    "DAY_OF_WEEK_SHORT",
+    "H12",
+    "H24",
+    "MINS",
+    "MINS_5",
+    "MONTH",
+    "MONTH_SHORT",
+    "SECS"
+  ],
+  "SeriesSpacingMode": [
+    "FIXED_SIZE",
+    "FIXED_SPACING"
+  ],
+  "ShaderDef": [
+    "CHROMATIC_ABERRATION",
+    "CRT_CURVATURE",
+    "DUOTONE",
+    "EDGE_GLOW",
+    "EMBOSS",
+    "FILM_GRAIN",
+    "FROSTED_GLASS",
+    "HALFTONE",
+    "HEAT_HAZE",
+    "NONE",
+    "PIXELATE",
+    "RIPPLE",
+    "SCANLINE",
+    "SCANLINE_FADE",
+    "THERMAL",
+    "VHS_GLITCH",
+    "VIGNETTE"
+  ],
+  "Shadow": [
+    "NONE",
+    "OUTER"
+  ],
+  "Shape": [
+    "ARC",
+    "CIRCLE",
+    "EXAGON",
+    "OVAL",
+    "PATH",
+    "RECT",
+    "RTRIANGLE",
+    "SLICE",
+    "SQUARE",
+    "SQUIRCLE",
+    "TRIANGLE"
+  ],
+  "TapFeedback": [
+    "NONE",
+    "VIBRATE",
+    "VIBRATE_LIGHT"
+  ],
+  "TextAlign": [
+    "CENTER",
+    "LEFT",
+    "RIGHT"
+  ],
+  "TextFilter": [
+    "CAP",
+    "LO",
+    "N2W",
+    "NF",
+    "NS",
+    "REV",
+    "ROMAN",
+    "UP"
+  ],
+  "TextReplaceOptions": [
+    "MATCH_CASE",
+    "REGEXP"
+  ],
+  "Theme": [
+    "DARK",
+    "DARK_NEW",
+    "DEFAULT",
+    "LIGHT",
+    "LIGHT_NEW",
+    "SYSTEM"
+  ],
+  "TouchAction": [
+    "CHANGE_VOLUME",
+    "DISABLED",
+    "KUSTOM_ACTION",
+    "LAUNCH_ACTIVITY",
+    "LAUNCH_APP",
+    "LAUNCH_SHORTCUT",
+    "MUSIC",
+    "NONE",
+    "OPEN_COMPLICATION",
+    "OPEN_LINK",
+    "SWITCH_GLOBAL",
+    "TRIGGER_FLOW"
+  ],
+  "TouchTarget": [
+    "PHONE",
+    "WATCH"
+  ],
+  "TouchType": [
+    "DOUBLE_TAP",
+    "LONG_PRESS",
+    "SCROLL_END",
+    "SINGLE_TAP",
+    "TOUCH_DOWN",
+    "TOUCH_UP"
+  ],
+  "VisibleMode": [
+    "ALWAYS",
+    "IF_LANDSCAPE",
+    "IF_LOCKED",
+    "IF_NOT_LOCKED",
+    "IF_PORTRAIT",
+    "NEVER",
+    "REMOVE"
+  ],
+  "VisualizerBars": [
+    "BARS_128",
+    "BARS_16",
+    "BARS_32",
+    "BARS_64",
+    "BARS_8"
+  ],
+  "VisualizerRate": [
+    "FAST",
+    "MEDIUM",
+    "SLOW",
+    "VERY_SLOW"
+  ],
+  "VolumeAction": [
+    "LOWER",
+    "MUTE",
+    "RAISE",
+    "SET",
+    "TOGGLE_MUTE",
+    "UNMUTE"
+  ],
+  "VolumeStream": [
+    "ALARM",
+    "ALL",
+    "MEDIA",
+    "RINGER"
+  ],
+  "WatchSyncMode": [
+    "ALWAYS",
+    "NEVER",
+    "NO_CONNECTION"
+  ],
+  "WeatherSource": [
+    "ACCU",
+    "DARKSKY",
+    "OWM",
+    "PLUGIN",
+    "WEATHERBIT",
+    "WILLY",
+    "YAHOO",
+    "YRNO"
+  ],
+  "WidgetOrientation": [
+    "AUTO",
+    "DEFAULT",
+    "LANDSCAPE",
+    "PORTRAIT"
+  ],
+  "WidgetSizeMode": [
+    "AUTO",
+    "LOCK"
+  ],
+  "WidgetUpdateMode": [
+    "DEFAULT",
+    "FAST",
+    "SLOW",
+    "SMART"
+  ],
+  "anchor": [
+    "TOPLEFT",
+    "TOP",
+    "TOPRIGHT",
+    "CENTERLEFT",
+    "CENTER",
+    "CENTERRIGHT",
+    "BOTTOMLEFT",
+    "BOTTOM",
+    "BOTTOMRIGHT"
+  ],
+  "stacking": [
+    "VERTICAL_LEFT",
+    "VERTICAL_CENTER",
+    "VERTICAL_RIGHT",
+    "HORIZONTAL_TOP",
+    "HORIZONTAL_CENTER",
+    "HORIZONTAL_BOTTOM"
+  ],
+  "visible": [
+    "ALWAYS",
+    "IF_NOT_LOCKED",
+    "IF_LOCKED",
+    "IF_LANDSCAPE",
+    "IF_PORTRAIT",
+    "NEVER",
+    "REMOVE"
+  ],
+  "rotate": [
+    "NONE",
+    "FLIP_X",
+    "FLIP_Y",
+    "DEG90",
+    "DEG180",
+    "DEG270",
+    "MANUAL",
+    "CLOCK_HOUR_SMOOTH",
+    "CLOCK_HOUR",
+    "CLOCK_MINUTE_SMOOTH",
+    "CLOCK_MINUTE",
+    "CLOCK_SECOND_SMOOTH",
+    "CLOCK_SECOND"
+  ],
+  "paintStyle": [
+    "FILL",
+    "STROKE"
+  ],
+  "paintMode": [
+    "NORMAL",
+    "CLEAR",
+    "SRC",
+    "DST",
+    "XOR",
+    "DARKEN",
+    "LIGHTEN",
+    "SCREEN",
+    "ADD",
+    "OVERLAY",
+    "MULTIPLY"
+  ],
+  "gradient": [
+    "NONE",
+    "HORIZONTAL",
+    "VERTICAL",
+    "RADIAL",
+    "SWEEP",
+    "BITMAP"
+  ],
+  "tileMode": [
+    "FIT_CENTER",
+    "REPEAT",
+    "MIRROR"
+  ],
+  "shadow": [
+    "NONE",
+    "OUTER"
+  ],
+  "mask": [
+    "NONE",
+    "BACKGROUND",
+    "BLURRED",
+    "CLIP_NEXT",
+    "CLIP_ALL",
+    "LIQUID_GLASS"
+  ],
+  "colorFilter": [
+    "NONE",
+    "BW",
+    "SEPIA",
+    "DESATURATE",
+    "INVERT",
+    "COLORIZE",
+    "HUE",
+    "CONTRAST",
+    "BRIGHTEN",
+    "DARKEN"
+  ],
+  "fontSize": [
+    "SINGLE_FONT_HEIGHT",
+    "SINGLE_FIXED_WIDTH",
+    "FIXED_WIDTH",
+    "FIT_TO_BOX"
+  ],
+  "textAlign": [
+    "LEFT",
+    "RIGHT",
+    "CENTER"
+  ],
+  "shape": [
+    "SQUARE",
+    "CIRCLE",
+    "RECT",
+    "OVAL",
+    "TRIANGLE",
+    "RTRIANGLE",
+    "EXAGON",
+    "SLICE",
+    "ARC",
+    "SQUIRCLE",
+    "PATH"
+  ],
+  "pathScale": [
+    "AUTO",
+    "CENTER_FIT"
+  ],
+  "bitmapMode": [
+    "BITMAP",
+    "VECTOR"
+  ],
+  "bitmapScale": [
+    "FIT_WIDTH",
+    "FIT_HEIGHT",
+    "CENTER_FIT",
+    "CENTER_CROP"
+  ],
+  "iconColor": [
+    "DEFAULT",
+    "MONOCHROME",
+    "COLORIZE",
+    "INVERT"
+  ],
+  "backgroundType": [
+    "SOLID",
+    "IMAGE"
+  ],
+  "backgroundScroll": [
+    "NORMAL",
+    "NONE",
+    "INVERTED"
+  ],
+  "layerFx": [
+    "NONE",
+    "DROP_SHADOW",
+    "LONG_SHADOW_BR",
+    "LONG_SHADOW_BL",
+    "LONG_SHADOW_TR",
+    "LONG_SHADOW_TL",
+    "VIGNETTE",
+    "SCANLINE",
+    "SCANLINE_FADE",
+    "PIXELATE",
+    "DUOTONE"
+  ],
+  "globalType": [
+    "COLOR",
+    "NUMBER",
+    "SWITCH",
+    "LIST",
+    "FONT",
+    "TEXT",
+    "BITMAP"
+  ],
+  "progressMode": [
+    "PROGRESS",
+    "BATTERY",
+    "TIME",
+    "COUNTDOWN",
+    "SHAPES",
+    "CUSTOM"
+  ],
+  "progressStyle": [
+    "LINEAR",
+    "CIRCLE",
+    "SPLIT"
+  ],
+  "progressShape": [
+    "RECT",
+    "CIRCLE",
+    "SQUARE"
+  ],
+  "progressColorMode": [
+    "FLAT",
+    "SPLIT",
+    "GRADIENT"
+  ],
+  "progressAlign": [
+    "LEFT",
+    "CENTER",
+    "RIGHT"
+  ],
+  "curvedMode": [
+    "ROTATE",
+    "NORMAL",
+    "REVERSE"
+  ],
+  "animationType": [
+    "DISABLED",
+    "SCROLL",
+    "SCROLL_Y",
+    "GYRO",
+    "VISUALIZER",
+    "SWITCH",
+    "VISIBILITY",
+    "UNLOCK",
+    "LOOP_FW",
+    "LOOP_2W",
+    "FORMULA"
+  ],
+  "animationAction": [
+    "SCROLL",
+    "SCROLL_INVERTED",
+    "SCALE",
+    "SCALE_X",
+    "SCALE_Y",
+    "SCALE_INVERTED",
+    "SKEW_X",
+    "SKEW_Y",
+    "FADE",
+    "FADE_INVERTED",
+    "ROTATE",
+    "ROTATE_INVERTED",
+    "ADVANCED",
+    "COLOR",
+    "COLOR_INVERTED",
+    "FLIP_HORIZONTAL",
+    "FLIP_VERTICAL"
+  ],
+  "animationEase": [
+    "NORMAL",
+    "INVERTED",
+    "BOUNCE",
+    "OVERSHOOT",
+    "STRAIGHT",
+    "NORMAL_2W",
+    "STRAIGHT_2W",
+    "LINEAR",
+    "ACCELERATE",
+    "DECELERATE",
+    "ANTICIPATE",
+    "ANTICIPATE_OVERSHOOT"
+  ],
+  "animationAnchor": [
+    "MODULE_CENTER",
+    "MODULE_LEFT",
+    "MODULE_RIGHT",
+    "MODULE_TOP",
+    "MODULE_BOTTOM",
+    "MODULE_TOP_LEFT",
+    "MODULE_TOP_RIGHT",
+    "MODULE_BOTTOM_LEFT",
+    "MODULE_BOTTOM_RIGHT",
+    "SCREEN_CENTER",
+    "SCREEN_LEFT",
+    "SCREEN_RIGHT",
+    "SCREEN_TOP",
+    "SCREEN_BOTTOM",
+    "SCREEN_TOP_LEFT",
+    "SCREEN_TOP_RIGHT",
+    "SCREEN_BOTTOM_LEFT",
+    "SCREEN_BOTTOM_RIGHT"
+  ],
+  "animationRule": [
+    "CENTER",
+    "BEFORE_CENTER",
+    "UP_TO_CENTER",
+    "FROM_CENTER",
+    "AFTER_CENTER"
+  ],
+  "animationCenter": [
+    "CENTER",
+    "FIRST",
+    "LAST",
+    "SCREEN1",
+    "SCREEN2",
+    "SCREEN3",
+    "SCREEN4",
+    "SCREEN5",
+    "SCREEN6",
+    "SCREEN7",
+    "SCREEN8",
+    "SCREEN9",
+    "CENTER_M1",
+    "CENTER_M2",
+    "CENTER_M3",
+    "CENTER_P1",
+    "CENTER_P2",
+    "CENTER_P3"
+  ],
+  "touchType": [
+    "SINGLE_TAP",
+    "DOUBLE_TAP",
+    "LONG_PRESS"
+  ],
+  "touchAction": [
+    "NONE",
+    "KUSTOM_ACTION",
+    "LAUNCH_APP",
+    "LAUNCH_SHORTCUT",
+    "MUSIC",
+    "SWITCH_GLOBAL",
+    "OPEN_LINK",
+    "CHANGE_VOLUME",
+    "DISABLED"
+  ],
+  "musicAction": [
+    "PLAY_PAUSE",
+    "NEXT",
+    "PREVIOUS",
+    "VOLUME_UP",
+    "VOLUME_DOWN",
+    "OPEN_APP"
+  ]
+}

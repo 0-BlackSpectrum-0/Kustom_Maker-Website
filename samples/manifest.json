@@ -1,0 +1,2403 @@
+{
+  "version": 2,
+  "samples": [
+    {
+      "id": "Clean_Time_Date_Info",
+      "preset": "samples/_src/kwgt-widgets/widgets/Clean_Time_Date_Info.kwgt",
+      "type": "kwgt",
+      "info": {
+        "version": 13,
+        "title": "Time Date Info",
+        "description": "Clean time, date and battery information widget",
+        "author": "Om Gupta",
+        "email": "aaumgupta@gmail.com",
+        "width": 918,
+        "height": 542,
+        "features": "",
+        "release": 376422110,
+        "locked": false,
+        "pflags": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Clean_Time_Date_Info.kwgt.png",
+          "variant": "light",
+          "size": [
+            829,
+            372
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Clean_Time_Date_InfoDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            829,
+            372
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": true,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 918,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Interstellar_Analog",
+      "preset": "samples/_src/kwgt-widgets/widgets/Interstellar_Analog.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "Analog clock inspired by Interstellar",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 1169,
+        "locked": false,
+        "release": 377435216,
+        "title": "InterstellarAnalog",
+        "version": 13,
+        "width": 916,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Interstellar_Analog.kwgt.png",
+          "variant": "light",
+          "size": [
+            1080,
+            1333
+          ],
+          "alpha": true,
+          "kind": "unknown",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": true,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 916,
+          "h": 1169
+        }
+      }
+    },
+    {
+      "id": "Interstellar_Analog_Khaki_Field_Murph_Auto",
+      "preset": "samples/_src/kwgt-widgets/widgets/Interstellar_Analog_Khaki_Field_Murph_Auto.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "Khaki Field Murphy Auto Exact.",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 1482,
+        "locked": false,
+        "release": 377435216,
+        "title": "InterstellarAnalogKhakiFieldMurphAuto",
+        "version": 13,
+        "width": 916,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Interstellar_Analog_Khaki_Field_Murph_Auto.kwgt.png",
+          "variant": "light",
+          "size": [
+            528,
+            855
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 916,
+          "h": 1482
+        }
+      }
+    },
+    {
+      "id": "Interstellar_Endurance",
+      "preset": "samples/_src/kwgt-widgets/widgets/Interstellar_Endurance.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "Spinning Endurance",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "InterstellarEndurance",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Interstellar_Endurance.kwgt.png",
+          "variant": "light",
+          "size": [
+            916,
+            1169
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Interstellar_EnduranceDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            529
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": true,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Interstellar_Endurance_Analog",
+      "preset": "samples/_src/kwgt-widgets/widgets/Interstellar_Endurance_Analog.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "An analog clock based on Interstellar Theme",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "InterstellarEnduranceAnalog",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Interstellar_Endurance_Analog.kwgt.png",
+          "variant": "light",
+          "size": [
+            916,
+            1169
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Interstellar_Endurance_AnalogDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            529
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": true,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Interstellar_Endurance_Analog_2",
+      "preset": "samples/_src/kwgt-widgets/widgets/Interstellar_Endurance_Analog_2.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "An analog clock based on Interstellar Theme",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "InterstellarEnduranceAnalog2",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Interstellar_Endurance_Analog_2.kwgt.png",
+          "variant": "light",
+          "size": [
+            895,
+            1169
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "iOS_Battery_Widget",
+      "preset": "samples/_src/kwgt-widgets/widgets/iOS_Battery_Widget.kwgt",
+      "type": "kwgt",
+      "info": {
+        "version": 13,
+        "title": "iOS Battery Widget",
+        "description": "Battery widget inspired from iOS.",
+        "author": "Om Gupta",
+        "email": "aaumgupta@gmail.com",
+        "width": 416,
+        "height": 542,
+        "features": "",
+        "release": 376422110,
+        "locked": false,
+        "pflags": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/iOS_Battery_Widget.kwgt.png",
+          "variant": "light",
+          "size": [
+            416,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 416,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Material3_Expanded_Media_Player",
+      "preset": "samples/_src/kwgt-widgets/widgets/Material3_Expanded_Media_Player.kwgt",
+      "type": "kwgt",
+      "info": {
+        "version": 13,
+        "title": "Material3 Expanded Media Player",
+        "description": "A universal clean media widget.",
+        "author": "Om Gupta",
+        "email": "aaumgupta@gmail.com",
+        "width": 918,
+        "height": 542,
+        "features": "MUSIC NOTIFICATIONS",
+        "release": 376422110,
+        "locked": false,
+        "pflags": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Material3_Expanded_Media_Player.kwgt.png",
+          "variant": "light",
+          "size": [
+            918,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 918,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Material3_Media_Player_Output",
+      "preset": "samples/_src/kwgt-widgets/widgets/Material3_Media_Player_Output.kwgt",
+      "type": "kwgt",
+      "info": {
+        "author": "Om Gupta",
+        "description": "A universal clean media widget.",
+        "email": "aaumgupta@gmail.com",
+        "features": "MUSIC NOTIFICATIONS BLUETOOTH",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377432414,
+        "title": "Material3 Media Player (Output)",
+        "version": 13,
+        "width": 916,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Material3_Media_Player_Output.kwgt.png",
+          "variant": "light",
+          "size": [
+            916,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 916,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "material_notification_widget",
+      "preset": "samples/_src/kwgt-widgets/widgets/material_notification_widget.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "Show latest notification details.",
+        "email": "aaumgupta@gmail.com",
+        "features": "NOTIFICATIONS",
+        "pflags": 0,
+        "height": 226,
+        "locked": false,
+        "release": 377435216,
+        "title": "material notification widget",
+        "version": 13,
+        "width": 916,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Material_Notification_Widget.kwgt.png",
+          "variant": "light",
+          "size": [
+            916,
+            226
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Material_Notification_WidgetDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            916,
+            226
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Material_Notification_Widget_Empty.kwgt.png",
+          "variant": "empty",
+          "size": [
+            916,
+            226
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 916,
+          "h": 226
+        }
+      }
+    },
+    {
+      "id": "Minimal_Media_Player",
+      "preset": "samples/_src/kwgt-widgets/widgets/Minimal_Media_Player.kwgt",
+      "type": "kwgt",
+      "info": {
+        "version": 13,
+        "title": "Minimal Media Player",
+        "description": "A universal minimalist media widget.",
+        "author": "Om Gupta",
+        "email": "aaumgupta@gmail.com",
+        "width": 918,
+        "height": 228,
+        "features": "MUSIC NOTIFICATIONS",
+        "release": 376422110,
+        "locked": false,
+        "pflags": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Minimal_Media_Player.kwgt.png",
+          "variant": "light",
+          "size": [
+            918,
+            228
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 918,
+          "h": 228
+        }
+      }
+    },
+    {
+      "id": "Minimal_Media_Player_2",
+      "preset": "samples/_src/kwgt-widgets/widgets/Minimal_Media_Player_2.kwgt",
+      "type": "kwgt",
+      "info": {
+        "version": 13,
+        "title": "Minimal Media Player 2",
+        "description": "A universal minimalist media widget.",
+        "author": "Om Gupta",
+        "email": "aaumgupta@gmail.com",
+        "width": 918,
+        "height": 228,
+        "features": "MUSIC NOTIFICATIONS",
+        "release": 376422110,
+        "locked": false,
+        "pflags": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Minimal_Media_Player_2.kwgt.png",
+          "variant": "light",
+          "size": [
+            918,
+            228
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 918,
+          "h": 228
+        }
+      }
+    },
+    {
+      "id": "Minimal_Media_Player_3",
+      "preset": "samples/_src/kwgt-widgets/widgets/Minimal_Media_Player_3.kwgt",
+      "type": "kwgt",
+      "info": {
+        "version": 13,
+        "title": "Minimal Media Player 3",
+        "description": "A universal minimalist media widget.",
+        "author": "Om Gupta",
+        "email": "aaumgupta@gmail.com",
+        "width": 918,
+        "height": 228,
+        "features": "MUSIC",
+        "release": 376422110,
+        "locked": false,
+        "pflags": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Minimal_Media_Player_3.kwgt.png",
+          "variant": "light",
+          "size": [
+            918,
+            228
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 918,
+          "h": 228
+        }
+      }
+    },
+    {
+      "id": "Mini_Media_Player",
+      "preset": "samples/_src/kwgt-widgets/widgets/Mini_Media_Player.kwgt",
+      "type": "kwgt",
+      "info": {
+        "version": 13,
+        "title": "Mini Media Player",
+        "description": "Mini media player based on Material You theme.",
+        "author": "Om Gupta",
+        "email": "aaumgupta@gmail.com",
+        "width": 667,
+        "height": 542,
+        "features": "MUSIC NOTIFICATIONS",
+        "release": 376422110,
+        "locked": false,
+        "pflags": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Mini_Media_Player.kwgt.png",
+          "variant": "light",
+          "size": [
+            667,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 667,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Analog_",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Analog_.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "An analog clock based on Nothing OS.",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingAnalog",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Analog_.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Analog_Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Analog_2",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Analog_2.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "An analog clock based on Nothing OS.",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingAnalog2",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Analog_2.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Analog_2Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Analog_3",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Analog_3.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "An analog clock based on Nothing OS.",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingAnalog3",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Analog_3.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Analog_3Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Analog_5",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Analog_5.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingAnalog5",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Analog_5.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Analog_5Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Analog_5_Transparent",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Analog_5_Transparent.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingAnalog5 Transparent",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Analog_5_Transparent.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Analog_5_TransparentDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Battery",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Battery.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingBattery",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Battery.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Battery2",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Battery2.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingBattery2",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Battery2.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Battery2Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Battery_Mini",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Battery_Mini.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "",
+        "pflags": 0,
+        "height": 226,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingBatteryMini",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Battery_Mini.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            226
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Battery_MiniDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            226
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 226
+        }
+      }
+    },
+    {
+      "id": "Nothing_CPU",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_CPU.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingCPU",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_CPU.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_CPUDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Date_Time",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Date_Time.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingDateTime",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Date_Time.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Date_TimeDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Date_Time2",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Date_Time2.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingDateTime2",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Date_Time2.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Date_Time2Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Date_Time3",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Date_Time3.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "WEATHER AIR_QUALITY",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingDateTime3",
+        "version": 13,
+        "width": 916,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Date_Time3.kwgt.png",
+          "variant": "light",
+          "size": [
+            916,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Date_Time3Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            916,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 916,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Digital",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Digital.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingDigital",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Digital.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_DigitalDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Digital2",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Digital2.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingDigital2",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Digital2.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Digital2Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Digital3",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Digital3.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingDigital3",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Digital3.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Digital3Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Digital4",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Digital4.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingDigital4",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Digital4.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Digital4Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Digital_Clock",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Digital_Clock.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "Digital clock based on Nothing OS.",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingDigitalClock",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Digital_Clock.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Digital_ClockDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Future_Clock",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Future_Clock.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingFutureClock",
+        "version": 13,
+        "width": 916,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Future_Clock.kwgt.png",
+          "variant": "light",
+          "size": [
+            916,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Future_ClockDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            916,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 916,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Master_Widget",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Master_Widget.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "WEATHER FORECAST",
+        "pflags": 0,
+        "height": 1169,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingMasterWidget",
+        "version": 13,
+        "width": 916,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Master_Widget.kwgt.png",
+          "variant": "light",
+          "size": [
+            916,
+            1169
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Master_WidgetDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            916,
+            1169
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 916,
+          "h": 1169
+        }
+      }
+    },
+    {
+      "id": "Nothing_Media_Player",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Media_Player.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "MUSIC",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingMediaPlayer",
+        "version": 13,
+        "width": 916,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Media_Player.kwgt.png",
+          "variant": "light",
+          "size": [
+            916,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Media_PlayerDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            916,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 916,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Media_Player2",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Media_Player2.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "MUSIC",
+        "pflags": 0,
+        "height": 226,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingMediaPlayer2",
+        "version": 13,
+        "width": 916,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Media_Player2.kwgt.png",
+          "variant": "light",
+          "size": [
+            916,
+            226
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Media_Player2Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            916,
+            226
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 916,
+          "h": 226
+        }
+      }
+    },
+    {
+      "id": "Nothing_Media_Player3",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Media_Player3.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "MUSIC",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "Nothing Media Player3",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Media_Player3.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Media_Player3Dark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Mini_Calender",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Mini_Calender.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "",
+        "pflags": 0,
+        "height": 226,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingMiniCalender",
+        "version": 13,
+        "width": 916,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Mini_Calender.kwgt.png",
+          "variant": "light",
+          "size": [
+            916,
+            226
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Mini_CalenderDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            916,
+            226
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 916,
+          "h": 226
+        }
+      }
+    },
+    {
+      "id": "Nothing_Sun_Info",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Sun_Info.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingSunInfo",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Sun_Info.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Sun_InfoDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Nothing_Temp",
+      "preset": "samples/_src/kwgt-widgets/widgets/Nothing_Temp.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "Om Gupta",
+        "description": "",
+        "email": "aaumgupta@gmail.com",
+        "features": "WEATHER FORECAST",
+        "pflags": 0,
+        "height": 542,
+        "locked": false,
+        "release": 377435216,
+        "title": "NothingTemp",
+        "version": 13,
+        "width": 415,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_Temp.kwgt.png",
+          "variant": "light",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        },
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Nothing_TempDark.kwgt.png",
+          "variant": "dark",
+          "size": [
+            415,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 1
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 415,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Universal_Media_Player",
+      "preset": "samples/_src/kwgt-widgets/widgets/Universal_Media_Player.kwgt",
+      "type": "kwgt",
+      "info": {
+        "version": 13,
+        "title": "Universal Media Player",
+        "description": "A minimalistic media player.",
+        "author": "Om Gupta",
+        "email": "aaumgupta@gmail.com",
+        "width": 918,
+        "height": 542,
+        "features": "MUSIC NOTIFICATIONS",
+        "release": 376422110,
+        "locked": false,
+        "pflags": 0
+      },
+      "previews": [
+        {
+          "path": "samples/_src/kwgt-widgets/docs/previews/Universal_Media_Player.kwgt.png",
+          "variant": "light",
+          "size": [
+            918,
+            542
+          ],
+          "alpha": true,
+          "kind": "widget-only",
+          "sim": {
+            "darkmode": 0
+          }
+        }
+      ],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 918,
+          "h": 542
+        }
+      }
+    },
+    {
+      "id": "Wave_Progress_Bar",
+      "preset": "samples/_src/kwgt-widgets/komponents/Wave_Progress_Bar.komp",
+      "type": "komp",
+      "info": {
+        "version": 13,
+        "title": "Wave Progress Bar",
+        "description": "Progress bar similar to Material You media player.",
+        "author": "Om Gupta",
+        "email": "aaumgupta@gmail.com",
+        "width": 485,
+        "height": 49,
+        "features": "MUSIC",
+        "release": 376422110,
+        "locked": false,
+        "pflags": 0
+      },
+      "previews": [],
+      "sizeMismatch": false,
+      "timeDependent": false,
+      "expect": {
+        "canvas": {
+          "kind": "phone",
+          "w": 485,
+          "h": 49
+        }
+      }
+    },
+    {
+      "id": "05_19_25_DarkWave_Release",
+      "preset": "samples/_src/darkwave/05_19_25_DarkWave_Release.klwp",
+      "type": "klwp",
+      "info": {
+        "archive": "",
+        "author": "Wallee Woo",
+        "description": "ratio-20:9, Two screen preset, weather, agenda, notifications, music player, more",
+        "email": "aredubyacee03@gmail.com",
+        "features": "WEATHER FORECAST ANALOG_CLOCK CALENDAR MUSIC SIGNAL NOTIFICATIONS NETWORK_INFO BLUETOOTH",
+        "pflags": 0,
+        "hash": null,
+        "height": 1200,
+        "id": "73c63e30-ad7a-4098-9aed-278ade1441de",
+        "locked": false,
+        "release": 378512015,
+        "ts": 1747766939811,
+        "title": "05_19_25-DarkWave [Release]",
+        "version": 13,
+        "width": 540,
+        "xscreens": 1,
+        "yscreens": 0
+      },
+      "previews": [],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "phone",
+          "w": 540,
+          "h": 1200
+        }
+      }
+    },
+    {
+      "id": "08_31_25_DarkWave_PreRelease",
+      "preset": "samples/_src/darkwave/08_31_25_DarkWave_PreRelease.klwp",
+      "type": "klwp",
+      "info": {
+        "archive": "",
+        "author": "Wallee Woo",
+        "description": "ratio-20:9, Two screen preset, weather, agenda, notifications, music player, playlist,color switcher ",
+        "email": "aredubyacee03@gmail.com",
+        "features": "WEATHER FORECAST ANALOG_CLOCK CALENDAR MUSIC SIGNAL NOTIFICATIONS NETWORK_INFO BLUETOOTH",
+        "pflags": 0,
+        "hash": null,
+        "height": 1200,
+        "id": "e2cff54b-a707-4e63-84ef-de7e4bfc10df",
+        "locked": false,
+        "release": 380522706,
+        "ts": 1756615801082,
+        "title": "08_31_25-DarkWave [PreRelease]",
+        "version": 15,
+        "width": 540,
+        "xscreens": 1,
+        "yscreens": 0
+      },
+      "previews": [],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "phone",
+          "w": 540,
+          "h": 1200
+        }
+      }
+    },
+    {
+      "id": "05_19_25_DarkWave_Release_extra",
+      "preset": "samples/extra/05_19_25_DarkWave_Release.klwp",
+      "type": "klwp",
+      "info": {
+        "archive": "",
+        "author": "Wallee Woo",
+        "description": "ratio-20:9, Two screen preset, weather, agenda, notifications, music player, more",
+        "email": "aredubyacee03@gmail.com",
+        "features": "WEATHER FORECAST ANALOG_CLOCK CALENDAR MUSIC SIGNAL NOTIFICATIONS NETWORK_INFO BLUETOOTH",
+        "pflags": 0,
+        "hash": null,
+        "height": 1200,
+        "id": "73c63e30-ad7a-4098-9aed-278ade1441de",
+        "locked": false,
+        "release": 378512015,
+        "ts": 1747766939811,
+        "title": "05_19_25-DarkWave [Release]",
+        "version": 13,
+        "width": 540,
+        "xscreens": 1,
+        "yscreens": 0
+      },
+      "previews": [],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "phone",
+          "w": 540,
+          "h": 1200
+        }
+      }
+    },
+    {
+      "id": "Clock_01_extra",
+      "preset": "samples/extra/Clock_01.komp",
+      "type": "komp",
+      "info": {
+        "archive": null,
+        "author": "Wallee Woo",
+        "description": "",
+        "email": "aredubyacee03@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 953,
+        "locked": false,
+        "release": 377435216,
+        "title": "Clock_01",
+        "version": 13,
+        "width": 953,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "phone",
+          "w": 953,
+          "h": 953
+        }
+      }
+    },
+    {
+      "id": "Clock_01_extra",
+      "preset": "samples/extra/Clock_01.kwgt",
+      "type": "kwgt",
+      "info": {
+        "archive": null,
+        "author": "walleewoo",
+        "description": "",
+        "email": "aredubyacee03@gmail.com",
+        "features": "ANALOG_CLOCK",
+        "pflags": 0,
+        "height": 1037,
+        "locked": false,
+        "release": 377435216,
+        "title": "Clock_01",
+        "version": 13,
+        "width": 1037,
+        "xscreens": 0,
+        "yscreens": 0
+      },
+      "previews": [],
+      "sizeMismatch": false,
+      "timeDependent": true,
+      "expect": {
+        "canvas": {
+          "kind": "widget",
+          "w": 1037,
+          "h": 1037
+        }
+      }
+    }
+  ],
+  "unpaired": {
+    "presets": [
+      "Wave_Progress_Bar",
+      "05_19_25_DarkWave_Release",
+      "08_31_25_DarkWave_PreRelease",
+      "05_19_25_DarkWave_Release_extra",
+      "Clock_01_extra",
+      "Clock_01_extra"
+    ],
+    "images": [
+      {
+        "path": "samples/_src/darkwave-shots/637b0168-3dfc-4233-b9f7-b3459c7a8a94.png",
+        "width": 540,
+        "height": 540,
+        "kind": "widget-only"
+      },
+      {
+        "path": "samples/_src/darkwave-shots/6601f876-6256-4e9d-b7ad-2e80e983c566.png",
+        "width": 1080,
+        "height": 2400,
+        "kind": "phone-fullscreen"
+      },
+      {
+        "path": "samples/_src/darkwave-shots/8313732a-d980-40f4-9e64-1f83bf23c8ab.png",
+        "width": 1080,
+        "height": 2400,
+        "kind": "phone-fullscreen"
+      },
+      {
+        "path": "samples/_src/darkwave-shots/ae111594-e31a-46ef-9997-6adb68249dc9.png",
+        "width": 1080,
+        "height": 2400,
+        "kind": "phone-fullscreen"
+      },
+      {
+        "path": "samples/_src/darkwave-shots/d065beb4-5dc4-4a82-9aad-a56f3a290f0c.png",
+        "width": 1080,
+        "height": 2400,
+        "kind": "phone-fullscreen"
+      },
+      {
+        "path": "samples/_src/darkwave-shots/f36f1ba7-a2a7-46e4-91f4-f42c417758be.jpg",
+        "width": 3464,
+        "height": 3464,
+        "kind": "unknown"
+      },
+      {
+        "path": "samples/_src/darkwave-shots/fc03d10c-5202-4a48-a25d-d8c824f9ef95.png",
+        "width": 1080,
+        "height": 2400,
+        "kind": "phone-fullscreen"
+      }
+    ]
+  }
+}
