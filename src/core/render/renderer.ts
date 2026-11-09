@@ -12,6 +12,23 @@ export interface RenderOptions {
   customCanvas?: any;
   screens?: number;
   offset?: number;
+  resources?: ResourceManager;
+}
+
+const docResourceCache = new WeakMap<Doc, ResourceManager>();
+
+/**
+ * Gets or creates an asynchronously prepared ResourceManager for a document.
+ * Cached on doc identity so per-frame redraws do not re-decode assets.
+ */
+export async function getResourceManagerForDoc(doc: Doc): Promise<ResourceManager> {
+  let res = docResourceCache.get(doc);
+  if (!res) {
+    res = new ResourceManager(doc.assets);
+    await res.prepare(doc);
+    docResourceCache.set(doc, res);
+  }
+  return res;
 }
 
 export async function renderPreset(
@@ -65,18 +82,7 @@ export async function renderPreset(
     }
   }
 
-  const resources = new ResourceManager(doc.assets);
-
-  // Register fonts if in Node
-  if (GlobalFonts) {
-    for (const path of doc.assets.keys()) {
-      if (path.startsWith('fonts/') && (path.endsWith('.ttf') || path.endsWith('.otf'))) {
-        resources.registerFontIfPossible(path, GlobalFonts);
-      } else if (path.startsWith('icons/') && path.endsWith('.ttf')) {
-        resources.registerFontIfPossible(path, GlobalFonts);
-      }
-    }
-  }
+  const resources = options?.resources ?? (await getResourceManagerForDoc(doc));
 
   // Compute Layout
   const layoutRoot = computeLayout(doc, effectiveTarget, ctx);

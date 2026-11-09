@@ -49,3 +49,27 @@
   - Added `tests/unit/no-handwritten-enums.test.ts` verifying no rogue handwritten enum literals.
   - Flipped `tests/regress/d02-anchors.test.ts` to standard passing assertion.
 - **DoD**: Green. D02 regression passes; zero handwritten enums in layout and inspector.
+
+## [2026-11-10] Phase F3: Resources - Images, Fonts, Icons, and Assets Panel (D03)
+- **Commands Run**:
+  - `cmd /c npx vitest run tests/regress/d03-resources.test.ts` -> 4 tests passed.
+  - `cmd /c npm test` -> 19 test suites passed, 163 tests passed.
+  - `cmd /c npm run build` -> Passed (JS 225.94 kB / 61.10 kB gzip, CSS 7.90 kB / 2.03 kB gzip).
+  - `node tools/check-size.mjs` -> Passed (JS: 59.66 KB gzip <= 120 KB, CSS: 1.98 KB gzip <= 15 KB).
+- **What Changed**:
+  - Implemented `src/core/render/resources.ts`:
+    - `ResourceManager.prepare(doc)`: decodes bitmaps (`createImageBitmap` in browser, `loadImage` in Node) and registers fonts (`FontFace` in browser, `GlobalFonts.register` in Node) using deterministic CSS families (`kw_<fnv1a-hash>`).
+    - Strictly pairs `<Set>.ttf` with `<Set>.json` by basename, preventing fallback pollution across multi-icon-set archives.
+    - Single universal `resolve(uri)` covering exact, alias tail (`.../wallpapers/<Name>.klwp/...`), and case-insensitive resolution.
+    - `listReferences(doc)` inspects all document nodes for referenced resources and returns status (`exact`, `alias`, `case_insensitive`, `missing`, `invalid_provider`).
+  - Updated `src/core/render/painter.ts`:
+    - Quotes font family (`"${fam}", sans-serif`) to prevent invalid CSS syntax.
+    - Added dev-mode assertion warning if canvas ignores font assignment.
+    - Implemented `fx_gradient: BITMAP` pattern fill.
+    - Connected `paintBitmap` and `paintBackground` to `resources.getImage()`.
+  - Updated `src/core/render/renderer.ts`:
+    - Added `getResourceManagerForDoc(doc)` cached on WeakMap by document identity.
+  - Updated `src/ui/components/LeftPanel.tsx`:
+    - Added comprehensive **Resources panel** under Assets tab surfacing all referenced `kfile://` URIs with status badges (`OK`, `ALIAS`, `MISSING`), resolved paths, and module tags.
+  - Flipped `tests/regress/d03-resources.test.ts` to standard passing assertions.
+- **DoD**: Green. D03 regression passes; custom fonts, alias icon sets, and bitmaps decode and resolve cleanly in both browser and Node.

@@ -3,11 +3,13 @@ import type { Doc, Node, Prop } from '../../core/model/types.ts';
 import type { CanvasTarget } from '../../core/layout/types.ts';
 import type { SimState } from '../../core/formula/types.ts';
 import type { ValidationReport } from '../../core/validate/types.ts';
+import type { ResourceManager } from '../../core/render/resources.ts';
 import { defaultSimState } from '../../core/formula/sim/sim-state.ts';
 import { validateDoc } from '../../core/validate/validator.ts';
 import { setProp, addChild, removeNode, findNodeById } from '../../core/model/edit.ts';
 
 export { findNodeById };
+export const currentResourceManager = signal<ResourceManager | null>(null);
 
 export function createDefaultDoc(): Doc {
   const bg: Node = {

@@ -13,8 +13,9 @@ import {
   setTargetSize,
   toggleOrientation,
   multiSizeModalOpen,
+  currentResourceManager,
 } from '../state/editor-state.ts';
-import { renderPreset } from '../../core/render/renderer.ts';
+import { renderPreset, getResourceManagerForDoc } from '../../core/render/renderer.ts';
 import { DEVICE_PROFILES, getDeviceProfile } from '../targets/device-profiles.ts';
 import { WIDGET_SIZE_PRESETS, getWidgetSizePreset } from '../targets/widget-sizes.ts';
 import { MultiSizeModal } from './MultiSizeModal.tsx';
@@ -38,11 +39,15 @@ export function CanvasArea() {
       canvas.height = target.h;
 
       try {
+        const res = await getResourceManagerForDoc(doc);
+        currentResourceManager.value = res;
+
         await renderPreset(doc, target, {
           sim,
           screens: target.screens,
           offset: target.offset,
           customCanvas: canvas,
+          resources: res,
         });
       } catch (err) {
         console.error('Render error:', err);

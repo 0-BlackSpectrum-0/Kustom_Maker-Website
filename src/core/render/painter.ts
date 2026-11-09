@@ -10,6 +10,15 @@ export function cssColor(hexStr: string, fallback = 'rgba(255,255,255,1)'): stri
   return `rgba(${c.r}, ${c.g}, ${c.b}, ${(c.a / 255).toFixed(4)})`;
 }
 
+function quoteCssFamily(fam: string): string {
+  if (!fam) return 'sans-serif';
+  if (fam.startsWith('"') || fam.startsWith("'")) return fam;
+  if (fam.includes(' ') || fam.startsWith('kw_')) {
+    return `"${fam}"`;
+  }
+  return fam;
+}
+
 const BLEND_MODES: Record<string, GlobalCompositeOperation> = {
   NORMAL: 'source-over',
   CLEAR: 'destination-out',
@@ -45,9 +54,11 @@ export class Painter {
 
     if (bgType === 'IMAGE') {
       const bgUri = propStr(root.resolvedProps, 'background_bitmap');
-      const img = this.resources?.getImage(bgUri);
-      if (img) {
-        ctx.drawImage(img.image, 0, 0, root.box.w, root.box.h);
+      if (bgUri) {
+        const img = this.resources?.getImage(bgUri);
+        if (img && img.image) {
+          ctx.drawImage(img.image, 0, 0, root.box.w, root.box.h);
+        }
       }
     }
     ctx.restore();
@@ -131,7 +142,7 @@ export class Painter {
     const color = cssColor(colorHex);
 
     const grad = propStr(node.resolvedProps, 'fx_gradient', 'NONE').toUpperCase();
-    let style: string | CanvasGradient = color;
+    let style: string | CanvasGradient | CanvasPattern = color;
 
     if (grad === 'HORIZONTAL') {
       const g = ctx.createLinearGradient(0, 0, w, 0);
@@ -162,6 +173,19 @@ export class Painter {
       g.addColorStop(0, color);
       g.addColorStop(1, gColor);
       style = g;
+    } else if (grad === 'BITMAP') {
+      const bUri = propStr(node.resolvedProps, 'fx_gradient_bitmap');
+      if (bUri) {
+        const img = this.resources?.getImage(bUri);
+        if (img && img.image) {
+          try {
+            const pattern = ctx.createPattern(img.image, 'repeat');
+            if (pattern) style = pattern;
+          } catch {
+            // Pattern creation fallback
+          }
+        }
+      }
     }
 
     ctx.fillStyle = style;
@@ -291,8 +315,20 @@ export class Painter {
     if (!text) return;
 
     const fontSize = Math.max(1, propNum(node.resolvedProps, 'text_size', 20) * node.unit);
-    const family = propStr(node.resolvedProps, 'text_family', 'sans-serif');
-    ctx.font = `${Math.round(fontSize)}px ${family}, sans-serif`;
+    const rawFamily = propStr(node.resolvedProps, 'text_family', 'sans-serif');
+    const family = this.resources ? this.resources.family(rawFamily) : rawFamily;
+    const fontStr = `${Math.round(fontSize)}px ${quoteCssFamily(family)}, sans-serif`;
+
+    if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production') {
+      const prevFont = ctx.font;
+      ctx.font = fontStr;
+      if (ctx.font === prevFont && prevFont !== fontStr) {
+        console.warn(`[Painter] Canvas ignored font assignment: "${fontStr}" (was "${prevFont}")`);
+      }
+    } else {
+      ctx.font = fontStr;
+    }
+
     ctx.textBaseline = 'top';
 
     const align = propStr(node.resolvedProps, 'text_align', 'LEFT').toUpperCase();
@@ -331,7 +367,7 @@ export class Painter {
 
     const size = Math.round(propNum(node.resolvedProps, 'icon_size', 40) * node.unit);
     const family = iconSet?.family || 'sans-serif';
-    ctx.font = `${size}px ${family}, sans-serif`;
+    ctx.font = `${size}px ${quoteCssFamily(family)}, sans-serif`;
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
 
@@ -351,7 +387,7 @@ export class Painter {
     if (!uri) return;
 
     const img = this.resources?.getImage(uri);
-    if (!img) return;
+    if (!img || !img.image) return;
 
     const [padL, padT] = node.box.pad;
     const w = node.box.w - padL * 2;
