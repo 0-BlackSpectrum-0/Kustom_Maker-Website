@@ -2,6 +2,19 @@
 
 export type PresetKind = 'klwp' | 'kwgt' | 'komp';
 
+export class LexNumber {
+  constructor(public readonly v: number, public readonly raw: string) {}
+  valueOf(): number {
+    return this.v;
+  }
+  toString(): string {
+    return this.raw;
+  }
+  toJSON(): unknown {
+    return this.v;
+  }
+}
+
 export interface PresetInfo {
   title?: string;
   description?: string;
@@ -20,6 +33,8 @@ export interface PresetInfo {
   hash?: string;
   id?: string;
   ts?: number;
+  infoKeyOrder?: string[];
+  originalKeyOrder?: string[];
   [key: string]: unknown;
 }
 
@@ -54,7 +69,9 @@ export interface Node {
   events?: unknown[];
   animations?: unknown[];
   flows?: unknown[];
+  keyOrder?: string[];
   originalKeyOrder?: string[];
+  globals?: Record<string, GlobalDef>;
 }
 
 export interface Doc {

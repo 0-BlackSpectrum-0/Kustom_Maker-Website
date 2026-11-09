@@ -1,35 +1,31 @@
 // src/ui/components/ExportModal.tsx
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { currentDoc, exportModalOpen, validationReport, validateCurrent, pushHistory } from '../state/editor-state.ts';
+import { currentDoc, exportModalOpen, validationReport, commit } from '../state/editor-state.ts';
 import { writePresetArchive } from '../../core/archive/writer.ts';
 import { readPresetArchive } from '../../core/archive/reader.ts';
 import { sanitize } from '../../core/validate/fixers/index.ts';
 import { buildDeviceTestPackZip } from '../../core/device-pack/generator.ts';
-import type { Doc } from '../../core/model/types.ts';
+import { cloneDoc } from '../../core/model/edit.ts';
 
 export function ExportModal() {
+  const [pruneAssets, setPruneAssets] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [isExporting, setIsExporting] = useState(false);
+
   if (!exportModalOpen.value || !currentDoc.value) return null;
 
   const doc = currentDoc.value;
   const report = validationReport.value;
-  const [pruneAssets, setPruneAssets] = useState(false);
-  const [statusMessage, setStatusMessage] = useState<string | null>(null);
-  const [isExporting, setIsExporting] = useState(false);
 
   const errors = report?.issues.filter((i) => i.severity === 'error') || [];
   const warnings = report?.issues.filter((i) => i.severity === 'warning') || [];
   const canExport = errors.length === 0;
 
   const handleFixAll = () => {
-    pushHistory(doc);
-    const cloned = JSON.parse(JSON.stringify(doc)) as Doc;
-    cloned.assets = doc.assets;
-    cloned.thumbs = doc.thumbs;
-    cloned.extras = doc.extras;
+    const cloned = cloneDoc(doc);
     sanitize(cloned);
-    currentDoc.value = cloned;
-    validateCurrent();
+    commit(cloned, 'Auto-fix all issues');
     setStatusMessage('All auto-fixable issues resolved.');
   };
 

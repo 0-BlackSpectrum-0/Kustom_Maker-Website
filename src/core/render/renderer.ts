@@ -23,7 +23,7 @@ export async function renderPreset(
     kind: doc.kind === 'kwgt' ? 'widget' : 'phone',
     w: doc.info.width ?? (doc.kind === 'kwgt' ? 415 : 540),
     h: doc.info.height ?? (doc.kind === 'kwgt' ? 542 : 1200),
-    screens: options?.screens ?? doc.info.xscreens ? (doc.info.xscreens ?? 0) + 1 : 1,
+    screens: options?.screens ?? ((doc.info.xscreens ?? 0) + 1),
     offset: options?.offset ?? 0.5,
   };
 

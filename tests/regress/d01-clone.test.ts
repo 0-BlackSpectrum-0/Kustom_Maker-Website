@@ -28,9 +28,8 @@ describe('D01: Deep-copy via JSON destroys document assets and types', () => {
     setDoc(docWithAssets);
   });
 
-  // Current code uses JSON.parse(JSON.stringify(doc)), which turns Map into {}
-  // and Uint8Arrays into plain objects, breaking assets.has and writePresetArchive.
-  it.fails('preserves assets Map and Uint8Array instances across edits', () => {
+  // Verified fix: edit path preserves Map and Uint8Array instances via path-copying immutable updates.
+  it('preserves assets Map and Uint8Array instances across edits', () => {
     expect(currentDoc.value!.assets).toBeInstanceOf(Map);
     expect(currentDoc.value!.assets.has('bitmaps/test.png')).toBe(true);
 

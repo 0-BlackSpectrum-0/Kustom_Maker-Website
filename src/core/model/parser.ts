@@ -1,5 +1,6 @@
 // src/core/model/parser.ts
-import type { Doc, Node, Prop, PresetInfo, PresetKind, GlobalDef } from './types.ts';
+import type { Node, Prop, PresetInfo, PresetKind, GlobalDef } from './types.ts';
+import { parseJsonWithLex } from './json-lex.ts';
 
 let nextId = 1;
 function genId(prefix = 'node'): string {
@@ -46,6 +47,15 @@ export function parseModule(raw: Record<string, unknown>): Node {
     };
   }
 
+  // Parse nested globals_list (e.g. on Komponents)
+  let nodeGlobals: Record<string, GlobalDef> | undefined;
+  if (raw.globals_list && typeof raw.globals_list === 'object') {
+    nodeGlobals = {};
+    for (const [k, v] of Object.entries(raw.globals_list as Record<string, GlobalDef>)) {
+      nodeGlobals[k] = { ...v };
+    }
+  }
+
   // Preserve extras (any internal_ or other fields not handled above)
   for (const [k, v] of Object.entries(raw)) {
     if (
@@ -86,14 +96,10 @@ export function parseModule(raw: Record<string, unknown>): Node {
     events: Array.isArray(raw.internal_events) ? raw.internal_events : undefined,
     animations: Array.isArray(raw.internal_animations) ? raw.internal_animations : undefined,
     flows: Array.isArray(raw.internal_flows) ? raw.internal_flows : undefined,
+    keyOrder: originalKeyOrder,
+    originalKeyOrder: originalKeyOrder,
+    globals: nodeGlobals,
   };
-
-  Object.defineProperty(node, 'originalKeyOrder', {
-    value: originalKeyOrder,
-    enumerable: false,
-    writable: true,
-    configurable: true,
-  });
 
   return node;
 }
@@ -102,17 +108,15 @@ export function parsePresetJson(
   rawJson: string | Record<string, unknown>,
   kind: PresetKind = 'kwgt'
 ): { info: PresetInfo; root: Node; globals: Record<string, GlobalDef>; extras: Record<string, unknown> } {
-  const data = typeof rawJson === 'string' ? JSON.parse(rawJson) : rawJson;
+  const data = typeof rawJson === 'string' ? parseJsonWithLex(rawJson) : rawJson;
 
-  const info: PresetInfo = (data.preset_info || {}) as PresetInfo;
-  if (data.preset_info) {
-    Object.defineProperty(info, 'originalKeyOrder', {
-      value: Object.keys(data.preset_info),
-      enumerable: false,
-      writable: true,
-      configurable: true,
-    });
-  }
+  const rawInfo = (data.preset_info || {}) as Record<string, unknown>;
+  const infoKeyOrder = data.preset_info ? Object.keys(rawInfo) : undefined;
+  const info: PresetInfo = {
+    ...rawInfo,
+    infoKeyOrder,
+    originalKeyOrder: infoKeyOrder,
+  };
 
   const rawRoot = (data.preset_root || (kind === 'komp' ? data : {})) as Record<string, unknown>;
   const root = parseModule(rawRoot);
@@ -121,6 +125,9 @@ export function parsePresetJson(
   const rawGlobals = (rawRoot.globals_list || {}) as Record<string, GlobalDef>;
   for (const [k, v] of Object.entries(rawGlobals)) {
     globals[k] = { ...v };
+  }
+  if (!root.globals && Object.keys(globals).length > 0) {
+    root.globals = globals;
   }
 
   const extras: Record<string, unknown> = {};

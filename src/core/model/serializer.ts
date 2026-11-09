@@ -1,5 +1,6 @@
 // src/core/model/serializer.ts
-import type { Doc, Node, PresetInfo, GlobalDef } from './types.ts';
+import type { Node, PresetInfo, GlobalDef } from './types.ts';
+import { stringifyWithLex } from './json-lex.ts';
 
 export function serializeModule(node: Node, isRoot = false, globals?: Record<string, GlobalDef>): Record<string, unknown> {
   const result: Record<string, unknown> = {};
@@ -8,18 +9,20 @@ export function serializeModule(node: Node, isRoot = false, globals?: Record<str
   const formulas: Record<string, string> = {};
   const modGlobals: Record<string, string> = {};
 
-  for (const [key, prop] of Object.entries(node.props)) {
-    if (prop.toggle !== undefined) {
-      toggles[key] = prop.toggle;
-    }
-    if (prop.formula !== undefined && prop.formula !== '') {
-      formulas[key] = prop.formula;
-    }
-    if (prop.global !== undefined && prop.global !== '') {
-      modGlobals[key] = prop.global;
-    }
-    if (prop.value !== undefined) {
-      result[key] = prop.value;
+  if (node.props) {
+    for (const [key, prop] of Object.entries(node.props)) {
+      if (prop.toggle !== undefined) {
+        toggles[key] = prop.toggle;
+      }
+      if (prop.formula !== undefined && prop.formula !== '') {
+        formulas[key] = prop.formula;
+      }
+      if (prop.global !== undefined && prop.global !== '') {
+        modGlobals[key] = prop.global;
+      }
+      if (prop.value !== undefined) {
+        result[key] = prop.value;
+      }
     }
   }
 
@@ -46,14 +49,17 @@ export function serializeModule(node: Node, isRoot = false, globals?: Record<str
     result.internal_flows = node.flows;
   }
 
-  // If root and globals present
-  if (isRoot && globals && Object.keys(globals).length > 0) {
-    result.globals_list = globals;
+  // If root and globals present, or if child node has globals (e.g. KomponentModule)
+  const effectiveGlobals = isRoot && globals ? globals : node.globals;
+  if (effectiveGlobals && Object.keys(effectiveGlobals).length > 0) {
+    result.globals_list = effectiveGlobals;
   }
 
   // Extras
-  for (const [k, v] of Object.entries(node.extras)) {
-    result[k] = v;
+  if (node.extras) {
+    for (const [k, v] of Object.entries(node.extras)) {
+      result[k] = v;
+    }
   }
 
   // Children
@@ -63,15 +69,16 @@ export function serializeModule(node: Node, isRoot = false, globals?: Record<str
     );
   }
 
-  // If node has originalKeyOrder, preserve key order
-  if (node.originalKeyOrder && node.originalKeyOrder.length > 0) {
+  // If node has keyOrder or originalKeyOrder, preserve key order
+  const keyOrder = node.keyOrder || node.originalKeyOrder;
+  if (keyOrder && keyOrder.length > 0) {
     const ordered: Record<string, unknown> = {};
-    for (const key of node.originalKeyOrder) {
+    for (const key of keyOrder) {
       if (key in result) {
         ordered[key] = result[key];
       }
     }
-    // Append any keys that weren't in originalKeyOrder
+    // Append any keys that weren't in keyOrder
     for (const key of Object.keys(result)) {
       if (!(key in ordered)) {
         ordered[key] = result[key];
@@ -92,8 +99,9 @@ export function serializePresetJson(
 
   // Preserve preset_info key order if present
   let infoObj: Record<string, unknown> = { ...doc.info };
-  const origInfoOrder = (doc.info as Record<string, unknown>).originalKeyOrder as string[] | undefined;
+  const origInfoOrder = doc.info.infoKeyOrder || (doc.info as Record<string, unknown>).originalKeyOrder as string[] | undefined;
   delete infoObj.originalKeyOrder;
+  delete infoObj.infoKeyOrder;
 
   if (origInfoOrder && origInfoOrder.length > 0) {
     const orderedInfo: Record<string, unknown> = {};
@@ -129,5 +137,5 @@ export function serializePresetJsonString(
   doc: { info: PresetInfo; root: Node; globals?: Record<string, GlobalDef>; extras?: Record<string, unknown>; kind?: string }
 ): string {
   const obj = serializePresetJson(doc);
-  return JSON.stringify(obj, null, 2);
+  return stringifyWithLex(obj, 2);
 }

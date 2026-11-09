@@ -5,6 +5,9 @@ import type { SimState } from '../../core/formula/types.ts';
 import type { ValidationReport } from '../../core/validate/types.ts';
 import { defaultSimState } from '../../core/formula/sim/sim-state.ts';
 import { validateDoc } from '../../core/validate/validator.ts';
+import { setProp, addChild, removeNode, findNodeById } from '../../core/model/edit.ts';
+
+export { findNodeById };
 
 export function createDefaultDoc(): Doc {
   const bg: Node = {
@@ -139,19 +142,27 @@ export function toggleOrientation() {
   };
 }
 
-// History
+// History stack capped at 200 entries, storing immutable Doc references
 const undoStack = signal<Doc[]>([]);
 const redoStack = signal<Doc[]>([]);
 
+export function commit(next: Doc, _label = 'Edit') {
+  if (!currentDoc.value) return;
+  undoStack.value = [...undoStack.value.slice(-199), currentDoc.value];
+  redoStack.value = [];
+  currentDoc.value = next;
+  validateCurrent();
+}
+
 export function pushHistory(doc: Doc) {
-  undoStack.value = [...undoStack.value, JSON.parse(JSON.stringify(doc))];
+  undoStack.value = [...undoStack.value.slice(-199), doc];
   redoStack.value = [];
 }
 
 export function undo() {
   if (undoStack.value.length === 0 || !currentDoc.value) return;
   const prev = undoStack.value[undoStack.value.length - 1];
-  redoStack.value = [...redoStack.value, JSON.parse(JSON.stringify(currentDoc.value))];
+  redoStack.value = [...redoStack.value, currentDoc.value];
   undoStack.value = undoStack.value.slice(0, -1);
   currentDoc.value = prev;
   validateCurrent();
@@ -160,7 +171,7 @@ export function undo() {
 export function redo() {
   if (redoStack.value.length === 0 || !currentDoc.value) return;
   const next = redoStack.value[redoStack.value.length - 1];
-  undoStack.value = [...undoStack.value, JSON.parse(JSON.stringify(currentDoc.value))];
+  undoStack.value = [...undoStack.value, currentDoc.value];
   redoStack.value = redoStack.value.slice(0, -1);
   currentDoc.value = next;
   validateCurrent();
@@ -193,71 +204,22 @@ export function setDoc(doc: Doc) {
   validateCurrent();
 }
 
-export function findNodeById(root: Node, id: string): Node | null {
-  if (root.id === id) return root;
-  if (root.children) {
-    for (const child of root.children) {
-      const found = findNodeById(child, id);
-      if (found) return found;
-    }
-  }
-  return null;
-}
-
 export function updateNodeProp(nodeId: string, key: string, patch: Partial<Prop>) {
   if (!currentDoc.value) return;
-  pushHistory(currentDoc.value);
-
-  const docCopy = JSON.parse(JSON.stringify(currentDoc.value)) as Doc;
-  const target = findNodeById(docCopy.root, nodeId);
-  if (!target) return;
-
-  target.props[key] = {
-    ...(target.props[key] || {}),
-    ...patch,
-  };
-
-  currentDoc.value = docCopy;
-  validateCurrent();
+  const next = setProp(currentDoc.value, nodeId, key, patch);
+  commit(next, `Update ${key}`);
 }
 
 export function addNode(parent: Node, newNode: Node) {
   if (!currentDoc.value) return;
-  pushHistory(currentDoc.value);
-
-  const docCopy = JSON.parse(JSON.stringify(currentDoc.value)) as Doc;
-  const p = findNodeById(docCopy.root, parent.id);
-  if (!p) return;
-
-  if (!p.children) p.children = [];
-  p.children.push(newNode);
-
-  currentDoc.value = docCopy;
+  const next = addChild(currentDoc.value, parent.id, newNode);
+  commit(next, `Add ${newNode.title}`);
   selectedNodeId.value = newNode.id;
-  validateCurrent();
 }
 
 export function deleteNode(nodeId: string) {
   if (!currentDoc.value || nodeId === currentDoc.value.root.id) return;
-  pushHistory(currentDoc.value);
-
-  const docCopy = JSON.parse(JSON.stringify(currentDoc.value)) as Doc;
-
-  const removeRecursive = (parent: Node): boolean => {
-    if (!parent.children) return false;
-    const idx = parent.children.findIndex((c) => c.id === nodeId);
-    if (idx >= 0) {
-      parent.children.splice(idx, 1);
-      return true;
-    }
-    for (const child of parent.children) {
-      if (removeRecursive(child)) return true;
-    }
-    return false;
-  };
-
-  removeRecursive(docCopy.root);
-  currentDoc.value = docCopy;
-  selectedNodeId.value = docCopy.root.id;
-  validateCurrent();
+  const next = removeNode(currentDoc.value, nodeId);
+  commit(next, `Delete node`);
+  selectedNodeId.value = currentDoc.value.root.id;
 }

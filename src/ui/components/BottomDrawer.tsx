@@ -6,11 +6,11 @@ import {
   drawerOpen,
   validationReport,
   simState,
-  pushHistory,
-  validateCurrent,
+  commit,
 } from '../state/editor-state.ts';
 import { sanitize } from '../../core/validate/fixers/index.ts';
 import { evalFormula } from '../../core/formula/index.ts';
+import { cloneDoc } from '../../core/model/edit.ts';
 
 export function BottomDrawer() {
   const isOpen = drawerOpen.value;
@@ -55,15 +55,9 @@ export function BottomDrawer() {
 
   const handleFixAll = () => {
     if (!doc) return;
-    pushHistory(doc);
-    // Clone doc and apply fixers
-    const cloned = JSON.parse(JSON.stringify(doc)) as typeof doc;
-    cloned.assets = doc.assets;
-    cloned.thumbs = doc.thumbs;
-    cloned.extras = doc.extras;
+    const cloned = cloneDoc(doc);
     sanitize(cloned);
-    currentDoc.value = cloned;
-    validateCurrent();
+    commit(cloned, 'Auto-fix all issues');
   };
 
   return (

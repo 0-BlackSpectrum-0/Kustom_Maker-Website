@@ -13,3 +13,22 @@
   - Created `tests/regress/` containing regression tests for D01, D02, D03, D07.
   - Created `docs/fix-baseline.md` documenting reproduction evidence, un-audited analysis, and environment baselines.
 - **DoD**: Green. Phase F0 complete.
+
+## [2026-11-10] Phase F1: State and Archive Integrity (D01, D11, D12 partial)
+- **Commands Run**:
+  - `cmd /c npm test` -> 18 test suites passed, 160 tests passed.
+  - `cmd /c npm run build` -> Passed (JS 190.06 kB / 55.55 kB gzip, CSS 7.90 kB / 2.03 kB gzip).
+- **What Changed**:
+  - Created `src/core/model/edit.ts`: Immutable tree updates (`mapNode`, `editNode`, `setProp`, `addChild`, `removeNode`, `moveNode`, `cloneNode`, `cloneDoc`, `findNodeById`).
+  - Created `src/core/model/json-lex.ts`: Custom JSON parser (`parseJsonWithLex`) and stringifier (`stringifyWithLex`) preserving exact numeric lexemes via `LexNumber`.
+  - Updated `src/core/model/types.ts`: Added `LexNumber`, enumerable `keyOrder`, `infoKeyOrder`, and nested `globals` on `Node`.
+  - Updated `src/core/model/parser.ts`: Parses nested `globals_list` on modules and sets enumerable key order fields.
+  - Updated `src/core/model/serializer.ts`: Serializes nested `globals_list` on modules and respects key orders.
+  - Updated `src/core/archive/writer.ts`: Deterministic zip timestamps (MS-DOS range 1980-2099) and sorted asset entries.
+  - Updated `src/ui/state/editor-state.ts`: Replaced `JSON.parse(JSON.stringify(doc))` with `commit(next, label)`, capped at 200 history states.
+  - Updated `ExportModal.tsx`: Fixed conditional hook order (D26), migrated `handleFixAll` to `cloneDoc` + `commit`.
+  - Updated `BottomDrawer.tsx`: Migrated `handleFixAll` to `cloneDoc` + `commit`.
+  - Fixed operator precedence bug in `renderer.ts` (D12).
+  - Flipped `tests/regress/d01-clone.test.ts` to standard passing assertion.
+  - Added `tests/unit/edit-and-lex.test.ts`.
+- **DoD**: Green. D01 regression flips to pass; lossless roundtrip passes across all corpus presets.
