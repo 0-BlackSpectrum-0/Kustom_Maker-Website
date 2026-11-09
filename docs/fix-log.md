@@ -32,3 +32,20 @@
   - Flipped `tests/regress/d01-clone.test.ts` to standard passing assertion.
   - Added `tests/unit/edit-and-lex.test.ts`.
 - **DoD**: Green. D01 regression flips to pass; lossless roundtrip passes across all corpus presets.
+
+## [2026-11-10] Phase F2: Spec Types and No Handwritten Enums (D02, D09, D10)
+- **Commands Run**:
+  - `node tools/gen-spec.mjs` -> Generated `src/core/spec/generated.ts`.
+  - `cmd /c npm test` -> 19 test suites passed, 161 tests passed.
+  - `cmd /c npm run build` -> Passed (JS 218.33 kB / 59.01 kB gzip, CSS 7.90 kB / 2.03 kB gzip).
+- **What Changed**:
+  - Created `tools/gen-spec.mjs` to generate `src/core/spec/generated.ts` from `spec/enums.json`, `spec/modules.json`, `spec/defaults.json`.
+  - Updated `src/core/layout/position.ts`: Replaced handwritten anchor strings with generated `AnchorMode` and `ANCHOR_GRAVITY` mapping.
+  - Updated `src/core/layout/resolver.ts`: Module-aware property defaults populated from `spec/modules.json` in `resolveAll()`.
+  - Updated `src/core/layout/measure.ts`: Integrated generated `VisibleModeValues`, `ShapeValues`, `PaintStyleValues`; implemented full `VisibleMode` evaluation.
+  - Updated `src/core/layout/types.ts`: Switched to generated `AnchorMode`.
+  - Updated `src/ui/components/Inspector.tsx`: Replaced handwritten string lists with generated `*Values` arrays.
+  - Updated `src/core/device-pack/generator.ts`: Changed root module to `RootLayerModule` and anchor to `TOPLEFT`.
+  - Added `tests/unit/no-handwritten-enums.test.ts` verifying no rogue handwritten enum literals.
+  - Flipped `tests/regress/d02-anchors.test.ts` to standard passing assertion.
+- **DoD**: Green. D02 regression passes; zero handwritten enums in layout and inspector.

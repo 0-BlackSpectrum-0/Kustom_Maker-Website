@@ -3,7 +3,7 @@ import { positionLayoutTree } from '../../src/core/layout/position.ts';
 import type { LayoutNode } from '../../src/core/layout/types.ts';
 
 describe('D02: Real anchor names without underscores', () => {
-  it.fails('positions node at top-left when anchor is TOPLEFT (without underscore)', () => {
+  it('positions node at top-left when anchor is TOPLEFT (without underscore)', () => {
     const child: LayoutNode = {
       id: 'child',
       type: 'ShapeModule',
@@ -17,6 +17,9 @@ describe('D02: Real anchor names without underscores', () => {
       children: [],
       unit: 1,
       childUnit: 1,
+      transform: { x: 0, y: 0, rot: 0, scaleX: 1, scaleY: 1 },
+      visible: true,
+      removed: false,
     };
 
     const root: LayoutNode = {
@@ -28,17 +31,19 @@ describe('D02: Real anchor names without underscores', () => {
       children: [child],
       unit: 1,
       childUnit: 1,
+      transform: { x: 0, y: 0, rot: 0, scaleX: 1, scaleY: 1 },
+      visible: true,
+      removed: false,
     };
 
     positionLayoutTree(root);
 
     // With TOPLEFT, child.box.x should be 0, child.box.y should be 0.
-    // Currently, ANCHORS uses TOP_LEFT, so TOPLEFT falls back to CENTER (x = 150, y = 150).
     expect(child.box.x).toBe(0);
     expect(child.box.y).toBe(0);
   });
 
-  it.fails('positions node at center-left when anchor is CENTERLEFT', () => {
+  it('positions node at center-left when anchor is CENTERLEFT', () => {
     const child: LayoutNode = {
       id: 'child',
       type: 'ShapeModule',
@@ -52,6 +57,9 @@ describe('D02: Real anchor names without underscores', () => {
       children: [],
       unit: 1,
       childUnit: 1,
+      transform: { x: 0, y: 0, rot: 0, scaleX: 1, scaleY: 1 },
+      visible: true,
+      removed: false,
     };
 
     const root: LayoutNode = {
@@ -63,12 +71,14 @@ describe('D02: Real anchor names without underscores', () => {
       children: [child],
       unit: 1,
       childUnit: 1,
+      transform: { x: 0, y: 0, rot: 0, scaleX: 1, scaleY: 1 },
+      visible: true,
+      removed: false,
     };
 
     positionLayoutTree(root);
 
     // With CENTERLEFT, child.box.x should be 0, child.box.y should be 150.
-    // Currently, ANCHORS uses CENTER_LEFT, so CENTERLEFT falls back to CENTER (x = 150, y = 150).
     expect(child.box.x).toBe(0);
     expect(child.box.y).toBe(150);
   });

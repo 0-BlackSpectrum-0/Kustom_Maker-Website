@@ -6,7 +6,7 @@ import { writePresetArchive } from '../archive/writer.ts';
 function createBaseDoc(title: string, kind: 'kwgt' | 'klwp' = 'kwgt'): Doc {
   const rootNode: Node = {
     id: 'root',
-    type: 'Root',
+    type: 'RootLayerModule',
     title: 'Root Layer',
     props: {
       config_scale_value: { value: 100 },
@@ -62,7 +62,7 @@ export function generateTestPresets(): Record<string, Doc> {
         shape_corners: { value: st === 'RECT' ? 12 : 0 },
         paint_color: { value: '#FFE11D48' },
         paint_style: { value: 'FILL' },
-        position_anchor: { value: 'TOP_LEFT' },
+        position_anchor: { value: 'TOPLEFT' },
         position_offset_x: { value: 40 + col * 180 },
         position_offset_y: { value: 40 + row * 110 },
       },
@@ -235,11 +235,12 @@ This test pack contains 5 focused test widgets to verify real-device compatibili
 `;
 
   const encoder = new TextEncoder();
-  zippable['README.md'] = [encoder.encode(readme), { level: 6 }];
+  const mtime = new Date('2026-05-15T00:00:00Z');
+  zippable['README.md'] = [encoder.encode(readme), { level: 6, mtime }];
 
   for (const [filename, doc] of Object.entries(presets)) {
-    const archiveBytes = writePresetArchive(doc);
-    zippable[filename] = [archiveBytes, { level: 6 }];
+    const archiveBytes = writePresetArchive(doc, { fixedTimestamp: mtime });
+    zippable[filename] = [archiveBytes, { level: 6, mtime }];
   }
 
   return zipSync(zippable);

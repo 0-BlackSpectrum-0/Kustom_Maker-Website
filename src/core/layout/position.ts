@@ -1,24 +1,32 @@
 import type { LayoutNode } from './types.ts';
-import { propEnum, propNum, propStr } from './resolver.ts';
+import { propNum, propStr } from './resolver.ts';
+import { AnchorModeValues, type AnchorMode } from '../spec/generated.ts';
 
-const ANCHORS = [
-  'TOP_LEFT',
-  'TOP',
-  'TOP_RIGHT',
-  'CENTER_LEFT',
-  'CENTER',
-  'CENTER_RIGHT',
-  'BOTTOM_LEFT',
-  'BOTTOM',
-  'BOTTOM_RIGHT',
-] as const;
+export const ANCHOR_GRAVITY: Record<AnchorMode, [number, number]> = {
+  TOPLEFT: [-1, -1],
+  TOP: [0, -1],
+  TOPRIGHT: [1, -1],
+  CENTERLEFT: [-1, 0],
+  CENTER: [0, 0],
+  CENTERRIGHT: [1, 0],
+  BOTTOMLEFT: [-1, 1],
+  BOTTOM: [0, 1],
+  BOTTOMRIGHT: [1, 1],
+};
 
-function anchorToGravity(anchor: string): [number, number] {
-  const i = ANCHORS.indexOf(anchor.toUpperCase() as any);
-  if (i < 0) return [0, 0]; // default CENTER
-  const gx = (i % 3) - 1; // -1 = left, 0 = center, 1 = right
-  const gy = Math.floor(i / 3) - 1; // -1 = top, 0 = center, 1 = bottom
-  return [gx, gy];
+const warnedAnchors = new Set<string>();
+
+export function anchorToGravity(anchor: string): [number, number] {
+  if (!anchor) return [0, 0];
+  const clean = anchor.toUpperCase().replace(/_/g, '') as AnchorMode;
+  if (clean in ANCHOR_GRAVITY) {
+    return ANCHOR_GRAVITY[clean];
+  }
+  if (!warnedAnchors.has(anchor)) {
+    warnedAnchors.add(anchor);
+    console.warn(`[KustomWeb] Unknown anchor mode: "${anchor}", falling back to CENTER`);
+  }
+  return [0, 0];
 }
 
 export function positionLayoutTree(
@@ -30,9 +38,7 @@ export function positionLayoutTree(
   const innerW = node.box.w - padL - padR;
   const innerH = node.box.h - padT - padB;
 
-  const isRoot = node.type === 'RootLayerModule';
   const isStack = node.type === 'StackLayerModule';
-
   const activeKids = node.children.filter((k) => !k.removed);
 
   if (isStack) {
@@ -68,17 +74,19 @@ export function positionLayoutTree(
 
       kid.transform.x = x;
       kid.transform.y = y;
+      kid.box.x = x;
+      kid.box.y = y;
 
       positionLayoutTree(kid, screenOffset, screens);
     }
   } else {
-    // RootLayerModule or OverlapLayerModule
+    // RootLayerModule, OverlapLayerModule, or KomponentModule
     for (const kid of activeKids) {
       const anchorStr = propStr(kid.resolvedProps, 'position_anchor', 'CENTER');
       const [gx, gy] = anchorToGravity(anchorStr);
 
-      const ox = isRoot ? Math.round(propNum(kid.resolvedProps, 'position_offset_x') * node.childUnit) : 0;
-      const oy = isRoot ? Math.round(propNum(kid.resolvedProps, 'position_offset_y') * node.childUnit) : 0;
+      const ox = Math.round(propNum(kid.resolvedProps, 'position_offset_x') * node.childUnit);
+      const oy = Math.round(propNum(kid.resolvedProps, 'position_offset_y') * node.childUnit);
 
       let x = 0;
       if (gx < 0) x = padL + ox;
@@ -92,6 +100,8 @@ export function positionLayoutTree(
 
       kid.transform.x = x;
       kid.transform.y = y;
+      kid.box.x = x;
+      kid.box.y = y;
 
       positionLayoutTree(kid, screenOffset, screens);
     }

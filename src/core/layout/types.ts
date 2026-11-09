@@ -1,4 +1,5 @@
 import type { Node, Prop } from '../model/types.ts';
+import type { AnchorMode } from '../spec/generated.ts';
 
 export interface CanvasTarget {
   kind: 'widget' | 'phone';
@@ -8,21 +9,14 @@ export interface CanvasTarget {
   offset?: number;
 }
 
-export type AnchorType =
-  | 'TOP_LEFT'
-  | 'TOP'
-  | 'TOP_RIGHT'
-  | 'CENTER_LEFT'
-  | 'CENTER'
-  | 'CENTER_RIGHT'
-  | 'BOTTOM_LEFT'
-  | 'BOTTOM'
-  | 'BOTTOM_RIGHT';
+export type AnchorType = AnchorMode;
 
 export interface Box {
   w: number;
   h: number;
   pad: [number, number, number, number]; // left, top, right, bottom
+  x?: number;
+  y?: number;
 }
 
 export interface Transform {

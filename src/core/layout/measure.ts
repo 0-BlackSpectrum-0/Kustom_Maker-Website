@@ -3,19 +3,7 @@ import type { FormulaContext } from '../formula/types.ts';
 import type { Box, LayoutNode } from './types.ts';
 import { PropertyResolver, propEnum, propNum, propStr } from './resolver.ts';
 import { calculateRotation, rotatedBoundingBox } from './rotation.ts';
-
-const SHAPES = [
-  'RECT',
-  'CIRCLE',
-  'SQUARE',
-  'OVAL',
-  'TRIANGLE',
-  'RTRIANGLE',
-  'EXAGON',
-  'SLICE',
-  'ARC',
-  'PATH',
-] as const;
+import { VisibleModeValues, ShapeValues, PaintStyleValues } from '../spec/generated.ts';
 
 export function stripBBCode(s: string): string {
   return s.replace(/\[\/?(b|i|u|s|up|dn|c|bl|bc|f|r|size|fa|mi|img|ic)(=[^\]]*)?\]/gi, '');
@@ -55,14 +43,26 @@ export function measureNode(
   const unit = parentUnit;
   const childUnit = unit * Math.max(0.01, scalePct / 100);
 
-  // Visibility
+  // Visibility (D09: spec-driven VisibleMode)
   const vis = propEnum(
     resolved,
     'config_visible',
-    ['ALWAYS', 'REMOVE', 'IF_NOT_LOCKED', 'IF_PORTRAIT', 'NEVER'] as const,
+    VisibleModeValues,
     'ALWAYS',
   );
-  const removed = vis === 'REMOVE' || vis === 'NEVER';
+
+  let removed = false;
+  if (vis === 'REMOVE' || vis === 'NEVER') {
+    removed = true;
+  } else if (vis === 'IF_LOCKED') {
+    removed = !ctx.sim?.screen?.locked;
+  } else if (vis === 'IF_NOT_LOCKED') {
+    removed = !!ctx.sim?.screen?.locked;
+  } else if (vis === 'IF_LANDSCAPE') {
+    removed = !ctx.sim?.screen?.land;
+  } else if (vis === 'IF_PORTRAIT') {
+    removed = !!ctx.sim?.screen?.land;
+  }
   const visible = !removed;
 
   // Padding
@@ -124,7 +124,7 @@ export function measureNode(
     boxW = maxW + padL + padR;
     boxH = maxH + padT + padB;
   } else if (type === 'ShapeModule') {
-    const shape = propEnum(resolved, 'shape_type', SHAPES, 'RECT');
+    const shape = propEnum(resolved, 'shape_type', ShapeValues, 'RECT');
     let w = propNum(resolved, 'shape_width', 100) * unit;
     const symmetric =
       shape === 'CIRCLE' ||
@@ -139,7 +139,7 @@ export function measureNode(
       h = arc.h;
     }
 
-    const strokeStyle = propEnum(resolved, 'paint_style', ['FILL', 'STROKE'] as const, 'FILL');
+    const strokeStyle = propEnum(resolved, 'paint_style', PaintStyleValues, 'FILL');
     const strokeWidth = strokeStyle === 'STROKE' ? propNum(resolved, 'paint_stroke', 5) * unit : 0;
 
     const rInfo = calculateRotation(
@@ -220,7 +220,7 @@ export function measureNode(
     type: node.type,
     title: node.title,
     node,
-    box: { w: Math.round(boxW), h: Math.round(boxH), pad: userPad },
+    box: { w: Math.round(boxW), h: Math.round(boxH), pad: userPad, x: 0, y: 0 },
     transform: { x: 0, y: 0, rot, scaleX: flipX ? -1 : 1, scaleY: flipY ? -1 : 1 },
     resolvedProps: resolved,
     unit,
