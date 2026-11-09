@@ -3,7 +3,7 @@ import { CanvasPainter } from '../../src/core/render/painter.ts';
 import type { LayoutNode } from '../../src/core/layout/types.ts';
 
 describe('D07: Blend modes and clipping masks isolation', () => {
-  it.fails('does not wipe the outer canvas when a child inside an overlap layer uses CLEAR blend mode', () => {
+  it('does not wipe the outer canvas when a child inside an overlap layer uses CLEAR blend mode', () => {
     // In Canvas 2D without an isolated group layer, painting CLEAR (destination-out)
     // directly on the shared context clears whatever was previously rendered underneath the entire group.
     let globalCompOpUsedOnRoot = '';
@@ -21,6 +21,7 @@ describe('D07: Blend modes and clipping masks isolation', () => {
       measureText: () => ({ width: 50 }),
       fillText: () => {},
       strokeText: () => {},
+      drawImage: () => {},
       get globalCompositeOperation() {
         return globalCompOpUsedOnRoot;
       },

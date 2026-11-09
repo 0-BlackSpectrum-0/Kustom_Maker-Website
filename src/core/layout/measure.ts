@@ -219,10 +219,45 @@ export function measureNode(
     const [rw, rh] = rotatedBoundingBox(w, h, rot);
     boxW = rw + padL + padR;
     boxH = rh + padT + padB;
-  } else if (type === 'ProgressModule' || type === 'CurvedTextModule') {
-    const size = propNum(resolved, 'progress_size', 100) * unit || 100 * unit;
-    boxW = size + padL + padR;
-    boxH = size + padT + padB;
+  } else if (type === 'ProgressModule') {
+    const style = propStr(resolved, 'progress_style', 'LINEAR').toUpperCase();
+    const rotInfo = calculateRotation(
+      propStr(resolved, 'progress_rotate_mode', 'NONE'),
+      propNum(resolved, 'progress_rotate_offset', 0),
+      ctx.sim.now,
+    );
+    rot = rotInfo.rot;
+    flipX = rotInfo.flipX;
+    flipY = rotInfo.flipY;
+
+    let pw = 0;
+    let ph = 0;
+    if (style === 'CIRCLE') {
+      const size = propNum(resolved, 'progress_size', propNum(resolved, 'style_size', 100)) * unit;
+      pw = size;
+      ph = size;
+    } else {
+      pw = propNum(resolved, 'progress_width', propNum(resolved, 'style_width', 200)) * unit;
+      ph = propNum(resolved, 'progress_height', propNum(resolved, 'style_height', 20)) * unit;
+    }
+
+    const [rw, rh] = rotatedBoundingBox(pw, ph, rot);
+    boxW = rw + padL + padR;
+    boxH = rh + padT + padB;
+  } else if (type === 'CurvedTextModule') {
+    const rotInfo = calculateRotation(
+      propStr(resolved, 'curved_rotate_mode', 'NONE'),
+      propNum(resolved, 'curved_rotate_offset', 0),
+      ctx.sim.now,
+    );
+    rot = rotInfo.rot;
+    flipX = rotInfo.flipX;
+    flipY = rotInfo.flipY;
+
+    const r = propNum(resolved, 'curved_radius', propNum(resolved, 'text_width', 100)) * unit;
+    const [rw, rh] = rotatedBoundingBox(r * 2, r * 2, rot);
+    boxW = rw + padL + padR;
+    boxH = rh + padT + padB;
   } else {
     // Default fallback
     boxW = padL + padR;

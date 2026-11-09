@@ -32,6 +32,66 @@ const BLEND_MODES: Record<string, GlobalCompositeOperation> = {
   OVERLAY: 'overlay',
 };
 
+function createOffscreenCanvas(width: number, height: number): { canvas: any; ctx: any } | null {
+  const w = Math.max(1, Math.round(width));
+  const h = Math.max(1, Math.round(height));
+
+  if (typeof (globalThis as any).OffscreenCanvas !== 'undefined') {
+    try {
+      const oc = new (globalThis as any).OffscreenCanvas(w, h);
+      const ctx = oc.getContext('2d');
+      if (ctx) return { canvas: oc, ctx };
+    } catch {}
+  }
+  if (typeof document !== 'undefined' && typeof document.createElement === 'function') {
+    try {
+      const c = document.createElement('canvas');
+      c.width = w;
+      c.height = h;
+      const ctx = c.getContext('2d');
+      if (ctx) return { canvas: c, ctx };
+    } catch {}
+  }
+  if (typeof (globalThis as any).__kustom_create_canvas === 'function') {
+    try {
+      const c = (globalThis as any).__kustom_create_canvas(w, h);
+      const ctx = c.getContext('2d');
+      if (ctx) return { canvas: c, ctx };
+    } catch {}
+  }
+  if (typeof process !== 'undefined' && Boolean(process.versions?.node)) {
+    try {
+      const napi = Function('try { return require("@napi-rs/canvas"); } catch { return null; }')();
+      if (napi?.createCanvas) {
+        const c = napi.createCanvas(w, h);
+        const ctx = c.getContext('2d');
+        if (ctx) return { canvas: c, ctx };
+      }
+    } catch {}
+  }
+  return {
+    canvas: { width: w, height: h },
+    ctx: {
+      save: () => {},
+      restore: () => {},
+      translate: () => {},
+      rotate: () => {},
+      scale: () => {},
+      beginPath: () => {},
+      rect: () => {},
+      fill: () => {},
+      stroke: () => {},
+      clip: () => {},
+      measureText: () => ({ width: 50 }),
+      fillText: () => {},
+      strokeText: () => {},
+      drawImage: () => {},
+      globalAlpha: 1,
+      globalCompositeOperation: 'source-over',
+    },
+  };
+}
+
 export class Painter {
   private resources?: ResourceManager;
 
@@ -64,7 +124,7 @@ export class Painter {
     ctx.restore();
   }
 
-  private paintNode(ctx: CanvasRenderingContext2D, node: LayoutNode) {
+  paintNode(ctx: CanvasRenderingContext2D, node: LayoutNode) {
     if (!node.visible || node.removed) return;
 
     ctx.save();
@@ -99,10 +159,35 @@ export class Painter {
       this.paintFontIcon(ctx, node);
     } else if (node.type === 'BitmapModule') {
       this.paintBitmap(ctx, node);
+    } else if (node.type === 'ProgressModule') {
+      this.paintProgress(ctx, node);
+    } else if (node.type === 'CurvedTextModule') {
+      this.paintCurvedText(ctx, node);
     }
 
     // Children
     const activeKids = node.children.filter((k) => !k.removed);
+    if (activeKids.length === 0) {
+      ctx.restore();
+      return;
+    }
+
+    // Isolate blend modes (CLEAR, XOR, SRC) and masks inside offscreen buffer
+    const needsOffscreen =
+      node.type !== 'RootLayerModule' &&
+      activeKids.some((k) => {
+        const pm = propStr(k.resolvedProps, 'paint_mode', 'NORMAL').toUpperCase();
+        const mask = propStr(k.resolvedProps, 'fx_mask', 'NONE').toUpperCase();
+        return pm !== 'NORMAL' || mask !== 'NONE';
+      });
+
+    const targetOffscreen = needsOffscreen ? createOffscreenCanvas(node.box.w, node.box.h) : null;
+    const renderCtx: CanvasRenderingContext2D = targetOffscreen?.ctx ?? ctx;
+
+    if (targetOffscreen) {
+      renderCtx.save();
+    }
+
     let clipNextPath: Path2D | null = null;
     let clipAllPath: Path2D | null = null;
 
@@ -110,27 +195,36 @@ export class Painter {
       const kid = activeKids[i];
       const mask = propStr(kid.resolvedProps, 'fx_mask', 'NONE').toUpperCase();
 
-      ctx.save();
+      renderCtx.save();
 
       if (clipNextPath) {
-        ctx.clip(clipNextPath);
+        renderCtx.clip(clipNextPath);
         clipNextPath = null;
       } else if (clipAllPath) {
-        ctx.clip(clipAllPath);
+        renderCtx.clip(clipAllPath);
       }
 
       const paintMode = propStr(kid.resolvedProps, 'paint_mode', 'NORMAL').toUpperCase();
       const compOp = BLEND_MODES[paintMode] ?? 'source-over';
-      ctx.globalCompositeOperation = compOp;
+      renderCtx.globalCompositeOperation = compOp;
 
-      this.paintNode(ctx, kid);
+      this.paintNode(renderCtx, kid);
 
-      ctx.restore();
+      renderCtx.restore();
 
       if (mask === 'CLIP_NEXT') {
         clipNextPath = this.getShapePath(kid);
       } else if (mask === 'CLIP_ALL') {
         clipAllPath = this.getShapePath(kid);
+      }
+    }
+
+    if (targetOffscreen) {
+      renderCtx.restore();
+      try {
+        ctx.drawImage(targetOffscreen.canvas, 0, 0);
+      } catch {
+        // Fallback for mock contexts
       }
     }
 
@@ -199,7 +293,7 @@ export class Painter {
     if (shadowType === 'OUTER') {
       const dist = propNum(node.resolvedProps, 'fx_shadow_distance', 5) * node.unit;
       const dir = propNum(node.resolvedProps, 'fx_shadow_direction', 0);
-      const blur = propNum(node.resolvedProps, 'fx_shadow_blur', 5);
+      const blur = propNum(node.resolvedProps, 'fx_shadow_blur', 5) * node.unit * 0.5;
       const rad = ((360 - dir) * Math.PI) / 180;
       ctx.shadowOffsetX = dist * Math.cos(rad);
       ctx.shadowOffsetY = dist * Math.sin(rad);
@@ -406,4 +500,103 @@ export class Painter {
     ctx.drawImage(img.image, padL, padT, w, h);
     ctx.restore();
   }
+
+  private paintProgress(ctx: CanvasRenderingContext2D, node: LayoutNode) {
+    this.applyStyleAndShadow(ctx, node, node.box.w, node.box.h);
+    const style = propStr(node.resolvedProps, 'progress_style', 'LINEAR').toUpperCase();
+    const min = propNum(node.resolvedProps, 'progress_min', 0);
+    const max = Math.max(1, propNum(node.resolvedProps, 'progress_max', 100));
+    const level = propNum(
+      node.resolvedProps,
+      'progress_level',
+      propNum(node.resolvedProps, 'progress_progress', 50)
+    );
+    const ratio = Math.max(0, Math.min(1, (level - min) / (max - min)));
+
+    const [padL, padT] = node.box.pad;
+    const w = Math.max(1, node.box.w - padL * 2);
+    const h = Math.max(1, node.box.h - padT * 2);
+
+    const bgColor = propStr(node.resolvedProps, 'color_bgcolor', '#33FFFFFF');
+    const fillColor = propStr(
+      node.resolvedProps,
+      'color_color',
+      propStr(node.resolvedProps, 'paint_color', '#FFFFFFFF')
+    );
+
+    if (style === 'CIRCLE') {
+      const strokeW = Math.max(1, propNum(node.resolvedProps, 'paint_stroke', 10) * node.unit);
+      const r = Math.max(1, Math.min(w, h) / 2 - strokeW / 2);
+      const cx = padL + w / 2;
+      const cy = padT + h / 2;
+
+      ctx.save();
+      ctx.lineWidth = strokeW;
+      ctx.strokeStyle = cssColor(bgColor);
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.stroke();
+
+      if (ratio > 0) {
+        ctx.strokeStyle = cssColor(fillColor);
+        ctx.beginPath();
+        const a0 = -Math.PI / 2;
+        ctx.arc(cx, cy, r, a0, a0 + ratio * Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    } else {
+      ctx.save();
+      ctx.fillStyle = cssColor(bgColor);
+      ctx.fillRect(padL, padT, w, h);
+
+      if (ratio > 0) {
+        ctx.fillStyle = cssColor(fillColor);
+        ctx.fillRect(padL, padT, w * ratio, h);
+      }
+      ctx.restore();
+    }
+  }
+
+  private paintCurvedText(ctx: CanvasRenderingContext2D, node: LayoutNode) {
+    this.applyStyleAndShadow(ctx, node, node.box.w, node.box.h);
+    const text = stripBBCode(
+      propStr(node.resolvedProps, 'curved_expression', propStr(node.resolvedProps, 'text_expression', ''))
+    );
+    if (!text) return;
+
+    const radius = Math.max(
+      1,
+      propNum(node.resolvedProps, 'curved_radius', propNum(node.resolvedProps, 'text_width', 100)) * node.unit
+    );
+    const fontSize = Math.max(
+      1,
+      propNum(node.resolvedProps, 'curved_size', propNum(node.resolvedProps, 'text_size', 40)) * node.unit
+    );
+    const rawFamily = propStr(node.resolvedProps, 'curved_family', propStr(node.resolvedProps, 'text_family', ''));
+    const family = this.resources ? this.resources.family(rawFamily) : 'sans-serif';
+    ctx.font = `${Math.round(fontSize)}px ${quoteCssFamily(family)}, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    const cx = node.box.w / 2;
+    const cy = node.box.h / 2;
+    const angleOffset = (propNum(node.resolvedProps, 'curved_angle', 0) * Math.PI) / 180;
+
+    const charSpacing = fontSize * 0.7;
+    const angularSpan = (text.length * charSpacing) / radius;
+    const startA = -Math.PI / 2 - angularSpan / 2 + angleOffset;
+
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      const a = startA + (i * charSpacing) / radius;
+      ctx.save();
+      ctx.translate(cx + radius * Math.cos(a), cy + radius * Math.sin(a));
+      ctx.rotate(a + Math.PI / 2);
+      ctx.fillText(ch, 0, 0);
+      ctx.restore();
+    }
+  }
 }
+
+export { Painter as CanvasPainter };

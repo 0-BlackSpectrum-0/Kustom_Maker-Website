@@ -100,3 +100,23 @@
     - `tests/regress/d04-text-measure.test.ts`
     - `tests/regress/d05-positioning.test.ts`
 - **DoD**: Green. D04 and D05 regression tests pass; text measurement reflects real font metrics and wrapping modes.
+
+## [2026-11-10] Phase F5: Painter Semantics - Blend Modes, Offscreen Isolation, Progress & Curved Text (D06, D07, D08)
+- **Commands Run**:
+  - `cmd /c npx vitest run tests/regress/d07-blend-mask.test.ts` -> Passed.
+  - `cmd /c npx vitest run tests/unit/no-handwritten-enums.test.ts` -> Passed.
+  - `cmd /c npm test` -> 21 test suites passed, 167 tests passed.
+  - `cmd /c npm run build` -> Passed (JS 232.24 kB / 62.86 kB gzip, CSS 7.90 kB / 2.03 kB gzip).
+  - `node tools/check-size.mjs` -> Passed (JS 61.38 KB gzip <= 120 KB gzip, CSS 1.98 KB gzip <= 15 KB gzip).
+- **What Changed**:
+  - Updated `src/core/render/painter.ts`:
+    - Added offscreen canvas isolation buffer for groups (`OverlapLayerModule`, `StackLayerModule`, `KomponentModule`) containing children with non-NORMAL blend modes (`CLEAR`, `XOR`, `SRC`) or clipping masks (`CLIP_NEXT`, `CLIP_ALL`), preventing destructive blend modes from wiping the outer stage canvas.
+    - Implemented `paintProgress`: linear bars and circular arc progress sweeps with background track and progress fill.
+    - Implemented `paintCurvedText`: circular arc character placement and rotation along radius.
+    - Exported `CanvasPainter` alias for testing and consumer flexibility.
+  - Updated `src/core/layout/measure.ts`:
+    - Added real dimension measurement for `ProgressModule` (linear width x height or circular diameter) and `CurvedTextModule` (diameter from radius).
+    - Preserved zero handwritten enum rule by aligning progress style checking with spec enum `ProgressStyleValues` (`CIRCLE`, `LINEAR`).
+  - Flipped `tests/regress/d07-blend-mask.test.ts` to standard passing assertions.
+- **DoD**: Green. D06, D07, and D08 painter semantics implemented and isolated offscreen; all regression and unit test suites green.
+
