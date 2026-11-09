@@ -4,30 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KustomWeb — Browser-Based KLWP / KWGT Editor</title>
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#18181b" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFD71921'><rect width='24' height='24' rx='5'/><path d='M7 6h3v5l4-5h4l-5 6 5 6h-4l-4-5v5H7V6z' fill='white'/></svg>" />
-    <link rel="stylesheet" href="/src/ui/styles/editor.css" />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="theme-color" content="#121214" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E53935'><rect width='24' height='24' rx='5'/><path d='M7 6h3v5l4-5h4l-5 6 5 6h-4l-4-5v5H7V6z' fill='white'/></svg>" />
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-      // Clean up any stale service workers or caches from localhost development
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for (var reg of registrations) {
-            reg.unregister();
-          }
-        });
-      }
-      if ('caches' in window) {
-        caches.keys().then(function(names) {
-          for (var name of names) {
-            caches.delete(name);
-          }
-        });
-      }
-    </script>
   </body>
 </html>

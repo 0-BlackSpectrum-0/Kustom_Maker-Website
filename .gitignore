@@ -4,9 +4,20 @@ node_modules/
 
 # Build
 dist/
-reports/
 scratch/
 .work/
+
+# Reports (keep json summaries, ignore images)
+reports/*.png
+reports/*.jpg
+reports/*.jpeg
+reports/*.avif
+reports/*.webp
+
+# Samples extras
+samples/_src/
+samples/extra/
+samples/iconpacks/
 
 # References & Decompiled (read-only reference, never shipped)
 reference/

@@ -3,7 +3,12 @@
 export type PresetKind = 'klwp' | 'kwgt' | 'komp';
 
 export class LexNumber {
-  constructor(public readonly v: number, public readonly raw: string) {}
+  public readonly v: number;
+  public readonly raw: string;
+  constructor(v: number, raw: string) {
+    this.v = v;
+    this.raw = raw;
+  }
   valueOf(): number {
     return this.v;
   }

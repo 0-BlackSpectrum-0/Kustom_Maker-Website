@@ -1,0 +1,554 @@
+{
+  "Clean_Time_Date_Info_light": {
+    "alphaIoU": 0.9863,
+    "size": [
+      829,
+      372
+    ],
+    "variant": "light"
+  },
+  "Clean_Time_Date_Info_dark": {
+    "alphaIoU": 0.9863,
+    "size": [
+      829,
+      372
+    ],
+    "variant": "dark"
+  },
+  "Interstellar_Analog_light": {
+    "alphaIoU": 0.3363,
+    "size": [
+      1080,
+      1333
+    ],
+    "variant": "light"
+  },
+  "Interstellar_Analog_Khaki_Field_Murph_Auto_light": {
+    "alphaIoU": 0.1016,
+    "size": [
+      528,
+      855
+    ],
+    "variant": "light"
+  },
+  "Interstellar_Endurance_light": {
+    "alphaIoU": 0.2235,
+    "size": [
+      916,
+      1169
+    ],
+    "variant": "light"
+  },
+  "Interstellar_Endurance_dark": {
+    "alphaIoU": 0.2321,
+    "size": [
+      415,
+      529
+    ],
+    "variant": "dark"
+  },
+  "Interstellar_Endurance_Analog_light": {
+    "alphaIoU": 0.2267,
+    "size": [
+      916,
+      1169
+    ],
+    "variant": "light"
+  },
+  "Interstellar_Endurance_Analog_dark": {
+    "alphaIoU": 0.2358,
+    "size": [
+      415,
+      529
+    ],
+    "variant": "dark"
+  },
+  "Interstellar_Endurance_Analog_2_light": {
+    "alphaIoU": 0.2162,
+    "size": [
+      895,
+      1169
+    ],
+    "variant": "light"
+  },
+  "iOS_Battery_Widget_light": {
+    "alphaIoU": 0.7268,
+    "size": [
+      416,
+      542
+    ],
+    "variant": "light"
+  },
+  "Material3_Expanded_Media_Player_light": {
+    "alphaIoU": 0.9779,
+    "size": [
+      918,
+      542
+    ],
+    "variant": "light"
+  },
+  "Material3_Media_Player_Output_light": {
+    "alphaIoU": 0.978,
+    "size": [
+      916,
+      542
+    ],
+    "variant": "light"
+  },
+  "material_notification_widget_light": {
+    "alphaIoU": 0.9891,
+    "size": [
+      916,
+      226
+    ],
+    "variant": "light"
+  },
+  "material_notification_widget_dark": {
+    "alphaIoU": 0.9891,
+    "size": [
+      916,
+      226
+    ],
+    "variant": "dark"
+  },
+  "material_notification_widget_empty": {
+    "alphaIoU": 0.9891,
+    "size": [
+      916,
+      226
+    ],
+    "variant": "empty"
+  },
+  "Minimal_Media_Player_light": {
+    "alphaIoU": 0.9836,
+    "size": [
+      918,
+      228
+    ],
+    "variant": "light"
+  },
+  "Minimal_Media_Player_2_light": {
+    "alphaIoU": 0.9836,
+    "size": [
+      918,
+      228
+    ],
+    "variant": "light"
+  },
+  "Minimal_Media_Player_3_light": {
+    "alphaIoU": 0.9786,
+    "size": [
+      918,
+      228
+    ],
+    "variant": "light"
+  },
+  "Mini_Media_Player_light": {
+    "alphaIoU": 0.7938,
+    "size": [
+      667,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Analog__light": {
+    "alphaIoU": 0.6053,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Analog__dark": {
+    "alphaIoU": 0.6053,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Analog_2_light": {
+    "alphaIoU": 0.6053,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Analog_2_dark": {
+    "alphaIoU": 0.6053,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Analog_3_light": {
+    "alphaIoU": 0.6053,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Analog_3_dark": {
+    "alphaIoU": 0.6053,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Analog_5_light": {
+    "alphaIoU": 0.6412,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Analog_5_dark": {
+    "alphaIoU": 0.6412,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Analog_5_Transparent_light": {
+    "alphaIoU": 0.0554,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Analog_5_Transparent_dark": {
+    "alphaIoU": 0.0555,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Battery_light": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Battery2_light": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Battery2_dark": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Battery_Mini_light": {
+    "alphaIoU": 0.8877,
+    "size": [
+      415,
+      226
+    ],
+    "variant": "light"
+  },
+  "Nothing_Battery_Mini_dark": {
+    "alphaIoU": 0.8877,
+    "size": [
+      415,
+      226
+    ],
+    "variant": "dark"
+  },
+  "Nothing_CPU_light": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_CPU_dark": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Date_Time_light": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Date_Time_dark": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Date_Time2_light": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Date_Time2_dark": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Date_Time3_light": {
+    "alphaIoU": 0.0869,
+    "size": [
+      916,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Date_Time3_dark": {
+    "alphaIoU": 0.0831,
+    "size": [
+      916,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Digital_light": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Digital_dark": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Digital2_light": {
+    "alphaIoU": 0.7379,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Digital2_dark": {
+    "alphaIoU": 0.7379,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Digital3_light": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Digital3_dark": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Digital4_light": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Digital4_dark": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Digital_Clock_light": {
+    "alphaIoU": 0.6053,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Digital_Clock_dark": {
+    "alphaIoU": 0.6053,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Future_Clock_light": {
+    "alphaIoU": 0.6535,
+    "size": [
+      916,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Future_Clock_dark": {
+    "alphaIoU": 0.6535,
+    "size": [
+      916,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Master_Widget_light": {
+    "alphaIoU": 0.4902,
+    "size": [
+      916,
+      1169
+    ],
+    "variant": "light"
+  },
+  "Nothing_Master_Widget_dark": {
+    "alphaIoU": 0.4902,
+    "size": [
+      916,
+      1169
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Media_Player_light": {
+    "alphaIoU": 0.5712,
+    "size": [
+      916,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Media_Player_dark": {
+    "alphaIoU": 0.5712,
+    "size": [
+      916,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Media_Player2_light": {
+    "alphaIoU": 0.8026,
+    "size": [
+      916,
+      226
+    ],
+    "variant": "light"
+  },
+  "Nothing_Media_Player2_dark": {
+    "alphaIoU": 0.8026,
+    "size": [
+      916,
+      226
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Media_Player3_light": {
+    "alphaIoU": 0.7417,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Media_Player3_dark": {
+    "alphaIoU": 0.7417,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Mini_Calender_light": {
+    "alphaIoU": 0.2411,
+    "size": [
+      916,
+      226
+    ],
+    "variant": "light"
+  },
+  "Nothing_Mini_Calender_dark": {
+    "alphaIoU": 0.2407,
+    "size": [
+      916,
+      226
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Sun_Info_light": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Sun_Info_dark": {
+    "alphaIoU": 0.7421,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Nothing_Temp_light": {
+    "alphaIoU": 0.6053,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "light"
+  },
+  "Nothing_Temp_dark": {
+    "alphaIoU": 0.6053,
+    "size": [
+      415,
+      542
+    ],
+    "variant": "dark"
+  },
+  "Universal_Media_Player_light": {
+    "alphaIoU": 0.7072,
+    "size": [
+      918,
+      542
+    ],
+    "variant": "light"
+  }
+}

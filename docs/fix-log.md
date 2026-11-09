@@ -139,4 +139,20 @@
   - Added unit test suite `tests/unit/ui-shell.test.ts`.
 - **DoD**: Green. Official Kustom look-and-feel established; all 22 test suites passing cleanly; JS size 65.14 KB gzip (well under 120 KB budget).
 
+## [2026-11-10] Phase F9 & F10: Corpus Verification Gate & Repo Hygiene
+- **Commands Run**:
+  - `node tools/verify/verify.mjs --struct` -> Passed (L1/L2: 46 passed, 0 failed. L3: 46 passed, 0 failed).
+  - `node tools/verify/verify.mjs --export` -> Passed.
+  - `cmd /c npm test` -> 22 test suites passed, 170 tests passed.
+  - `cmd /c npm run build` -> Passed.
+  - `node tools/check-size.mjs` -> Passed (JS 65.14 KB gzip, CSS 3.56 KB gzip).
+- **What Changed**:
+  - Updated `src/core/model/types.ts`: explicitly declared `public readonly v: number;` and `public readonly raw: string;` on `LexNumber` constructor to eliminate Node v26 strip-only TypeScript syntax incompatibility.
+  - Fixed `index.html`: removed redundant `<link rel="stylesheet">` (handled by Vite CSS chunk) and made manifest link relative (`./manifest.json`).
+  - Updated `src/main.tsx`: added global `ErrorBoundary` component with clean error dialog and reload trigger.
+  - Updated `.gitignore`: removed `reports/` exclusion so `reports/summary.json` is tracked while ignoring screenshot images; added `samples/_src/`, `samples/extra/`, and `samples/iconpacks/`.
+  - Added comprehensive `README.md` documenting architecture, zero-handwritten-enum policy, immutable state model, verification results, and dev commands.
+- **DoD**: Green. All 46 corpus presets pass L1-L3 verification; all 22 test suites passing (170 tests); repo hygiene clean.
+
+
 
