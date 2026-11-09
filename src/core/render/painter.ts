@@ -314,7 +314,8 @@ export class Painter {
     const text = stripBBCode(propStr(node.resolvedProps, 'text_expression', ''));
     if (!text) return;
 
-    const fontSize = Math.max(1, propNum(node.resolvedProps, 'text_size', 20) * node.unit);
+    const textLayout = node.textLayout;
+    const fontSize = textLayout ? textLayout.fontSize : Math.max(1, propNum(node.resolvedProps, 'text_size', 20) * node.unit);
     const rawFamily = propStr(node.resolvedProps, 'text_family', 'sans-serif');
     const family = this.resources ? this.resources.family(rawFamily) : rawFamily;
     const fontStr = `${Math.round(fontSize)}px ${quoteCssFamily(family)}, sans-serif`;
@@ -333,8 +334,8 @@ export class Painter {
 
     const align = propStr(node.resolvedProps, 'text_align', 'LEFT').toUpperCase();
     const [padL, padT] = node.box.pad;
-    const lines = text.split('\n');
-    const lineHeight = fontSize * 1.25;
+    const lines = textLayout ? textLayout.lines : text.split('\n');
+    const lineHeight = textLayout ? textLayout.lineHeight : fontSize * 1.25;
 
     lines.forEach((line, i) => {
       let lx = padL;

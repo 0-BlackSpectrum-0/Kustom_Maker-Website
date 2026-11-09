@@ -5,19 +5,31 @@ Provenance: decompiled:org/kustom/lib/render + sample:corpus + docs:kustom.rocks
 ## 1. Units and Scaling System
 - One Kustom unit = `min(canvas.width, canvas.height) / 720` px.
 - Every layer and group multiplies coordinates and dimensions by `config_scale_value / 100`.
-- Position offsets (`position_offset_x`, `position_offset_y`) only apply to direct children of `RootLayerModule`. Inside stack/overlap groups, offset is derived from layout.
+- Position offsets (`position_offset_x`, `position_offset_y`) apply to children of `RootLayerModule`, `OverlapLayerModule`, and `KomponentModule`.
+- When anchored to right (`gx > 0`) or bottom (`gy > 0`), offset acts as an inward margin (subtracted from edge).
+- For multi-screen KLWP (`screens > 1`), horizontal scroll position is calculated as `screenScrollX = -Math.round(screenOffset * (screens - 1) * innerW)`.
 
 ## 2. Anchoring and Alignment
 - 9-point grid: `TOPLEFT`, `TOP`, `TOPRIGHT`, `CENTERLEFT`, `CENTER`, `CENTERRIGHT`, `BOTTOMLEFT`, `BOTTOM`, `BOTTOMRIGHT`.
 - Relative origin computed against parent bounds.
 - 4-way padding (`position_padding_left`, `position_padding_top`, `position_padding_right`, `position_padding_bottom`) expands the measured bounding box.
 
-## 3. Stacking Rules (`StackLayerModule`)
+## 3. Text Measurement & Sizing Rules
+- Exact font measurement via Canvas 2D `measureText()` with `font` string matching rendering context.
+- Cached by `(font, fontSize, text)` tuple.
+- Line height standard: `1.25 * fontSize`.
+- Sizing modes (`text_size_type`):
+  - `SINGLE_FONT_HEIGHT`: Standard single or newline-delimited text.
+  - `SINGLE_FIXED_WIDTH`: Single-line text scaled down proportionally if measured width exceeds `text_width`.
+  - `FIXED_WIDTH`: Multi-line text wrapped at word boundaries within `text_width`, constrained up to `text_lines` lines.
+  - `FIT_TO_BOX`: Fitted to bounding bounds.
+
+## 4. Stacking Rules (`StackLayerModule`)
 - Stacking directions: `VERTICAL_LEFT`, `VERTICAL_CENTER`, `VERTICAL_RIGHT`, `HORIZONTAL_TOP`, `HORIZONTAL_CENTER`, `HORIZONTAL_BOTTOM`.
 - Sequential accumulation along main axis with `config_margin` gap.
 - Cross-axis alignment determined by anchor suffix (e.g. `_CENTER`, `_LEFT`, `_RIGHT`).
 
-## 4. Shapes and Geometry
+## 5. Shapes and Geometry
 - `RECT`: Rectangle with optional uniform corner radius (`shape_corners`).
 - `CIRCLE`: Ellipse with equal radii (`shape_width / 2`).
 - `OVAL`: Ellipse with radii `shape_width / 2` and `shape_height / 2`.
@@ -28,7 +40,7 @@ Provenance: decompiled:org/kustom/lib/render + sample:corpus + docs:kustom.rocks
 - `EXAGON`: 6-sided polygon.
 - `PATH`: Raw SVG Path definition (`M ... Z`).
 
-## 5. Blend Modes (`paint_mode`)
+## 6. Blend Modes (`paint_mode`)
 Canvas 2D composite mapping:
 - `NORMAL` -> `source-over`
 - `CLEAR` -> `destination-out` (erases in current offscreen group buffer)
@@ -42,18 +54,18 @@ Canvas 2D composite mapping:
 - `OVERLAY` -> `overlay`
 - `MULTIPLY` -> `multiply`
 
-## 6. Clipping Masks (`fx_mask`)
+## 7. Clipping Masks (`fx_mask`)
 - `CLIP_NEXT`: The current module acts as an alpha mask for the immediately following sibling.
 - `CLIP_ALL`: The current module acts as an alpha mask for all subsequent siblings within the same group.
 - `BACKGROUND`: Masks against the background.
 
-## 7. Gradients & Textures
+## 8. Gradients & Textures
 - `VERTICAL`, `HORIZONTAL`: Linear gradients between `paint_color` and `fx_gradient_color`.
 - `RADIAL`: Radial gradient centred at (`fx_gradient_offset_x`, `fx_gradient_offset_y`).
 - `SWEEP`: Angular / conic gradient starting at 0 degrees.
 - `BITMAP`: Pattern fill using image referenced by `fx_gradient_bitmap`.
 
-## 8. Rotation Modes
+## 9. Rotation Modes
 - `NONE`: 0 degrees.
 - `MANUAL`: Static angle in degrees.
 - `DEG90`, `DEG180`, `DEG270`: Fixed 90-degree steps.

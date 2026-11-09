@@ -73,3 +73,30 @@
     - Added comprehensive **Resources panel** under Assets tab surfacing all referenced `kfile://` URIs with status badges (`OK`, `ALIAS`, `MISSING`), resolved paths, and module tags.
   - Flipped `tests/regress/d03-resources.test.ts` to standard passing assertions.
 - **DoD**: Green. D03 regression passes; custom fonts, alias icon sets, and bitmaps decode and resolve cleanly in both browser and Node.
+
+## [2026-11-10] Phase F4: Layout Correctness, Text Measurement & Calibrated Positioning (D04, D05, D10)
+- **Commands Run**:
+  - `cmd /c npx vitest run tests/regress/d04-text-measure.test.ts tests/regress/d05-positioning.test.ts` -> 4 tests passed.
+  - `cmd /c npm test` -> 21 test suites passed, 167 tests passed.
+  - `cmd /c npm run build` -> Passed (JS 228.22 kB / 61.90 kB gzip, CSS 7.90 kB / 2.03 kB gzip).
+  - `node tools/check-size.mjs` -> Passed (JS <= 120 KB gzip).
+- **What Changed**:
+  - Created `src/core/layout/text-measure.ts`:
+    - Canvas 2D measurement context integration (`measureText`) with font metric cache `(font, fontSize, text)`.
+    - Implemented word-wrapping for `FIXED_WIDTH` text sizing against `text_width` and `text_lines`.
+    - Implemented proportional font downscaling for `SINGLE_FIXED_WIDTH`.
+    - Fallback heuristic character weight calculations if running headless without canvas.
+  - Updated `src/core/layout/measure.ts`:
+    - Replaced hardcoded `0.55 * fontSize` guess with `layoutTextModule()`.
+    - Attached `textLayout` (`lines`, `fontSize`, `lineHeight`, `maxLineWidth`, `totalHeight`) to `LayoutNode`.
+  - Updated `src/core/render/painter.ts`:
+    - `paintText` uses pre-calculated `node.textLayout` lines and font size, guaranteeing zero layout-to-paint drift.
+  - Updated `src/core/layout/position.ts`:
+    - Position offsets apply to children of `OverlapLayerModule` and `KomponentModule` as well as root.
+    - Integrated multi-screen horizontal scroll offset calculation for KLWP (`screenScrollX`).
+  - Updated `spec/render-semantics.md`:
+    - Added calibrated text measurement, wrapping, scaling, and screen scroll semantics.
+  - Added regression test suites:
+    - `tests/regress/d04-text-measure.test.ts`
+    - `tests/regress/d05-positioning.test.ts`
+- **DoD**: Green. D04 and D05 regression tests pass; text measurement reflects real font metrics and wrapping modes.

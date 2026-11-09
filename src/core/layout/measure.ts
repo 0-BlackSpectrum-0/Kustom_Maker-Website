@@ -1,9 +1,10 @@
 import type { Node } from '../model/types.ts';
 import type { FormulaContext } from '../formula/types.ts';
-import type { Box, LayoutNode } from './types.ts';
+import type { Box, LayoutNode, TextLayoutData } from './types.ts';
 import { PropertyResolver, propEnum, propNum, propStr } from './resolver.ts';
 import { calculateRotation, rotatedBoundingBox } from './rotation.ts';
 import { VisibleModeValues, ShapeValues, PaintStyleValues } from '../spec/generated.ts';
+import { layoutTextModule } from './text-measure.ts';
 
 export function stripBBCode(s: string): string {
   return s.replace(/\[\/?(b|i|u|s|up|dn|c|bl|bc|f|r|size|fa|mi|img|ic)(=[^\]]*)?\]/gi, '');
@@ -85,6 +86,7 @@ export function measureNode(
   let rot = 0;
   let flipX = false;
   let flipY = false;
+  let textLayout: TextLayoutData | undefined;
 
   const type = node.type;
 
@@ -157,6 +159,25 @@ export function measureNode(
   } else if (type === 'TextModule') {
     const rawText = stripBBCode(propStr(resolved, 'text_expression', ''));
     const fontSize = Math.max(1, propNum(resolved, 'text_size', 20) * unit);
+    const sizeType = propEnum(
+      resolved,
+      'text_size_type',
+      ['SINGLE_FONT_HEIGHT', 'SINGLE_FIXED_WIDTH', 'FIXED_WIDTH', 'FIT_TO_BOX'] as const,
+      'SINGLE_FONT_HEIGHT'
+    );
+    const targetTextW = Math.max(0, propNum(resolved, 'text_width', 720) * unit);
+    const maxLines = Math.max(0, propNum(resolved, 'text_lines', 1));
+    const rawFamily = propStr(resolved, 'text_family', 'sans-serif');
+
+    textLayout = layoutTextModule(
+      rawText,
+      rawFamily,
+      fontSize,
+      sizeType,
+      targetTextW,
+      maxLines
+    );
+
     const rInfo = calculateRotation(
       propStr(resolved, 'text_rotate_mode', 'MANUAL'),
       propNum(resolved, 'text_rotate_offset', 0),
@@ -166,14 +187,7 @@ export function measureNode(
     flipX = rInfo.flipX;
     flipY = rInfo.flipY;
 
-    // Approximate text metrics in unit coordinate system
-    // Average character width is ~0.55 * fontSize
-    const lines = rawText.split('\n');
-    const maxLineLen = Math.max(0, ...lines.map((l) => l.length));
-    const textW = Math.max(fontSize, maxLineLen * (fontSize * 0.55));
-    const textH = Math.max(fontSize, lines.length * (fontSize * 1.25));
-
-    const [rw, rh] = rotatedBoundingBox(textW, textH, rot);
+    const [rw, rh] = rotatedBoundingBox(textLayout.maxLineWidth, textLayout.totalHeight, rot);
     boxW = rw + padL + padR;
     boxH = rh + padT + padB;
   } else if (type === 'FontIconModule') {
@@ -228,6 +242,7 @@ export function measureNode(
     children: layoutChildren,
     visible,
     removed,
+    textLayout,
   };
 
   for (const child of layoutChildren) {

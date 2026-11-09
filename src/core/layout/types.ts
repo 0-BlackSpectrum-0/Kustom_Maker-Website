@@ -27,6 +27,14 @@ export interface Transform {
   scaleY: number;
 }
 
+export interface TextLayoutData {
+  lines: string[];
+  fontSize: number;
+  lineHeight: number;
+  maxLineWidth: number;
+  totalHeight: number;
+}
+
 export interface LayoutNode {
   id: string;
   type: string;
@@ -41,4 +49,6 @@ export interface LayoutNode {
   parent?: LayoutNode;
   visible: boolean;
   removed: boolean;
+  textLayout?: TextLayoutData;
+  screenScrollX?: number;
 }

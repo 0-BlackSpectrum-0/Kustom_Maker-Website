@@ -38,6 +38,11 @@ export function positionLayoutTree(
   const innerW = node.box.w - padL - padR;
   const innerH = node.box.h - padT - padB;
 
+  if (node.type === 'RootLayerModule' && screens > 1) {
+    const scrollX = -Math.round(screenOffset * (screens - 1) * innerW);
+    node.screenScrollX = scrollX;
+  }
+
   const isStack = node.type === 'StackLayerModule';
   const activeKids = node.children.filter((k) => !k.removed);
 
