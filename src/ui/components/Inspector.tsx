@@ -1,11 +1,10 @@
 import { h } from 'preact';
+import { useState } from 'preact/hooks';
 import {
   currentDoc,
   selectedNodeId,
   findNodeById,
   updateNodeProp,
-  drawerOpen,
-  activeDrawerTab,
 } from '../state/editor-state.ts';
 import {
   AnchorModeValues,
@@ -16,16 +15,23 @@ import {
   GradientValues,
   MaskFilterValues,
   ShadowValues,
+  ProgressStyleValues,
+  ProgressShapeValues,
+  LayerStackingValues,
+  RotateValues,
 } from '../../core/spec/generated.ts';
+import { CalculatorIcon, GlobalIcon } from '../icons/icons.tsx';
 
 export function Inspector() {
   const doc = currentDoc.value;
   const selectedId = selectedNodeId.value;
 
+  const [activeTab, setActiveTab] = useState<string>('primary');
+
   if (!doc || !selectedId) {
     return (
       <aside class="inspector-panel">
-        <div style={{ padding: '16px', color: 'var(--text-subtle)' }}>No module selected</div>
+        <div class="inspector-empty">No module selected</div>
       </aside>
     );
   }
@@ -34,10 +40,86 @@ export function Inspector() {
   if (!node) {
     return (
       <aside class="inspector-panel">
-        <div style={{ padding: '16px', color: 'var(--text-subtle)' }}>Selected module not found</div>
+        <div class="inspector-empty">Selected module not found</div>
       </aside>
     );
   }
+
+  // Determine tabs for current module type
+  const isContainer =
+    node.type === 'RootLayerModule' ||
+    node.type === 'OverlapLayerModule' ||
+    node.type === 'StackLayerModule' ||
+    node.type === 'KomponentModule';
+
+  let tabs: { id: string; label: string }[] = [];
+  if (isContainer) {
+    tabs = [
+      { id: 'layer', label: 'Layer' },
+      { id: 'position', label: 'Position' },
+      { id: 'animation', label: 'Animation' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  } else if (node.type === 'ShapeModule') {
+    tabs = [
+      { id: 'shape', label: 'Shape' },
+      { id: 'paint', label: 'Paint' },
+      { id: 'fx', label: 'FX' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  } else if (node.type === 'TextModule') {
+    tabs = [
+      { id: 'text', label: 'Text' },
+      { id: 'paint', label: 'Paint' },
+      { id: 'fx', label: 'FX' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  } else if (node.type === 'BitmapModule') {
+    tabs = [
+      { id: 'bitmap', label: 'Bitmap' },
+      { id: 'paint', label: 'Paint' },
+      { id: 'fx', label: 'FX' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  } else if (node.type === 'FontIconModule') {
+    tabs = [
+      { id: 'icon', label: 'Icon' },
+      { id: 'paint', label: 'Paint' },
+      { id: 'fx', label: 'FX' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  } else if (node.type === 'ProgressModule') {
+    tabs = [
+      { id: 'progress', label: 'Progress' },
+      { id: 'paint', label: 'Paint' },
+      { id: 'fx', label: 'FX' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  } else if (node.type === 'CurvedTextModule') {
+    tabs = [
+      { id: 'curved', label: 'Curved' },
+      { id: 'paint', label: 'Paint' },
+      { id: 'fx', label: 'FX' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  } else {
+    tabs = [
+      { id: 'general', label: 'General' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  }
+
+  // Ensure current active tab is valid
+  const currentTabId = tabs.some((t) => t.id === activeTab)
+    ? activeTab
+    : tabs[0].id;
 
   const renderPropEditor = (
     label: string,
@@ -55,18 +137,27 @@ export function Inspector() {
       updateNodeProp(node.id, propKey, { toggle: newToggle });
     };
 
+    const handleStep = (delta: number) => {
+      const num = typeof value === 'number' ? value : parseFloat(String(value)) || 0;
+      updateNodeProp(node.id, propKey, { value: num + delta });
+    };
+
     return (
       <div class="prop-row" key={propKey}>
-        <div class="prop-label" title={label}>{label}</div>
+        <div class="prop-label-col">
+          <span class="prop-label" title={label}>
+            {label}
+          </span>
+        </div>
 
-        <div class="prop-control">
-          {/* Plain Value Mode */}
+        <div class="prop-control-col">
+          {/* Static Value Mode */}
           {toggle === 0 && (
             <>
               {type === 'string' && (
                 <input
                   type="text"
-                  class="input-sm"
+                  class="prop-input-text"
                   value={String(value)}
                   onInput={(e) =>
                     updateNodeProp(node.id, propKey, {
@@ -77,24 +168,56 @@ export function Inspector() {
               )}
 
               {type === 'number' && (
-                <input
-                  type="number"
-                  class="input-sm"
-                  value={value !== undefined ? String(value) : '0'}
-                  onInput={(e) => {
-                    const parsed = parseFloat((e.target as HTMLInputElement).value);
-                    updateNodeProp(node.id, propKey, {
-                      value: isNaN(parsed) ? 0 : parsed,
-                    });
-                  }}
-                />
+                <div class="stepper-wrap">
+                  <button
+                    class="stepper-btn stepper-fast"
+                    title="-10"
+                    onClick={() => handleStep(-10)}
+                  >
+                    «
+                  </button>
+                  <button
+                    class="stepper-btn"
+                    title="-1"
+                    onClick={() => handleStep(-1)}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    class="stepper-input"
+                    value={value !== undefined ? String(value) : '0'}
+                    onInput={(e) => {
+                      const parsed = parseFloat(
+                        (e.target as HTMLInputElement).value,
+                      );
+                      updateNodeProp(node.id, propKey, {
+                        value: isNaN(parsed) ? 0 : parsed,
+                      });
+                    }}
+                  />
+                  <button
+                    class="stepper-btn"
+                    title="+1"
+                    onClick={() => handleStep(1)}
+                  >
+                    +
+                  </button>
+                  <button
+                    class="stepper-btn stepper-fast"
+                    title="+10"
+                    onClick={() => handleStep(10)}
+                  >
+                    »
+                  </button>
+                </div>
               )}
 
               {type === 'color' && (
-                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                <div class="color-picker-wrap">
                   <input
                     type="color"
-                    style={{ width: '28px', height: '24px', padding: 0, border: 'none', cursor: 'pointer' }}
+                    class="color-thumb-input"
                     value={
                       typeof value === 'string' && value.startsWith('#')
                         ? `#${value.slice(-6)}`
@@ -102,13 +225,14 @@ export function Inspector() {
                     }
                     onInput={(e) => {
                       const hex = (e.target as HTMLInputElement).value.toUpperCase();
-                      updateNodeProp(node.id, propKey, { value: `#FF${hex.slice(1)}` });
+                      updateNodeProp(node.id, propKey, {
+                        value: `#FF${hex.slice(1)}`,
+                      });
                     }}
                   />
                   <input
                     type="text"
-                    class="input-sm"
-                    style={{ width: '85px' }}
+                    class="prop-input-text color-hex-text"
                     value={String(value)}
                     onInput={(e) =>
                       updateNodeProp(node.id, propKey, {
@@ -121,7 +245,7 @@ export function Inspector() {
 
               {type === 'select' && options && (
                 <select
-                  class="input-sm"
+                  class="prop-select"
                   value={String(value)}
                   onChange={(e) =>
                     updateNodeProp(node.id, propKey, {
@@ -139,13 +263,14 @@ export function Inspector() {
             </>
           )}
 
-          {/* Formula Mode */}
+          {/* Formula Mode (toggle = 10) */}
           {(toggle & 10) === 10 && (
-            <div style={{ display: 'flex', gap: '4px', width: '100%' }}>
+            <div class="formula-field-wrap">
+              <span class="formula-prefix">$</span>
               <input
                 type="text"
-                class="input-sm"
-                style={{ flex: 1, color: '#60a5fa', fontFamily: 'monospace' }}
+                class="prop-input-text formula-text-input"
+                placeholder="Formula expression"
                 value={formula}
                 onInput={(e) =>
                   updateNodeProp(node.id, propKey, {
@@ -153,24 +278,13 @@ export function Inspector() {
                   })
                 }
               />
-              <button
-                class="btn btn-sm"
-                title="Open Formula Drawer"
-                onClick={() => {
-                  activeDrawerTab.value = 'formula';
-                  drawerOpen.value = true;
-                }}
-              >
-                fx
-              </button>
             </div>
           )}
 
-          {/* Global Mode */}
+          {/* Global Mode (toggle = 100) */}
           {(toggle & 100) === 100 && (
             <select
-              class="input-sm"
-              style={{ color: '#34d399', width: '100%' }}
+              class="prop-select global-select"
               value={globalName}
               onChange={(e) =>
                 updateNodeProp(node.id, propKey, {
@@ -188,28 +302,36 @@ export function Inspector() {
           )}
         </div>
 
-        {/* Toggle Pill Buttons */}
-        <div class="prop-toggles">
+        {/* Source Toggle Pill */}
+        <div class="prop-source-col">
           <button
-            class={`btn btn-sm ${toggle === 0 ? 'btn-primary' : ''}`}
-            title="Static Value"
-            onClick={() => handleToggle(0)}
+            class={`source-toggle-btn ${
+              (toggle & 10) === 10
+                ? 'active-fx'
+                : (toggle & 100) === 100
+                ? 'active-gv'
+                : ''
+            }`}
+            title={
+              toggle === 0
+                ? 'Switch to Formula mode'
+                : (toggle & 10) === 10
+                ? 'Switch to Global mode'
+                : 'Switch to Static value'
+            }
+            onClick={() => {
+              if (toggle === 0) handleToggle(10);
+              else if ((toggle & 10) === 10) handleToggle(100);
+              else handleToggle(0);
+            }}
           >
-            val
-          </button>
-          <button
-            class={`btn btn-sm ${(toggle & 10) === 10 ? 'btn-primary' : ''}`}
-            title="Formula Mode"
-            onClick={() => handleToggle((toggle & 10) === 10 ? 0 : 10)}
-          >
-            fx
-          </button>
-          <button
-            class={`btn btn-sm ${(toggle & 100) === 100 ? 'btn-primary' : ''}`}
-            title="Global Variable"
-            onClick={() => handleToggle((toggle & 100) === 100 ? 0 : 100)}
-          >
-            gv
+            {(toggle & 10) === 10 ? (
+              <span class="fx-chip">fx</span>
+            ) : (toggle & 100) === 100 ? (
+              <span class="gv-chip">gv</span>
+            ) : (
+              <CalculatorIcon size={14} />
+            )}
           </button>
         </div>
       </div>
@@ -218,16 +340,31 @@ export function Inspector() {
 
   return (
     <aside class="inspector-panel">
-      <div style={{ padding: '12px', borderBottom: '1px solid var(--border-color)', fontWeight: 600 }}>
-        {node.title || node.type} ({node.type})
+      {/* Header Info */}
+      <div class="inspector-header">
+        <span class="inspector-title">{node.title || node.type}</span>
+        <span class="inspector-type">{node.type}</span>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto' }}>
-        {/* Module Specific Properties */}
-        {node.type === 'ShapeModule' && (
-          <div class="inspector-section">
-            <div class="section-title">Shape</div>
-            {renderPropEditor('Shape Type', 'shape_type', 'select', ShapeValues)}
+      {/* Official Tabs Strip */}
+      <div class="inspector-tabs">
+        {tabs.map((t) => (
+          <button
+            key={t.id}
+            class={`inspector-tab-btn ${currentTabId === t.id ? 'active' : ''}`}
+            onClick={() => setActiveTab(t.id)}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab Body */}
+      <div class="inspector-body">
+        {/* SHAPE TAB */}
+        {currentTabId === 'shape' && (
+          <div class="inspector-group">
+            {renderPropEditor('Shape', 'shape_type', 'select', ShapeValues)}
             {renderPropEditor('Width', 'shape_width', 'number')}
             {renderPropEditor('Height', 'shape_height', 'number')}
             {renderPropEditor('Corners', 'shape_corners', 'number')}
@@ -235,19 +372,75 @@ export function Inspector() {
           </div>
         )}
 
-        {node.type === 'TextModule' && (
-          <div class="inspector-section">
-            <div class="section-title">Text</div>
+        {/* TEXT TAB */}
+        {currentTabId === 'text' && (
+          <div class="inspector-group">
             {renderPropEditor('Text', 'text_expression', 'string')}
             {renderPropEditor('Size', 'text_size', 'number')}
             {renderPropEditor('Align', 'text_align', 'select', TextAlignValues)}
+            {renderPropEditor('Width', 'text_width', 'number')}
+            {renderPropEditor('Lines', 'text_lines', 'number')}
+            {renderPropEditor('Rotate', 'text_rotate_mode', 'select', RotateValues)}
+            {renderPropEditor('Rot Offset', 'text_rotate_offset', 'number')}
           </div>
         )}
 
-        {/* Paint Properties */}
-        {['ShapeModule', 'TextModule', 'FontIconModule'].includes(node.type) && (
-          <div class="inspector-section">
-            <div class="section-title">Paint</div>
+        {/* BITMAP TAB */}
+        {currentTabId === 'bitmap' && (
+          <div class="inspector-group">
+            {renderPropEditor('Bitmap URI', 'bitmap_bitmap', 'string')}
+            {renderPropEditor('Width', 'bitmap_width', 'number')}
+            {renderPropEditor('Height', 'bitmap_height', 'number')}
+            {renderPropEditor('Alpha', 'bitmap_alpha', 'number')}
+            {renderPropEditor('Blur', 'bitmap_blur', 'number')}
+          </div>
+        )}
+
+        {/* ICON TAB */}
+        {currentTabId === 'icon' && (
+          <div class="inspector-group">
+            {renderPropEditor('Icon Set', 'icon_set', 'string')}
+            {renderPropEditor('Icon Name', 'icon_icon', 'string')}
+            {renderPropEditor('Size', 'icon_size', 'number')}
+          </div>
+        )}
+
+        {/* PROGRESS TAB */}
+        {currentTabId === 'progress' && (
+          <div class="inspector-group">
+            {renderPropEditor('Style', 'progress_style', 'select', ProgressStyleValues)}
+            {renderPropEditor('Shape', 'progress_shape', 'select', ProgressShapeValues)}
+            {renderPropEditor('Level', 'progress_level', 'number')}
+            {renderPropEditor('Width', 'progress_width', 'number')}
+            {renderPropEditor('Height', 'progress_height', 'number')}
+            {renderPropEditor('Size', 'progress_size', 'number')}
+            {renderPropEditor('Count', 'progress_count', 'number')}
+          </div>
+        )}
+
+        {/* CURVED TAB */}
+        {currentTabId === 'curved' && (
+          <div class="inspector-group">
+            {renderPropEditor('Text', 'curved_expression', 'string')}
+            {renderPropEditor('Radius', 'curved_radius', 'number')}
+            {renderPropEditor('Size', 'curved_size', 'number')}
+            {renderPropEditor('Angle', 'curved_angle', 'number')}
+          </div>
+        )}
+
+        {/* LAYER TAB (for containers) */}
+        {currentTabId === 'layer' && (
+          <div class="inspector-group">
+            {node.type === 'StackLayerModule' &&
+              renderPropEditor('Stack Mode', 'config_stacking', 'select', LayerStackingValues)}
+            {renderPropEditor('Scale', 'config_scale_value', 'number')}
+            {renderPropEditor('Visible', 'config_visibility', 'string')}
+          </div>
+        )}
+
+        {/* PAINT TAB */}
+        {currentTabId === 'paint' && (
+          <div class="inspector-group">
             {renderPropEditor('Color', 'paint_color', 'color')}
             {renderPropEditor('Style', 'paint_style', 'select', PaintStyleValues)}
             {renderPropEditor('Stroke', 'paint_stroke', 'number')}
@@ -255,26 +448,51 @@ export function Inspector() {
           </div>
         )}
 
-        {/* FX Properties */}
-        <div class="inspector-section">
-          <div class="section-title">FX</div>
-          {renderPropEditor('Gradient', 'fx_gradient', 'select', GradientValues)}
-          {renderPropEditor('Grad Color', 'fx_gradient_color', 'color')}
-          {renderPropEditor('Mask', 'fx_mask', 'select', MaskFilterValues)}
-          {renderPropEditor('Shadow', 'fx_shadow', 'select', ShadowValues)}
-        </div>
+        {/* FX TAB */}
+        {currentTabId === 'fx' && (
+          <div class="inspector-group">
+            {renderPropEditor('Gradient', 'fx_gradient', 'select', GradientValues)}
+            {renderPropEditor('Grad Color', 'fx_gradient_color', 'color')}
+            {renderPropEditor('Mask', 'fx_mask', 'select', MaskFilterValues)}
+            {renderPropEditor('Shadow', 'fx_shadow', 'select', ShadowValues)}
+            {renderPropEditor('Shadow Blur', 'fx_shadow_blur', 'number')}
+            {renderPropEditor('Shadow Dist', 'fx_shadow_distance', 'number')}
+            {renderPropEditor('Shadow Dir', 'fx_shadow_direction', 'number')}
+          </div>
+        )}
 
-        {/* Position Properties */}
-        <div class="inspector-section">
-          <div class="section-title">Position</div>
-          {renderPropEditor('Anchor', 'position_anchor', 'select', AnchorModeValues)}
-          {node.type !== 'RootLayerModule' && renderPropEditor('Offset X', 'position_offset_x', 'number')}
-          {node.type !== 'RootLayerModule' && renderPropEditor('Offset Y', 'position_offset_y', 'number')}
-          {renderPropEditor('Padding L', 'position_padding_left', 'number')}
-          {renderPropEditor('Padding T', 'position_padding_top', 'number')}
-          {renderPropEditor('Padding R', 'position_padding_right', 'number')}
-          {renderPropEditor('Padding B', 'position_padding_bottom', 'number')}
-        </div>
+        {/* POSITION TAB */}
+        {currentTabId === 'position' && (
+          <div class="inspector-group">
+            {renderPropEditor('Anchor', 'position_anchor', 'select', AnchorModeValues)}
+            {node.type !== 'RootLayerModule' &&
+              renderPropEditor('X Offset', 'position_offset_x', 'number')}
+            {node.type !== 'RootLayerModule' &&
+              renderPropEditor('Y Offset', 'position_offset_y', 'number')}
+            {renderPropEditor('Padding L', 'position_padding_left', 'number')}
+            {renderPropEditor('Padding T', 'position_padding_top', 'number')}
+            {renderPropEditor('Padding R', 'position_padding_right', 'number')}
+            {renderPropEditor('Padding B', 'position_padding_bottom', 'number')}
+          </div>
+        )}
+
+        {/* TOUCH TAB */}
+        {currentTabId === 'touch' && (
+          <div class="inspector-group">
+            <div class="touch-empty-note">
+              No touch actions configured. Touch actions execute in the Android launcher.
+            </div>
+          </div>
+        )}
+
+        {/* ANIMATION TAB */}
+        {currentTabId === 'animation' && (
+          <div class="inspector-group">
+            <div class="touch-empty-note">
+              Animations trigger on scroll, gyro, or global switch changes.
+            </div>
+          </div>
+        )}
       </div>
     </aside>
   );

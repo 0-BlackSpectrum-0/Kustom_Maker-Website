@@ -120,3 +120,23 @@
   - Flipped `tests/regress/d07-blend-mask.test.ts` to standard passing assertions.
 - **DoD**: Green. D06, D07, and D08 painter semantics implemented and isolated offscreen; all regression and unit test suites green.
 
+## [2026-11-10] Phase F6–F8: Official Kustom UI Shell, Stage Interaction & Spec Inspector
+- **Commands Run**:
+  - `cmd /c npx vitest run tests/unit/ui-shell.test.ts` -> 3 tests passed.
+  - `cmd /c npx vitest run tests/unit/no-handwritten-enums.test.ts` -> Passed (0 unknown enum literals).
+  - `cmd /c npm test` -> 22 test suites passed, 170 tests passed.
+  - `cmd /c npm run build` -> Passed (JS 248.47 kB / 66.70 kB gzip, CSS 18.32 kB / 3.64 kB gzip).
+  - `node tools/check-size.mjs` -> Passed (JS 65.14 KB gzip <= 120 KB gzip, CSS 3.56 KB gzip <= 15 KB gzip).
+- **What Changed**:
+  - Implemented `src/ui/icons/icons.tsx`: Material-Symbols-style clean SVG icon sprite for all module types (Text, Shape, Image, FontIcon, Progress, CurvedText, Series, Overlap, Stack, Komponent, AnimatedImage) and official editor actions (Save, Undo, Redo, Add, Lock/Unlock, Screen, Fit, Layers, Play/Pause).
+  - Implemented `src/ui/dialogs/AddModuleModal.tsx`: Replica of the official Kustom "New Item" dialog (`samples/klwp ui samples/tempFileForShare_20261110-020324.jpg`) with 2-column card grid, icons, bold titles, and descriptions.
+  - Overhauled `src/ui/components/TopBar.tsx`: Hamburger menu dropdown, interactive Breadcrumb bar (`Root > Group > Item`), preset kind & dimensions badge, orientation/grid/frame toggles, live-state Undo/Redo, Quick Save, and Export button.
+  - Overhauled `src/ui/components/LeftPanel.tsx`: Official tabs (`ITEMS`, `GLOBALS`, `ASSETS`), module tree with type icons, titles, subtitles, reorder arrows, delete actions, Floating Action Button (`+` FAB), and modal-based global variable creation (eliminating `prompt()`).
+  - Overhauled `src/ui/components/CanvasArea.tsx`: Interactive selection outline with corner handles, canvas hit-testing to click-select elements, official right vertical floating tools strip (Screen index, Fit to stage, Lock toggle, Grid/Layers toggle, Play/Pause simulation), and bottom zoom/scale bar.
+  - Overhauled `src/ui/components/Inspector.tsx`: Dynamic module tabs with red underline indicator, number steppers (`<<`, `-`, value, `+`, `>>`), color picker swatch + hex input, source toggle button (`val` / `fx` / `gv`), and complete property support across all module types.
+  - Implemented `src/ui/components/StatusBar.tsx`: 26px status bar with validation status badge + problems popover, simulated clock/battery/network indicators, and unit scale readout (`1 u = X px`).
+  - Overhauled `src/ui/styles/editor.css`: Material-3 dark slate tokens (`#121214`, `#1A1A1E`, `#24242A`), red accent underline (`#E53935`), and responsive flexbox stage layout.
+  - Added unit test suite `tests/unit/ui-shell.test.ts`.
+- **DoD**: Green. Official Kustom look-and-feel established; all 22 test suites passing cleanly; JS size 65.14 KB gzip (well under 120 KB budget).
+
+

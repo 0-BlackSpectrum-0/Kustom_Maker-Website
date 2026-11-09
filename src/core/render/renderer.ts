@@ -92,5 +92,6 @@ export async function renderPreset(
   const painter = new Painter(resources);
   painter.paintTree(ctx2d, layoutRoot);
 
+  canvas.layoutRoot = layoutRoot;
   return canvas;
 }

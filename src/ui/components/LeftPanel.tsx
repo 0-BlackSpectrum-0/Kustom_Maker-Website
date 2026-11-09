@@ -1,89 +1,238 @@
-import { h } from 'preact';
+import { h, VNode } from 'preact';
+import { useState } from 'preact/hooks';
 import {
   currentDoc,
   selectedNodeId,
   activeTab,
   deleteNode,
-  pushHistory,
-  validateCurrent,
+  moveChild,
+  findParentNode,
+  findNodeById,
+  commit,
+  addModuleModalOpen,
   currentResourceManager,
 } from '../state/editor-state.ts';
-import type { Node } from '../../core/model/types.ts';
+import type { Node, Doc } from '../../core/model/types.ts';
 import { ResourceManager } from '../../core/render/resources.ts';
+import {
+  TextModuleIcon,
+  ShapeModuleIcon,
+  ImageModuleIcon,
+  FontIconModuleIcon,
+  ProgressModuleIcon,
+  CurvedTextModuleIcon,
+  SeriesModuleIcon,
+  OverlapLayerModuleIcon,
+  StackLayerModuleIcon,
+  KomponentModuleIcon,
+  AnimatedImageModuleIcon,
+  AddIcon,
+  TrashIcon,
+  DragHandleIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+} from '../icons/icons.tsx';
+
+function getModuleIcon(type: string): VNode {
+  switch (type) {
+    case 'TextModule':
+      return <TextModuleIcon size={18} class="module-icon" />;
+    case 'ShapeModule':
+      return <ShapeModuleIcon size={18} class="module-icon" />;
+    case 'BitmapModule':
+      return <ImageModuleIcon size={18} class="module-icon" />;
+    case 'FontIconModule':
+      return <FontIconModuleIcon size={18} class="module-icon" />;
+    case 'ProgressModule':
+      return <ProgressModuleIcon size={18} class="module-icon" />;
+    case 'CurvedTextModule':
+      return <CurvedTextModuleIcon size={18} class="module-icon" />;
+    case 'SeriesModule':
+      return <SeriesModuleIcon size={18} class="module-icon" />;
+    case 'OverlapLayerModule':
+      return <OverlapLayerModuleIcon size={18} class="module-icon" />;
+    case 'StackLayerModule':
+      return <StackLayerModuleIcon size={18} class="module-icon" />;
+    case 'KomponentModule':
+      return <KomponentModuleIcon size={18} class="module-icon" />;
+    case 'AnimatedImageModule':
+      return <AnimatedImageModuleIcon size={18} class="module-icon" />;
+    default:
+      return <OverlapLayerModuleIcon size={18} class="module-icon" />;
+  }
+}
+
+function getNodeSubtitle(node: Node): string {
+  switch (node.type) {
+    case 'ShapeModule':
+      return String(node.props.shape_type?.value || 'Rectangle');
+    case 'TextModule':
+      return String(node.props.text_expression?.value || 'Text');
+    case 'BitmapModule':
+      return node.props.bitmap_bitmap?.value ? 'Image' : 'Empty Bitmap';
+    case 'FontIconModule':
+      return String(node.props.icon_icon?.value || 'Icon');
+    case 'ProgressModule':
+      return `${node.props.progress_style?.value || 'Linear'} (${node.props.progress_level?.value ?? 50}%)`;
+    case 'CurvedTextModule':
+      return String(node.props.curved_expression?.value || 'Curved Text');
+    case 'OverlapLayerModule':
+    case 'StackLayerModule':
+    case 'KomponentModule':
+    case 'RootLayerModule':
+      return `${(node.children || []).length} items`;
+    default:
+      return node.type;
+  }
+}
 
 export function LeftPanel() {
   const doc = currentDoc.value;
   const tab = activeTab.value;
   const selectedId = selectedNodeId.value;
 
+  const [expandedNodes, setExpandedNodes] = useState<Record<string, boolean>>({
+    root: true,
+  });
+
+  // Global Creation State
+  const [showAddGlobal, setShowAddGlobal] = useState(false);
+  const [newGlobalName, setNewGlobalName] = useState('');
+  const [newGlobalType, setNewGlobalType] = useState('COLOR');
+  const [newGlobalValue, setNewGlobalValue] = useState('#FFFFFFFF');
+
+  const toggleExpand = (id: string, e: Event) => {
+    e.stopPropagation();
+    setExpandedNodes({
+      ...expandedNodes,
+      [id]: expandedNodes[id] === undefined ? false : !expandedNodes[id],
+    });
+  };
+
+  const handleCreateGlobal = () => {
+    if (!doc || !newGlobalName.trim()) return;
+    const clean = newGlobalName.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
+    if (!clean) return;
+
+    const nextGlobals = {
+      ...doc.globals,
+      [clean]: {
+        index: Object.keys(doc.globals).length,
+        type: newGlobalType,
+        title: clean,
+        value: newGlobalValue,
+      },
+    };
+
+    const nextDoc: Doc = { ...doc, globals: nextGlobals };
+    commit(nextDoc, `Add global ${clean}`);
+    setNewGlobalName('');
+    setShowAddGlobal(false);
+  };
+
+  const handleDeleteGlobal = (key: string) => {
+    if (!doc) return;
+    const nextGlobals = { ...doc.globals };
+    delete nextGlobals[key];
+    const nextDoc: Doc = { ...doc, globals: nextGlobals };
+    commit(nextDoc, `Delete global ${key}`);
+  };
+
   const renderTreeNode = (node: Node, depth = 0) => {
     const isSelected = node.id === selectedId;
     const isRoot = node.type === 'RootLayerModule';
+    const hasChildren = Boolean(node.children && node.children.length > 0);
+    const isExpanded = expandedNodes[node.id] ?? true;
+    const parent = doc ? findParentNode(doc.root, node.id) : null;
 
     return (
-      <div key={node.id}>
+      <div key={node.id} class="tree-item-group">
         <div
-          class={`tree-node ${isSelected ? 'selected' : ''}`}
-          style={{ paddingLeft: `${depth * 14 + 6}px` }}
+          class={`tree-row ${isSelected ? 'selected' : ''}`}
+          style={{ paddingLeft: `${depth * 16 + 8}px` }}
           onClick={() => (selectedNodeId.value = node.id)}
         >
-          <span class="tree-icon">
-            {node.type === 'ShapeModule'
-              ? '▢'
-              : node.type === 'TextModule'
-              ? 'T'
-              : node.type === 'FontIconModule'
-              ? '★'
-              : node.type === 'StackLayerModule'
-              ? '≡'
-              : '📁'}
-          </span>
-          <span class="tree-label">{node.title || node.type}</span>
-          {!isRoot && (
+          {/* Chevron for Containers */}
+          {hasChildren ? (
+            <span
+              class="tree-chevron"
+              onClick={(e) => toggleExpand(node.id, e)}
+            >
+              {isExpanded ? (
+                <ChevronDownIcon size={14} />
+              ) : (
+                <ChevronRightIcon size={14} />
+              )}
+            </span>
+          ) : (
+            <span class="tree-chevron-placeholder">
+              <DragHandleIcon size={12} class="tree-drag-handle" />
+            </span>
+          )}
+
+          {/* Module Icon */}
+          <span class="tree-module-icon">{getModuleIcon(node.type)}</span>
+
+          {/* Node Details */}
+          <div class="tree-label-box">
+            <span class="tree-title">{node.title || node.type}</span>
+            <span class="tree-subtitle">{getNodeSubtitle(node)}</span>
+          </div>
+
+          {/* Reorder & Delete Actions */}
+          {!isRoot && parent && (
             <div class="tree-actions">
-              <span
+              <button
+                class="tree-action-btn"
+                title="Move Up"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  moveChild(parent.id, node.id, 'up');
+                }}
+              >
+                ▲
+              </button>
+              <button
+                class="tree-action-btn"
+                title="Move Down"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  moveChild(parent.id, node.id, 'down');
+                }}
+              >
+                ▼
+              </button>
+              <button
+                class="tree-action-btn tree-action-delete"
+                title="Delete"
                 onClick={(e) => {
                   e.stopPropagation();
                   deleteNode(node.id);
                 }}
-                title="Delete"
               >
-                ✕
-              </span>
+                <TrashIcon size={14} />
+              </button>
             </div>
           )}
         </div>
-        {node.children && node.children.map((child) => renderTreeNode(child, depth + 1))}
+
+        {/* Children (if expanded) */}
+        {hasChildren &&
+          isExpanded &&
+          node.children!.map((child) => renderTreeNode(child, depth + 1))}
       </div>
     );
   };
 
-  const handleAddGlobal = () => {
-    if (!doc) return;
-    pushHistory(doc);
-    const name = prompt('Enter global variable name:');
-    if (!name) return;
-    const clean = name.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
-    if (!clean) return;
-
-    doc.globals[clean] = {
-      index: Object.keys(doc.globals).length,
-      type: 'COLOR',
-      title: clean,
-      value: '#FFFFFFFF',
-    };
-    currentDoc.value = { ...doc };
-    validateCurrent();
-  };
-
   return (
     <aside class="left-panel">
+      {/* Official Tabs Header */}
       <div class="panel-tabs">
         <button
           class={`tab-btn ${tab === 'layers' ? 'active' : ''}`}
           onClick={() => (activeTab.value = 'layers')}
         >
-          Layers
+          Items
         </button>
         <button
           class={`tab-btn ${tab === 'globals' ? 'active' : ''}`}
@@ -99,134 +248,214 @@ export function LeftPanel() {
         </button>
       </div>
 
-      <div class="panel-content">
+      <div class="panel-body">
+        {/* ITEMS TAB */}
         {tab === 'layers' && (
-          <div>{doc ? renderTreeNode(doc.root) : <p style={{ color: 'var(--text-subtle)' }}>No preset open</p>}</div>
-        )}
-
-        {tab === 'globals' && (
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-              <span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>Globals List</span>
-              <button class="btn btn-sm" onClick={handleAddGlobal}>+ Add</button>
-            </div>
-            {doc &&
-              Object.entries(doc.globals).map(([k, g]) => (
-                <div
-                  key={k}
-                  style={{
-                    padding: '6px',
-                    borderBottom: '1px solid var(--border-color)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <div>
-                    <div style={{ fontWeight: 600 }}>{g.title || k}</div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-subtle)' }}>
-                      {g.type} {g.global_formula ? `Formula: ${g.global_formula}` : `Value: ${g.value}`}
-                    </div>
-                  </div>
-                </div>
-              ))}
+          <div class="tree-container">
+            {doc && renderTreeNode(doc.root)}
+            {/* Floating Action Button (FAB) for Add Module */}
+            <button
+              class="fab-add-btn"
+              title="Add Item (+)"
+              onClick={() => (addModuleModalOpen.value = true)}
+            >
+              <AddIcon size={24} />
+            </button>
           </div>
         )}
 
-        {tab === 'assets' && (() => {
-          const res = currentResourceManager.value ?? (doc ? new ResourceManager(doc.assets) : null);
-          const refs = doc && res ? res.listReferences(doc) : [];
-          const missingCount = refs.filter((r) => r.status === 'missing').length;
+        {/* GLOBALS TAB */}
+        {tab === 'globals' && doc && (
+          <div class="globals-container">
+            <div class="globals-header">
+              <span class="globals-count">
+                {Object.keys(doc.globals).length} Global Variables
+              </span>
+              <button
+                class="btn btn-sm btn-primary"
+                onClick={() => setShowAddGlobal(!showAddGlobal)}
+              >
+                + Add Global
+              </button>
+            </div>
 
-          const getStatusBadge = (status: string) => {
-            switch (status) {
-              case 'exact':
-                return <span style={{ background: '#064e3b', color: '#34d399', padding: '1px 5px', borderRadius: '3px', fontSize: '10px', fontWeight: 600 }}>OK</span>;
-              case 'alias':
-                return <span style={{ background: '#0c4a6e', color: '#38bdf8', padding: '1px 5px', borderRadius: '3px', fontSize: '10px', fontWeight: 600 }}>ALIAS</span>;
-              case 'case_insensitive':
-                return <span style={{ background: '#164e63', color: '#22d3ee', padding: '1px 5px', borderRadius: '3px', fontSize: '10px', fontWeight: 600 }}>CASE</span>;
-              case 'missing':
-                return <span style={{ background: '#7f1d1d', color: '#f87171', padding: '1px 5px', borderRadius: '3px', fontSize: '10px', fontWeight: 600 }}>MISSING</span>;
-              default:
-                return <span style={{ background: '#713f12', color: '#facc15', padding: '1px 5px', borderRadius: '3px', fontSize: '10px', fontWeight: 600 }}>{status}</span>;
-            }
-          };
-
-          return (
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>Referenced Resources ({refs.length})</span>
-                {missingCount > 0 && (
-                  <span style={{ background: '#7f1d1d', color: '#f87171', padding: '1px 6px', borderRadius: '4px', fontSize: '10px', fontWeight: 600 }}>
-                    {missingCount} missing
-                  </span>
-                )}
-              </div>
-
-              {refs.length === 0 ? (
-                <div style={{ color: 'var(--text-subtle)', fontSize: '11px', marginBottom: '16px' }}>No kfile resources referenced by current layers.</div>
-              ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '16px' }}>
-                  {refs.map((r, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        padding: '6px 8px',
-                        background: 'var(--bg-secondary, rgba(255,255,255,0.03))',
-                        border: '1px solid var(--border-color)',
-                        borderRadius: '4px',
-                        fontSize: '11px',
-                      }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                        <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
-                          {r.moduleTitle} <span style={{ color: 'var(--text-subtle)', fontWeight: 400 }}>({r.kind})</span>
-                        </span>
-                        {getStatusBadge(r.status)}
-                      </div>
-                      <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--text-subtle)', fontSize: '10px' }} title={r.uri}>
-                        {r.uri}
-                      </div>
-                      {r.resolvedPath && (
-                        <div style={{ color: '#38bdf8', fontSize: '10px', marginTop: '2px' }}>
-                          ↳ {r.resolvedPath}
-                        </div>
-                      )}
-                      {r.status === 'missing' && (
-                        <div style={{ color: '#f87171', fontSize: '10px', marginTop: '2px' }}>
-                          ⚠ File not found in archive — renders default fallback
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <div style={{ fontWeight: 600, marginBottom: '8px', color: 'var(--text-muted)' }}>
-                Archive Assets ({doc?.assets.size ?? 0})
-              </div>
-              {doc &&
-                Array.from(doc.assets.entries()).map(([path, bytes]) => (
-                  <div
-                    key={path}
-                    style={{
-                      padding: '4px 0',
-                      borderBottom: '1px solid var(--border-color)',
-                      fontSize: '11px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                    }}
+            {showAddGlobal && (
+              <div class="add-global-form">
+                <input
+                  type="text"
+                  class="input-text"
+                  placeholder="Global name (e.g. primary_color)"
+                  value={newGlobalName}
+                  onInput={(e) =>
+                    setNewGlobalName((e.target as HTMLInputElement).value)
+                  }
+                />
+                <div class="form-row">
+                  <select
+                    class="input-select"
+                    value={newGlobalType}
+                    onChange={(e) =>
+                      setNewGlobalType((e.target as HTMLSelectElement).value)
+                    }
                   >
-                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{path}</span>
-                    <span style={{ color: 'var(--text-subtle)', whiteSpace: 'nowrap', marginLeft: '6px' }}>
-                      {(bytes.byteLength / 1024).toFixed(1)} KB
+                    <option value="COLOR">COLOR</option>
+                    <option value="NUMBER">NUMBER</option>
+                    <option value="TEXT">TEXT</option>
+                    <option value="SWITCH">SWITCH</option>
+                    <option value="FONT">FONT</option>
+                    <option value="BITMAP">BITMAP</option>
+                  </select>
+                  <input
+                    type="text"
+                    class="input-text"
+                    placeholder="Initial value"
+                    value={newGlobalValue}
+                    onInput={(e) =>
+                      setNewGlobalValue((e.target as HTMLInputElement).value)
+                    }
+                  />
+                </div>
+                <div class="form-actions">
+                  <button
+                    class="btn btn-sm"
+                    onClick={() => setShowAddGlobal(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    class="btn btn-sm btn-primary"
+                    onClick={handleCreateGlobal}
+                  >
+                    Create
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div class="globals-list">
+              {Object.entries(doc.globals).map(([k, g]) => (
+                <div key={k} class="global-row">
+                  <div class="global-info">
+                    <span class="global-type-badge">{g.type}</span>
+                    <span class="global-name">{k}</span>
+                  </div>
+                  <div class="global-val-wrap">
+                    {g.type === 'COLOR' && (
+                      <span
+                        class="color-indicator"
+                        style={{ backgroundColor: String(g.value) }}
+                      />
+                    )}
+                    <input
+                      type="text"
+                      class="global-input"
+                      value={String(g.value)}
+                      onChange={(e) => {
+                        const val = (e.target as HTMLInputElement).value;
+                        const nextGlobals = {
+                          ...doc.globals,
+                          [k]: { ...g, value: val },
+                        };
+                        commit(
+                          { ...doc, globals: nextGlobals },
+                          `Update global ${k}`
+                        );
+                      }}
+                    />
+                    <button
+                      class="tree-action-btn tree-action-delete"
+                      title="Delete"
+                      onClick={() => handleDeleteGlobal(k)}
+                    >
+                      <TrashIcon size={14} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ASSETS TAB */}
+        {tab === 'assets' && (
+          <div class="assets-container">
+            {/* Embedded Archive Files */}
+            <div class="assets-section-title">Archive Files</div>
+            <div class="assets-list">
+              {doc &&
+                Array.from(doc.assets.entries()).map(([path, data]) => (
+                  <div key={path} class="asset-row">
+                    <span class="asset-name">{path}</span>
+                    <span class="asset-size">
+                      {(data.length / 1024).toFixed(1)} KB
                     </span>
                   </div>
                 ))}
+              {(!doc || doc.assets.size === 0) && (
+                <div class="assets-empty">No embedded files in archive</div>
+              )}
             </div>
-          );
-        })()}
+
+            {/* Referenced Resource URIs */}
+            {doc && (
+              <div class="resources-diagnostic-section">
+                <div class="assets-section-title">
+                  Referenced Resources (Fonts, Icons, Bitmaps)
+                </div>
+                {(() => {
+                  const mgr =
+                    currentResourceManager.value ?? new ResourceManager(doc);
+                  const refs = mgr.listReferences(doc);
+
+                  if (refs.length === 0) {
+                    return (
+                      <div class="assets-empty">
+                        No external kfile:// references in document
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div class="resources-table">
+                      {refs.map((r, i) => {
+                        const badgeClass =
+                          r.status === 'exact'
+                            ? 'badge-ok'
+                            : r.status === 'alias'
+                            ? 'badge-alias'
+                            : r.status === 'case_insensitive'
+                            ? 'badge-ci'
+                            : 'badge-missing';
+                        return (
+                          <div key={i} class="resource-row">
+                            <div class="resource-header">
+                              <span class={`status-badge ${badgeClass}`}>
+                                {r.status.toUpperCase()}
+                              </span>
+                              <span class="resource-uri" title={r.uri}>
+                                {r.uri}
+                              </span>
+                            </div>
+                            <div class="resource-details">
+                              <span class="resource-path">
+                                Module: {r.moduleTitle} ({r.propKey})
+                              </span>
+                              {r.resolvedPath && (
+                                <span class="resource-resolved">
+                                  Resolved: {r.resolvedPath}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </aside>
   );

@@ -1,4 +1,4 @@
-import { signal } from '@preact/signals';
+import { signal, computed } from '@preact/signals';
 import type { Doc, Node, Prop } from '../../core/model/types.ts';
 import type { CanvasTarget } from '../../core/layout/types.ts';
 import type { SimState } from '../../core/formula/types.ts';
@@ -219,9 +219,234 @@ export function addNode(parent: Node, newNode: Node) {
   selectedNodeId.value = newNode.id;
 }
 
+export const addModuleModalOpen = signal<boolean>(false);
+export const canUndo = computed(() => undoStack.value.length > 0);
+export const canRedo = computed(() => redoStack.value.length > 0);
+
+export function findParentNode(root: Node, targetId: string): Node | null {
+  if (root.id === targetId) return null;
+  if (!root.children) return null;
+  for (const child of root.children) {
+    if (child.id === targetId) return root;
+    const found = findParentNode(child, targetId);
+    if (found) return found;
+  }
+  return null;
+}
+
+export function getBreadcrumbTrail(root: Node, targetId: string): Node[] {
+  const trail: Node[] = [];
+  function search(node: Node): boolean {
+    trail.push(node);
+    if (node.id === targetId) return true;
+    if (node.children) {
+      for (const child of node.children) {
+        if (search(child)) return true;
+      }
+    }
+    trail.pop();
+    return false;
+  }
+  search(root);
+  return trail;
+}
+
+export function createOfficialNode(type: string): Node {
+  const id = `${type}_${Date.now()}`;
+  switch (type) {
+    case 'ShapeModule':
+      return {
+        id,
+        type: 'ShapeModule',
+        title: 'Shape',
+        props: {
+          shape_type: { value: 'RECT' },
+          shape_width: { value: 100 },
+          shape_height: { value: 100 },
+          paint_color: { value: '#FFFFFFFF' },
+        },
+        extras: {},
+      };
+    case 'TextModule':
+      return {
+        id,
+        type: 'TextModule',
+        title: 'Text',
+        props: {
+          text_expression: { value: 'Text' },
+          text_size: { value: 40 },
+          paint_color: { value: '#FFFFFFFF' },
+        },
+        extras: {},
+      };
+    case 'BitmapModule':
+      return {
+        id,
+        type: 'BitmapModule',
+        title: 'Image',
+        props: {
+          bitmap_width: { value: 100 },
+          bitmap_height: { value: 100 },
+        },
+        extras: {},
+      };
+    case 'FontIconModule':
+      return {
+        id,
+        type: 'FontIconModule',
+        title: 'Icon',
+        props: {
+          icon_size: { value: 40 },
+          paint_color: { value: '#FFFFFFFF' },
+        },
+        extras: {},
+      };
+    case 'ProgressModule':
+      return {
+        id,
+        type: 'ProgressModule',
+        title: 'Progress',
+        props: {
+          progress_style: { value: 'LINEAR' },
+          progress_width: { value: 200 },
+          progress_height: { value: 20 },
+          progress_level: { value: 50 },
+          paint_color: { value: '#FFFFFFFF' },
+        },
+        extras: {},
+      };
+    case 'CurvedTextModule':
+      return {
+        id,
+        type: 'CurvedTextModule',
+        title: 'Morphing Text',
+        props: {
+          curved_expression: { value: 'Curved Text' },
+          curved_radius: { value: 100 },
+          curved_size: { value: 40 },
+          paint_color: { value: '#FFFFFFFF' },
+        },
+        extras: {},
+      };
+    case 'SeriesModule':
+      return {
+        id,
+        type: 'SeriesModule',
+        title: 'Series',
+        props: {
+          series_mode: { value: 'DAY_OF_WEEK' },
+        },
+        extras: {},
+      };
+    case 'OverlapLayerModule':
+      return {
+        id,
+        type: 'OverlapLayerModule',
+        title: 'Overlap Group',
+        props: {},
+        children: [],
+        extras: {},
+      };
+    case 'StackLayerModule':
+      return {
+        id,
+        type: 'StackLayerModule',
+        title: 'Stack Group',
+        props: {
+          stack_mode: { value: 'VERTICAL_LEFT' },
+        },
+        children: [],
+        extras: {},
+      };
+    case 'KomponentModule':
+      return {
+        id,
+        type: 'KomponentModule',
+        title: 'Komponent',
+        props: {},
+        children: [],
+        globals: {},
+        extras: {},
+      };
+    case 'AnimatedImageModule':
+      return {
+        id,
+        type: 'AnimatedImageModule',
+        title: 'Animated Image',
+        props: {
+          movie_width: { value: 100 },
+          movie_height: { value: 100 },
+        },
+        extras: {},
+      };
+    default:
+      return {
+        id,
+        type,
+        title: type,
+        props: {},
+        extras: {},
+      };
+  }
+}
+
+export function addOfficialModule(type: string) {
+  if (!currentDoc.value) return;
+  const selId = selectedNodeId.value ?? currentDoc.value.root.id;
+  const selNode = findNodeById(currentDoc.value.root, selId);
+  const isContainer =
+    selNode &&
+    (selNode.type === 'RootLayerModule' ||
+      selNode.type === 'OverlapLayerModule' ||
+      selNode.type === 'StackLayerModule' ||
+      selNode.type === 'KomponentModule');
+
+  let targetParent: Node;
+  if (isContainer && selNode) {
+    targetParent = selNode;
+  } else {
+    targetParent = findParentNode(currentDoc.value.root, selId) ?? currentDoc.value.root;
+  }
+
+  const newNode = createOfficialNode(type);
+  addNode(targetParent, newNode);
+}
+
+export function moveChild(parentId: string, childId: string, direction: 'up' | 'down') {
+  if (!currentDoc.value) return;
+  const parent = findNodeById(currentDoc.value.root, parentId);
+  if (!parent || !parent.children) return;
+
+  const idx = parent.children.findIndex((c) => c.id === childId);
+  if (idx < 0) return;
+  const targetIdx = direction === 'up' ? idx - 1 : idx + 1;
+  if (targetIdx < 0 || targetIdx >= parent.children.length) return;
+
+  const nextChildren = [...parent.children];
+  const [removed] = nextChildren.splice(idx, 1);
+  nextChildren.splice(targetIdx, 0, removed);
+
+  const updateTree = (n: Node): Node => {
+    if (n.id === parentId) {
+      return { ...n, children: nextChildren };
+    }
+    if (n.children) {
+      return { ...n, children: n.children.map(updateTree) };
+    }
+    return n;
+  };
+
+  const nextDoc: Doc = {
+    ...currentDoc.value,
+    root: updateTree(currentDoc.value.root),
+  };
+  commit(nextDoc, `Move ${removed.title} ${direction}`);
+}
+
 export function deleteNode(nodeId: string) {
   if (!currentDoc.value || nodeId === currentDoc.value.root.id) return;
+  const parent = findParentNode(currentDoc.value.root, nodeId);
   const next = removeNode(currentDoc.value, nodeId);
   commit(next, `Delete node`);
-  selectedNodeId.value = currentDoc.value.root.id;
+  selectedNodeId.value = parent ? parent.id : currentDoc.value.root.id;
 }

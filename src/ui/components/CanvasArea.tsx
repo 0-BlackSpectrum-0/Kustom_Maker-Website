@@ -1,33 +1,76 @@
-// src/ui/components/CanvasArea.tsx
 import { h } from 'preact';
-import { useEffect, useRef } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import {
   currentDoc,
   canvasTarget,
   simState,
   zoom,
+  pan,
+  selectedNodeId,
   showGridOverlay,
   showDeviceFrame,
   currentProfileId,
   targetOrientation,
-  setTargetSize,
   toggleOrientation,
   multiSizeModalOpen,
   currentResourceManager,
 } from '../state/editor-state.ts';
 import { renderPreset, getResourceManagerForDoc } from '../../core/render/renderer.ts';
-import { DEVICE_PROFILES, getDeviceProfile } from '../targets/device-profiles.ts';
-import { WIDGET_SIZE_PRESETS, getWidgetSizePreset } from '../targets/widget-sizes.ts';
+import type { LayoutNode } from '../../core/layout/types.ts';
+import {
+  FitFrameIcon,
+  ScreenIcon,
+  LockIcon,
+  UnlockIcon,
+  PlayIcon,
+  PauseIcon,
+  LayersIcon,
+} from '../icons/icons.tsx';
 import { MultiSizeModal } from './MultiSizeModal.tsx';
+
+function findLayoutNode(node: LayoutNode, id: string): LayoutNode | null {
+  if (node.id === id) return node;
+  for (const child of node.children ?? []) {
+    const found = findLayoutNode(child, id);
+    if (found) return found;
+  }
+  return null;
+}
+
+function hitTest(node: LayoutNode, px: number, py: number): LayoutNode | null {
+  // Check children in reverse z-order (top-most first)
+  for (let i = (node.children?.length ?? 0) - 1; i >= 0; i--) {
+    const child = node.children![i];
+    const hit = hitTest(child, px, py);
+    if (hit) return hit;
+  }
+  const bx = node.box.x ?? 0;
+  const by = node.box.y ?? 0;
+  const bw = node.box.w;
+  const bh = node.box.h;
+  if (px >= bx && px <= bx + bw && py >= by && py <= by + bh) {
+    return node;
+  }
+  return null;
+}
 
 export function CanvasArea() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const doc = currentDoc.value;
   const target = canvasTarget.value;
   const sim = simState.value;
   const currentZoom = zoom.value;
-  const isWidget = doc?.kind === 'kwgt';
-  const isKLWP = doc?.kind === 'klwp';
+  const selectedId = selectedNodeId.value;
+
+  const [layoutTree, setLayoutTree] = useState<LayoutNode | null>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [isLocked, setIsLocked] = useState<boolean>(false);
+
+  // Dragging / Panning State
+  const [isPanning, setIsPanning] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     let active = true;
@@ -42,13 +85,17 @@ export function CanvasArea() {
         const res = await getResourceManagerForDoc(doc);
         currentResourceManager.value = res;
 
-        await renderPreset(doc, target, {
+        const renderedCanvas = await renderPreset(doc, target, {
           sim,
           screens: target.screens,
           offset: target.offset,
           customCanvas: canvas,
           resources: res,
         });
+
+        if (active && renderedCanvas && (renderedCanvas as any).layoutRoot) {
+          setLayoutTree((renderedCanvas as any).layoutRoot);
+        }
       } catch (err) {
         console.error('Render error:', err);
       }
@@ -61,40 +108,68 @@ export function CanvasArea() {
     };
   }, [doc, target, sim]);
 
-  const handleProfileChange = (e: Event) => {
-    const val = (e.target as HTMLSelectElement).value;
-    if (val === 'preset' && doc) {
-      const w = doc.info.width ?? (isWidget ? 415 : 540);
-      const h = doc.info.height ?? (isWidget ? 542 : 1200);
-      setTargetSize(w, h, 'preset');
-    } else if (isWidget) {
-      const preset = getWidgetSizePreset(val);
-      if (preset) {
-        setTargetSize(preset.width, preset.height, preset.id);
-      }
+  // Click on canvas for Hit-Testing
+  const handleCanvasClick = (e: MouseEvent) => {
+    if (!canvasRef.current || !layoutTree) return;
+    const rect = canvasRef.current.getBoundingClientRect();
+    const scaleX = target.w / rect.width;
+    const scaleY = target.h / rect.height;
+
+    const clickX = (e.clientX - rect.left) * scaleX;
+    const clickY = (e.clientY - rect.top) * scaleY;
+
+    const hit = hitTest(layoutTree, clickX, clickY);
+    if (hit) {
+      selectedNodeId.value = hit.id;
     } else {
-      const prof = getDeviceProfile(val);
-      if (prof) {
-        setTargetSize(prof.width, prof.height, prof.id);
-      }
+      selectedNodeId.value = doc ? doc.root.id : 'root';
     }
   };
 
-  const handleScreenCountChange = (delta: number) => {
-    const current = target.screens ?? 1;
-    const next = Math.max(1, Math.min(7, current + delta));
-    canvasTarget.value = {
-      ...target,
-      screens: next,
-    };
+  // Middle-click or space drag panning
+  const handleMouseDown = (e: MouseEvent) => {
+    if (e.button === 1 || (e as any).spaceKey) {
+      setIsPanning(true);
+      setDragStart({ x: e.clientX - pan.value.x, y: e.clientY - pan.value.y });
+    }
   };
 
-  const handleScrollOffsetChange = (e: Event) => {
-    const val = parseFloat((e.target as HTMLInputElement).value);
-    canvasTarget.value = {
-      ...target,
-      offset: val,
-    };
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isPanning) {
+      pan.value = {
+        x: e.clientX - dragStart.x,
+        y: e.clientY - dragStart.y,
+      };
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsPanning(false);
+  };
+
+  // Wheel to Zoom
+  const handleWheel = (e: WheelEvent) => {
+    if (e.ctrlKey || e.metaKey) {
+      e.preventDefault();
+      const delta = e.deltaY < 0 ? 0.1 : -0.1;
+      zoom.value = Math.max(0.2, Math.min(4.0, zoom.value + delta));
+    }
+  };
+
+  // Find selection box
+  const selectedLayout = layoutTree && selectedId ? findLayoutNode(layoutTree, selectedId) : null;
+  const isSelectedRoot = selectedId === doc?.root.id;
+
+  const handleFit = () => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const pad = 40;
+    const availW = rect.width - pad;
+    const availH = rect.height - pad;
+    const fitW = availW / target.w;
+    const fitH = availH / target.h;
+    zoom.value = Math.max(0.2, Math.min(1.0, Math.min(fitW, fitH)));
+    pan.value = { x: 0, y: 0 };
   };
 
   const currentScreenIndex = Math.min(
@@ -103,102 +178,21 @@ export function CanvasArea() {
   );
 
   return (
-    <main class="canvas-container">
-      {/* Top Floating Target Toolbar */}
-      <div class="target-top-bar">
-        {/* Profile Selector */}
-        <select class="target-select" value={currentProfileId.value} onChange={handleProfileChange}>
-          <option value="preset">Native ({doc?.info.width ?? target.w}×{doc?.info.height ?? target.h})</option>
-          {isWidget && (
-            <optgroup label="Widget Sizes">
-              {WIDGET_SIZE_PRESETS.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name} ({p.width}×{p.height})
-                </option>
-              ))}
-            </optgroup>
-          )}
-          {(!isWidget || isKLWP) && (
-            <optgroup label="Device Profiles">
-              {DEVICE_PROFILES.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name} ({p.width}×{p.height})
-                </option>
-              ))}
-            </optgroup>
-          )}
-        </select>
-
-        {/* Orientation Toggle */}
-        <button
-          class="btn btn-sm"
-          title="Toggle Orientation (Portrait / Landscape)"
-          onClick={toggleOrientation}
-        >
-          🔄 {targetOrientation.value === 'portrait' ? 'Port' : 'Land'}
-        </button>
-
-        {/* Device Frame Toggle */}
-        <button
-          class={`btn btn-sm ${showDeviceFrame.value ? 'btn-primary' : ''}`}
-          title="Toggle Device Frame Mockup"
-          onClick={() => (showDeviceFrame.value = !showDeviceFrame.value)}
-        >
-          📱 Frame
-        </button>
-
-        {/* Grid Overlay Toggle */}
-        <button
-          class={`btn btn-sm ${showGridOverlay.value ? 'btn-primary' : ''}`}
-          title="Toggle Launcher Grid Overlay"
-          onClick={() => (showGridOverlay.value = !showGridOverlay.value)}
-        >
-          # Grid
-        </button>
-
-        {/* Multi-Size Preview (for widgets) */}
-        {isWidget && (
-          <button
-            class="btn btn-sm"
-            title="Multi-size 2x2 / 4x2 / 4x4 preview"
-            onClick={() => (multiSizeModalOpen.value = true)}
-          >
-            ⊞ Multi-Size
-          </button>
-        )}
-
-        {/* Multi-Screen Scroll (for KLWP or multi-screen setups) */}
-        {(isKLWP || (target.screens && target.screens > 1)) && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', borderLeft: '1px solid var(--border-color)', paddingLeft: '8px' }}>
-            <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Screens:</span>
-            <button class="btn btn-sm" style={{ padding: '1px 5px' }} onClick={() => handleScreenCountChange(-1)}>-</button>
-            <span style={{ fontSize: '11px', minWidth: '14px', textAlign: 'center' }}>{target.screens ?? 1}</span>
-            <button class="btn btn-sm" style={{ padding: '1px 5px' }} onClick={() => handleScreenCountChange(1)}>+</button>
-
-            <span style={{ fontSize: '11px', color: 'var(--text-muted)', marginLeft: '4px' }}>Scroll:</span>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.02"
-              value={target.offset ?? 0.5}
-              onInput={handleScrollOffsetChange}
-              style={{ width: '70px', accentColor: 'var(--accent)', cursor: 'pointer' }}
-            />
-            <span style={{ fontSize: '11px', color: 'var(--accent)' }}>
-              P{currentScreenIndex}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* Main Viewport */}
+    <main
+      ref={containerRef}
+      class="canvas-container"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onWheel={handleWheel}
+    >
+      {/* Viewport Stage */}
       <div
         class="canvas-viewport"
         style={{
-          transform: `scale(${currentZoom})`,
+          transform: `translate(${pan.value.x}px, ${pan.value.y}px) scale(${currentZoom})`,
           transformOrigin: 'center center',
-          transition: 'transform 0.1s ease-out',
+          cursor: isPanning ? 'grabbing' : 'default',
         }}
       >
         <div
@@ -207,28 +201,42 @@ export function CanvasArea() {
             position: 'relative',
             width: `${target.w}px`,
             height: `${target.h}px`,
-            boxShadow: showDeviceFrame.value ? undefined : '0 12px 36px rgba(0, 0, 0, 0.4)',
+            boxShadow: showDeviceFrame.value ? undefined : '0 16px 48px rgba(0, 0, 0, 0.5)',
             borderRadius: showDeviceFrame.value ? undefined : '12px',
             overflow: 'hidden',
           }}
         >
-          {/* Device Frame Extras */}
-          {showDeviceFrame.value && (
-            <>
-              <div class="phone-punch-hole" />
-              <div class="phone-status-bar">
-                <span>10:10</span>
-                <span style={{ display: 'flex', gap: '6px', fontSize: '10px' }}>
-                  <span>5G</span>
-                  <span>📶</span>
-                  <span>85%</span>
-                </span>
-              </div>
-              <div class="phone-nav-bar" />
-            </>
+          {/* Main Painting Canvas */}
+          <canvas
+            ref={canvasRef}
+            onClick={handleCanvasClick}
+            style={{ display: 'block', width: '100%', height: '100%' }}
+          />
+
+          {/* Interactive Selection Outline */}
+          {selectedLayout && !isSelectedRoot && (
+            <div
+              class="selection-box"
+              style={{
+                position: 'absolute',
+                left: `${selectedLayout.box.x}px`,
+                top: `${selectedLayout.box.y}px`,
+                width: `${selectedLayout.box.w}px`,
+                height: `${selectedLayout.box.h}px`,
+                border: '2px solid #E53935',
+                pointerEvents: 'none',
+                zIndex: 10,
+              }}
+            >
+              {/* Corner Handles */}
+              <div class="handle handle-tl" />
+              <div class="handle handle-tr" />
+              <div class="handle handle-bl" />
+              <div class="handle handle-br" />
+            </div>
           )}
 
-          {/* Home Launcher Grid Overlay */}
+          {/* Grid Overlay */}
           {showGridOverlay.value && (
             <svg
               style={{
@@ -241,7 +249,6 @@ export function CanvasArea() {
                 zIndex: 8,
               }}
             >
-              {/* 4 columns or 5 columns */}
               {[1, 2, 3, 4].map((col) => (
                 <line
                   key={`col-${col}`}
@@ -249,12 +256,11 @@ export function CanvasArea() {
                   y1="0"
                   x2={`${(col / 4) * 100}%`}
                   y2="100%"
-                  stroke="rgba(59, 130, 246, 0.5)"
+                  stroke="rgba(229, 57, 53, 0.3)"
                   strokeDasharray="4 4"
                   strokeWidth="1"
                 />
               ))}
-              {/* 5 rows or 6 rows */}
               {[1, 2, 3, 4, 5].map((row) => (
                 <line
                   key={`row-${row}`}
@@ -262,50 +268,92 @@ export function CanvasArea() {
                   y1={`${(row / 6) * 100}%`}
                   x2="100%"
                   y2={`${(row / 6) * 100}%`}
-                  stroke="rgba(59, 130, 246, 0.5)"
+                  stroke="rgba(229, 57, 53, 0.3)"
                   strokeDasharray="4 4"
                   strokeWidth="1"
                 />
               ))}
             </svg>
           )}
-
-          <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%' }} />
         </div>
+      </div>
+
+      {/* Official Right Vertical Floating Tool Strip */}
+      <div class="stage-tools-strip">
+        <button
+          class="stage-tool-btn"
+          title={`Screen ${currentScreenIndex} of ${target.screens ?? 1}`}
+          onClick={() => {
+            const nextScreens = ((target.screens ?? 1) % 5) + 1;
+            canvasTarget.value = { ...target, screens: nextScreens };
+          }}
+        >
+          <ScreenIcon size={18} />
+          <span class="stage-tool-badge">
+            {currentScreenIndex}/{target.screens ?? 1}
+          </span>
+        </button>
+
+        <button
+          class="stage-tool-btn"
+          title="Fit to Stage"
+          onClick={handleFit}
+        >
+          <FitFrameIcon size={18} />
+        </button>
+
+        <button
+          class={`stage-tool-btn ${isLocked ? 'active' : ''}`}
+          title={isLocked ? 'Locked (click to unlock)' : 'Unlocked (click to lock)'}
+          onClick={() => setIsLocked(!isLocked)}
+        >
+          {isLocked ? <LockIcon size={18} /> : <UnlockIcon size={18} />}
+        </button>
+
+        <button
+          class={`stage-tool-btn ${showGridOverlay.value ? 'active' : ''}`}
+          title="Toggle Grid / Layers"
+          onClick={() => (showGridOverlay.value = !showGridOverlay.value)}
+        >
+          <LayersIcon size={18} />
+        </button>
+
+        <button
+          class={`stage-tool-btn ${isPlaying ? 'active' : ''}`}
+          title={isPlaying ? 'Pause Animation' : 'Play Animation'}
+          onClick={() => setIsPlaying(!isPlaying)}
+        >
+          {isPlaying ? <PauseIcon size={18} /> : <PlayIcon size={18} />}
+        </button>
       </div>
 
       {/* Bottom Floating Zoom Bar */}
       <div class="floating-bar">
-        <button class="btn btn-sm" onClick={() => (zoom.value = Math.max(0.1, zoom.value - 0.1))}>
+        <button
+          class="btn btn-sm"
+          onClick={() => (zoom.value = Math.max(0.2, zoom.value - 0.1))}
+        >
           -
         </button>
-        <span style={{ fontSize: '12px', minWidth: '40px', textAlign: 'center' }}>
-          {Math.round(currentZoom * 100)}%
-        </span>
-        <button class="btn btn-sm" onClick={() => (zoom.value = Math.min(4.0, zoom.value + 0.1))}>
+        <span class="zoom-text">{Math.round(currentZoom * 100)}%</span>
+        <button
+          class="btn btn-sm"
+          onClick={() => (zoom.value = Math.min(4.0, zoom.value + 0.1))}
+        >
           +
         </button>
         <button class="btn btn-sm" onClick={() => (zoom.value = 1.0)}>
           100%
         </button>
-        <button
-          class="btn btn-sm"
-          title="Fit to view"
-          onClick={() => {
-            const containerH = window.innerHeight - 150;
-            const fitZoom = Math.min(1.0, containerH / target.h);
-            zoom.value = Math.round(fitZoom * 10) / 10;
-          }}
-        >
+        <button class="btn btn-sm" onClick={handleFit}>
           Fit
         </button>
-        <span style={{ borderLeft: '1px solid var(--border-color)', height: '14px' }} />
-        <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
+        <span class="bar-divider" />
+        <span class="dims-text">
           {target.w} × {target.h} px
         </span>
       </div>
 
-      {/* Multi-Size Modal */}
       <MultiSizeModal />
     </main>
   );
