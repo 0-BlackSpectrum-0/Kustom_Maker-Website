@@ -7,6 +7,7 @@ import { readPresetArchive } from '../../core/archive/reader.ts';
 import { sanitize } from '../../core/validate/fixers/index.ts';
 import { buildDeviceTestPackZip } from '../../core/device-pack/generator.ts';
 import { cloneDoc } from '../../core/model/edit.ts';
+import { generatePresetThumbnails } from '../../core/render/thumbnails.ts';
 
 export function ExportModal() {
   const [pruneAssets, setPruneAssets] = useState(false);
@@ -31,20 +32,44 @@ export function ExportModal() {
 
   const handleDownload = async () => {
     setIsExporting(true);
-    setStatusMessage('Validating and packaging archive...');
+    setStatusMessage('Generating thumbnails and packaging archive...');
 
     try {
-      // 1. Generate archive bytes
-      const bytes = writePresetArchive(doc);
+      // 1. Generate thumbnails if missing
+      const hasThumbs = Boolean(doc.thumbs?.portrait || doc.thumbs?.landscape || doc.thumbs?.komp);
+      const generatedThumbs = hasThumbs ? doc.thumbs : await generatePresetThumbnails(doc);
 
-      // 2. Pre-export validation gate: re-read bytes and verify lossless roundtrip
+      // 2. Build complete preset_info
+      const docToExport = {
+        ...doc,
+        info: {
+          title: doc.info.title || 'Untitled',
+          author: doc.info.author || 'User',
+          description: doc.info.description || 'Created with KustomWeb',
+          version: doc.info.version || 13,
+          release: doc.info.release || 377435216,
+          width: doc.info.width ?? (doc.kind === 'kwgt' ? 415 : 540),
+          height: doc.info.height ?? (doc.kind === 'kwgt' ? 542 : 1200),
+          locked: doc.info.locked ?? false,
+          features: doc.info.features ?? '',
+          archive: doc.info.archive ?? null,
+          ts: Date.now(),
+          ...doc.info,
+        },
+        thumbs: generatedThumbs,
+      };
+
+      // 3. Generate archive bytes
+      const bytes = writePresetArchive(docToExport);
+
+      // 4. Pre-export validation gate: re-read bytes and verify lossless roundtrip
       const verifiedDoc = await readPresetArchive(bytes);
       if (!verifiedDoc.root || !verifiedDoc.info) {
         throw new Error('Archive re-validation failed. Output corrupt.');
       }
 
-      // 3. Trigger download
-      const filename = `${doc.info.title || 'preset'}.${doc.kind}`;
+      // 5. Trigger download
+      const filename = `${docToExport.info.title || 'preset'}.${doc.kind}`;
       const blob = new Blob([bytes as unknown as BlobPart], { type: 'application/zip' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -53,7 +78,7 @@ export function ExportModal() {
       a.click();
       URL.revokeObjectURL(url);
 
-      setStatusMessage(`Successfully exported ${filename}`);
+      setStatusMessage(`Successfully exported ${filename} with thumbnails`);
       setTimeout(() => {
         exportModalOpen.value = false;
       }, 1200);
@@ -178,6 +203,10 @@ export function ExportModal() {
               Prune unreferenced assets on export
             </label>
           </div>
+        </div>
+
+        <div style={{ marginTop: '14px', padding: '8px 10px', backgroundColor: 'rgba(255, 255, 255, 0.03)', borderRadius: '4px', border: '1px solid var(--border-color)', fontSize: '11px', color: 'var(--text-subtle)' }}>
+          ℹ Exported files follow the official Kustom ZIP archive format with thumbnails and preset metadata. For advanced device-specific features (e.g. physical sensor triggers), test directly on device with KWGT/KLWP.
         </div>
 
         {statusMessage && (
