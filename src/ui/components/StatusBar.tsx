@@ -7,6 +7,7 @@ import {
   validationReport,
   targetOrientation,
 } from '../state/editor-state.ts';
+import { txt } from '../util.ts';
 
 export function StatusBar() {
   const doc = currentDoc.value;
@@ -17,6 +18,8 @@ export function StatusBar() {
 
   const unitPx = (Math.min(target.w, target.h) / 720).toFixed(2);
   const timeStr = sim.now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const batteryStr = `${sim.battery ? sim.battery.level : 100}%${sim.battery?.charging ? ' ⚡' : ''}`;
+  const networkStr = sim.network ? (sim.network.wifi ? (sim.network.ssid || 'Wi-Fi') : (sim.network.cell || 'Cellular')) : 'Offline';
 
   return (
     <footer class="status-bar">
@@ -35,7 +38,7 @@ export function StatusBar() {
             {problemsOpen && (
               <div class="problems-popover">
                 <div class="popover-header">
-                  <span>Validation Issues ({report.issues.length})</span>
+                  <span>Validation Issues ({txt(report.issues.length)})</span>
                   <button class="popover-close" onClick={() => setProblemsOpen(false)}>✕</button>
                 </div>
                 <div class="popover-body">
@@ -43,10 +46,10 @@ export function StatusBar() {
                     <div class="popover-empty">All structural and spec checks passed.</div>
                   ) : (
                     report.issues.map((issue, idx) => (
-                      <div key={idx} class={`issue-item issue-${issue.severity.toLowerCase()}`}>
-                        <span class="issue-code">{issue.code}</span>
-                        <span class="issue-msg">{issue.message}</span>
-                        {issue.path && <span class="issue-path">{issue.path}</span>}
+                      <div key={idx} class={`issue-item issue-${txt(issue.severity).toLowerCase()}`}>
+                        <span class="issue-code">{txt(issue.code)}</span>
+                        <span class="issue-msg">{txt(issue.message)}</span>
+                        {issue.path && <span class="issue-path">{txt(issue.path)}</span>}
                       </div>
                     ))
                   )}
@@ -57,7 +60,7 @@ export function StatusBar() {
         )}
 
         <span class="status-item">
-          Unit: 1 u = {unitPx} px
+          Unit: 1 u = {txt(unitPx)} px
         </span>
       </div>
 
@@ -65,7 +68,7 @@ export function StatusBar() {
       <div class="status-bar-center">
         {doc && (
           <span class="status-item status-muted">
-            {doc.kind.toUpperCase()} v{doc.info.version || 13} · Release {doc.info.release || 0}
+            {txt(doc.kind).toUpperCase()} v{txt(doc.info.version || 13)} · Release {txt(doc.info.release || 0)}
           </span>
         )}
       </div>
@@ -73,16 +76,16 @@ export function StatusBar() {
       {/* Right: Active Simulation Indicators */}
       <div class="status-bar-right">
         <span class="status-item" title="Simulated Clock Time">
-          🕒 {timeStr}
+          Time: {txt(timeStr)}
         </span>
         <span class="status-item" title="Simulated Battery Level">
-          🔋 {sim.battery}%
+          Bat: {txt(batteryStr)}
         </span>
         <span class="status-item" title="Orientation">
-          📱 {targetOrientation.value === 'portrait' ? 'Portrait' : 'Landscape'}
+          {targetOrientation.value === 'portrait' ? 'Portrait' : 'Landscape'}
         </span>
         <span class="status-item" title="Network Connection">
-          📶 {sim.network}
+          Net: {txt(networkStr)}
         </span>
       </div>
     </footer>

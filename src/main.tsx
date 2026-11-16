@@ -9,6 +9,7 @@ interface ErrorBoundaryProps {
 interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;
+  componentStack?: string;
 }
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -18,12 +19,19 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error) {
-    console.error('KustomWeb caught an unhandled error:', error);
+  componentDidCatch(error: Error, info?: { componentStack?: string }) {
+    console.error('KustomWeb caught an unhandled error:', error, info?.componentStack);
+    if (info?.componentStack) {
+      this.setState({ componentStack: info.componentStack });
+    }
   }
 
   render() {
     if (this.state.hasError) {
+      const stackLines = this.state.componentStack
+        ? this.state.componentStack.trim().split('\n').slice(0, 8).join('\n')
+        : '';
+
       return (
         <div style={{
           display: 'flex',
@@ -46,10 +54,26 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
             overflowX: 'auto',
             fontSize: '12px',
             color: '#ff6b6b',
-            marginBottom: '16px',
+            marginBottom: '12px',
+            textAlign: 'left',
           }}>
             {this.state.error?.message || 'Unknown error'}
           </pre>
+          {stackLines && (
+            <pre style={{
+              backgroundColor: '#16161a',
+              padding: '12px',
+              borderRadius: '6px',
+              maxWidth: '600px',
+              overflowX: 'auto',
+              fontSize: '11px',
+              color: '#8e8e93',
+              marginBottom: '16px',
+              textAlign: 'left',
+            }}>
+              {stackLines}
+            </pre>
+          )}
           <button
             style={{
               padding: '8px 16px',

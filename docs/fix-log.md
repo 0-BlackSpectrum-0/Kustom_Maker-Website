@@ -154,5 +154,26 @@
   - Added comprehensive `README.md` documenting architecture, zero-handwritten-enum policy, immutable state model, verification results, and dev commands.
 - **DoD**: Green. All 46 corpus presets pass L1-L3 verification; all 22 test suites passing (170 tests); repo hygiene clean.
 
+## [2026-11-16] Phase R0 & R1: UI Smoke Tests & Fix StatusBar Re-render Crash
+- **Defects Addressed**:
+  - `Node.insertBefore: Argument 1 is not an object`: StatusBar rendered `{sim.battery}%` and `{sim.network}` as object children in JSX, triggering Preact reconciliation crash on re-render.
+  - Component stack missing from ErrorBoundary.
+  - Absence of full component mounting and re-rendering test class.
+- **Commands Run**:
+  - `cmd /c npx vitest run tests/ui/smoke.test.tsx` (before fix) -> Failed with `Failed to execute 'insertBefore' on 'Node': parameter 1 is not of type 'Node'`.
+  - `cmd /c npx vitest run tests/ui/smoke.test.tsx` (after fix) -> Passed (2 tests passed).
+  - `cmd /c npm test` -> 23 test suites passed, 172 tests passed.
+  - `cmd /c npm run build` -> Passed (JS 250.26 kB / 67.27 kB gzip, CSS 18.32 kB / 3.64 kB gzip).
+  - `node tools/check-size.mjs` -> Passed (JS: 65.69 KB gzip <= 120 KB, CSS: 3.56 KB gzip <= 15 KB).
+- **What Changed**:
+  - Installed `jsdom`, `@types/jsdom`, and `@testing-library/preact` for component mounting in test environment.
+  - Created `tests/ui/smoke.test.tsx`: mounts `<App />`, exercises complete user interaction workflows (add module, delete module, undo/redo, orientation, grid/frame, modals, globals, assets tab) and tests selection of all module types in real corpus KWGT and KLWP archives.
+  - Created `tools/smoke/smoke.mjs` for smoke test initialization.
+  - Created `src/ui/util.ts` with `txt()` helper for safe JSX text interpolation.
+  - Updated `src/ui/components/StatusBar.tsx`: rendered primitive values `{sim.battery.level}%` and `{networkStr}`, removed raw object interpolations, and eliminated emoji in favor of clean textual indicators.
+  - Updated `src/main.tsx`: extended `ErrorBoundary` to capture `info.componentStack` and display the first 8 lines of the stack on error.
+- **DoD**: Green. Smoke tests reproduce crash before fix and pass cleanly after fix; zero `[object Object]` in DOM; all 23 test suites passing.
+
+
 
 
