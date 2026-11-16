@@ -784,6 +784,10 @@ body, html, #app {
 .handle-tr { top: -4px; right: -4px; }
 .handle-bl { bottom: -4px; left: -4px; }
 .handle-br { bottom: -4px; right: -4px; }
+.handle-tc { top: -4px; left: calc(50% - 4px); }
+.handle-bc { bottom: -4px; left: calc(50% - 4px); }
+.handle-ml { top: calc(50% - 4px); left: -4px; }
+.handle-mr { top: calc(50% - 4px); right: -4px; }
 
 /* Inspector Panel */
 .inspector-panel {

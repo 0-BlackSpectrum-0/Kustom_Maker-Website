@@ -19,6 +19,7 @@ import {
   commit,
   findParentNode,
   findNodeById,
+  updateNodeProp,
 } from '../state/editor-state.ts';
 import { renderPreset, getResourceManagerForDoc } from '../../core/render/renderer.ts';
 import type { LayoutNode } from '../../core/layout/types.ts';
@@ -177,14 +178,57 @@ export function CanvasArea() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedId, doc]);
 
+  const [spacePressed, setSpacePressed] = useState(false);
+  const [isDraggingNode, setIsDraggingNode] = useState(false);
+  const renderGenRef = useRef(0);
+  const dragNodeRef = useRef<{
+    startX: number;
+    startY: number;
+    origX: number;
+    origY: number;
+    anchor: string;
+  } | null>(null);
+
+  // Space key tracking for Pan
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      const activeTag = (document.activeElement?.tagName || '').toLowerCase();
+      if (['input', 'textarea', 'select'].includes(activeTag)) return;
+      if (e.code === 'Space') {
+        e.preventDefault();
+        setSpacePressed(true);
+      }
+    };
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.code === 'Space') {
+        setSpacePressed(false);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('keyup', onKeyUp);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('keyup', onKeyUp);
+    };
+  }, []);
+
+  // Single rAF Render Loop with HiDPI support and no canvas.width resets when size unchanged
   useEffect(() => {
     let active = true;
+    renderGenRef.current += 1;
+    const currentGen = renderGenRef.current;
 
     const draw = async () => {
       if (!doc || !canvasRef.current) return;
       const canvas = canvasRef.current;
-      canvas.width = target.w;
-      canvas.height = target.h;
+      const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
+      const targetW = Math.round(target.w * dpr);
+      const targetH = Math.round(target.h * dpr);
+
+      if (canvas.width !== targetW || canvas.height !== targetH) {
+        canvas.width = targetW;
+        canvas.height = targetH;
+      }
 
       try {
         const res = await getResourceManagerForDoc(doc);
@@ -198,7 +242,7 @@ export function CanvasArea() {
           resources: res,
         });
 
-        if (active && renderedCanvas && (renderedCanvas as any).layoutRoot) {
+        if (active && renderGenRef.current === currentGen && renderedCanvas && (renderedCanvas as any).layoutRoot) {
           setLayoutTree((renderedCanvas as any).layoutRoot);
         }
       } catch (err) {
@@ -206,7 +250,9 @@ export function CanvasArea() {
       }
     };
 
-    draw();
+    requestAnimationFrame(() => {
+      if (active) draw();
+    });
 
     return () => {
       active = false;
@@ -215,6 +261,7 @@ export function CanvasArea() {
 
   // Click on canvas for Hit-Testing
   const handleCanvasClick = (e: MouseEvent) => {
+    if (isDraggingNode || isPanning) return;
     if (!canvasRef.current || !layoutTree) return;
     const rect = canvasRef.current.getBoundingClientRect();
     const scaleX = target.w / rect.width;
@@ -233,7 +280,8 @@ export function CanvasArea() {
 
   // Middle-click or space drag panning
   const handleMouseDown = (e: MouseEvent) => {
-    if (e.button === 1 || (e as any).spaceKey) {
+    if (e.button === 1 || spacePressed) {
+      e.preventDefault();
       setIsPanning(true);
       setDragStart({ x: e.clientX - pan.value.x, y: e.clientY - pan.value.y });
     }
@@ -252,12 +300,25 @@ export function CanvasArea() {
     setIsPanning(false);
   };
 
-  // Wheel to Zoom
+  // Wheel to Zoom around cursor
   const handleWheel = (e: WheelEvent) => {
     if (e.ctrlKey || e.metaKey) {
       e.preventDefault();
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left - rect.width / 2;
+      const mouseY = e.clientY - rect.top - rect.height / 2;
+
       const delta = e.deltaY < 0 ? 0.1 : -0.1;
-      zoom.value = Math.max(0.2, Math.min(4.0, zoom.value + delta));
+      const currentZ = zoom.value;
+      const nextZ = Math.max(0.2, Math.min(4.0, currentZ + delta));
+      const scaleRatio = nextZ / currentZ;
+
+      pan.value = {
+        x: mouseX - (mouseX - pan.value.x) * scaleRatio,
+        y: mouseY - (mouseY - pan.value.y) * scaleRatio,
+      };
+      zoom.value = nextZ;
     }
   };
 
@@ -265,6 +326,52 @@ export function CanvasArea() {
   const selectedLayout = layoutTree && selectedId ? findLayoutNode(layoutTree, selectedId) : null;
   const isSelectedRoot = selectedId === doc?.root.id;
   const selBox = selectedLayout ? (selectedLayout.absBox ?? selectedLayout.box) : null;
+
+  // Drag to move selected node (calibrated per anchor sign rules)
+  const handleSelectionMouseDown = (e: MouseEvent) => {
+    e.stopPropagation();
+    if (!doc || !selectedId || isSelectedRoot) return;
+    const selNode = findNodeById(doc.root, selectedId);
+    if (!selNode) return;
+
+    const anchor = String(selNode.props?.position_anchor?.value || 'CENTER');
+    const origX = Number(selNode.props?.position_offset_x?.value || 0);
+    const origY = Number(selNode.props?.position_offset_y?.value || 0);
+
+    dragNodeRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      origX,
+      origY,
+      anchor,
+    };
+    setIsDraggingNode(true);
+
+    const handleNodeMouseMove = (ev: MouseEvent) => {
+      if (!dragNodeRef.current || !doc || !selectedId) return;
+      const dx = (ev.clientX - dragNodeRef.current.startX) / zoom.value;
+      const dy = (ev.clientY - dragNodeRef.current.startY) / zoom.value;
+
+      const isRight = dragNodeRef.current.anchor.includes('RIGHT');
+      const isBottom = dragNodeRef.current.anchor.includes('BOTTOM');
+
+      const nextX = Math.round(dragNodeRef.current.origX + (isRight ? -dx : dx));
+      const nextY = Math.round(dragNodeRef.current.origY + (isBottom ? -dy : dy));
+
+      updateNodeProp(selectedId, 'position_offset_x', { value: nextX });
+      updateNodeProp(selectedId, 'position_offset_y', { value: nextY });
+    };
+
+    const handleNodeMouseUp = () => {
+      dragNodeRef.current = null;
+      setIsDraggingNode(false);
+      window.removeEventListener('mousemove', handleNodeMouseMove);
+      window.removeEventListener('mouseup', handleNodeMouseUp);
+    };
+
+    window.addEventListener('mousemove', handleNodeMouseMove);
+    window.addEventListener('mouseup', handleNodeMouseUp);
+  };
 
   const handleFit = () => {
     if (!containerRef.current) return;
@@ -287,6 +394,7 @@ export function CanvasArea() {
     <main
       ref={containerRef}
       class="canvas-container"
+      style={{ cursor: spacePressed ? (isPanning ? 'grabbing' : 'grab') : 'default' }}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -298,7 +406,7 @@ export function CanvasArea() {
         style={{
           transform: `translate(${pan.value.x}px, ${pan.value.y}px) scale(${currentZoom})`,
           transformOrigin: 'center center',
-          cursor: isPanning ? 'grabbing' : 'default',
+          cursor: isPanning ? 'grabbing' : (spacePressed ? 'grab' : 'default'),
         }}
       >
         <div
@@ -319,7 +427,7 @@ export function CanvasArea() {
             style={{ display: 'block', width: '100%', height: '100%' }}
           />
 
-          {/* Interactive Selection Outline with absolute coordinates */}
+          {/* Interactive Selection Outline with absolute coordinates & 8 handles */}
           {selBox && !isSelectedRoot && (
             <div
               class="selection-box"
@@ -329,15 +437,45 @@ export function CanvasArea() {
                 top: `${selBox.y ?? 0}px`,
                 width: `${selBox.w}px`,
                 height: `${selBox.h}px`,
-                border: '2px solid #E53935',
-                pointerEvents: 'none',
+                border: '2px solid var(--accent, #EF5350)',
+                cursor: isDraggingNode ? 'grabbing' : 'grab',
                 zIndex: 10,
               }}
+              onMouseDown={handleSelectionMouseDown}
             >
+              {/* 4 Corner Handles */}
               <div class="handle handle-tl" />
               <div class="handle handle-tr" />
               <div class="handle handle-bl" />
               <div class="handle handle-br" />
+
+              {/* 4 Edge Handles */}
+              <div class="handle handle-tc" />
+              <div class="handle handle-bc" />
+              <div class="handle handle-ml" />
+              <div class="handle handle-mr" />
+
+              {/* Live Coordinate & Dimension Readout Badge */}
+              <div
+                class="selection-badge"
+                style={{
+                  position: 'absolute',
+                  bottom: '-22px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  backgroundColor: 'rgba(26, 26, 30, 0.9)',
+                  border: '1px solid var(--border-color, #2C2C34)',
+                  borderRadius: '3px',
+                  padding: '1px 6px',
+                  fontSize: '10px',
+                  fontFamily: 'monospace',
+                  color: '#FFFFFF',
+                  whiteSpace: 'nowrap',
+                  pointerEvents: 'none',
+                }}
+              >
+                {Math.round(selBox.x ?? 0)}, {Math.round(selBox.y ?? 0)} · {Math.round(selBox.w)}×{Math.round(selBox.h)}
+              </div>
             </div>
           )}
 
