@@ -5,27 +5,267 @@ import {
   selectedNodeId,
   findNodeById,
   updateNodeProp,
+  deleteNode,
+  commit,
+  addModuleModalOpen,
 } from '../state/editor-state.ts';
+import { MODULE_SPECS } from '../../core/spec/generated.ts';
+import { PropertyRow } from './PropertyRow.tsx';
 import {
-  AnchorModeValues,
-  ShapeValues,
-  TextAlignValues,
-  PaintStyleValues,
-  PaintModeValues,
-  GradientValues,
-  MaskFilterValues,
-  ShadowValues,
-  ProgressStyleValues,
-  ProgressShapeValues,
-  LayerStackingValues,
-  RotateValues,
-} from '../../core/spec/generated.ts';
-import { CalculatorIcon, GlobalIcon } from '../icons/icons.tsx';
+  AddIcon,
+  TrashIcon,
+  CopyIcon,
+  EyeIcon,
+  DragHandleIcon,
+  TextModuleIcon,
+  ShapeModuleIcon,
+  ImageModuleIcon,
+  FontIconModuleIcon,
+  ProgressModuleIcon,
+  CurvedTextModuleIcon,
+  OverlapLayerModuleIcon,
+  StackLayerModuleIcon,
+  KomponentModuleIcon,
+} from '../icons/icons.tsx';
+import { cloneNode, addChild } from '../../core/model/edit.ts';
+import type { Node } from '../../core/model/types.ts';
+
+const PROPERTY_LABELS: Record<string, string> = {
+  // Shape
+  shape_type: 'Shape',
+  shape_width: 'Width',
+  shape_height: 'Height',
+  shape_corners: 'Corners',
+
+  // Paint
+  paint_color: 'Color',
+  paint_style: 'Style',
+  paint_mode: 'Mode',
+  paint_stroke: 'Stroke',
+
+  // FX
+  fx_gradient: 'Gradient',
+  fx_gradient_color: 'Gradient Color',
+  fx_gradient_width: 'Gradient Width',
+  fx_gradient_offset: 'Gradient Offset',
+  fx_gradient_offset_x: 'Gradient X',
+  fx_gradient_offset_y: 'Gradient Y',
+  fx_shadow: 'Shadow',
+  fx_shadow_blur: 'Blur',
+  fx_shadow_direction: 'Direction',
+  fx_shadow_distance: 'Distance',
+  fx_shadow_color: 'Shadow Color',
+  fx_mask: 'Mask',
+  fx_bitmap_filter: 'Filter',
+  fx_bitmap_filter_color: 'Filter Color',
+  fx_bitmap_dim: 'Dim',
+  fx_bitmap_blur: 'Blur',
+  fx_bitmap_filter_amount: 'Amount',
+
+  // Text
+  text_expression: 'Text',
+  text_size: 'Size',
+  text_family: 'Font',
+  text_align: 'Alignment',
+  text_filter: 'Filter',
+  text_width: 'Width',
+  text_height: 'Height',
+  text_rotate_mode: 'Rotate',
+  text_lines: 'Lines',
+  text_space_width: 'Space Width',
+
+  // Bitmap
+  bitmap_bitmap: 'Bitmap',
+  bitmap_width: 'Width',
+  bitmap_height: 'Height',
+  bitmap_mode: 'Mode',
+  bitmap_filter: 'Filter',
+  bitmap_scale_mode: 'Sizing',
+  bitmap_color_filter: 'Color Filter',
+
+  // Icon
+  icon_set: 'Icon Set',
+  icon_icon: 'Icon',
+  icon_size: 'Size',
+  icon_rotate_mode: 'Rotate',
+  icon_rotate_offset: 'Angle',
+
+  // Progress
+  progress_progress: 'Progress',
+  style_style: 'Style',
+  style_shape: 'Shape',
+  style_width: 'Width',
+  style_height: 'Height',
+  style_size: 'Size',
+  color_color: 'Color',
+  color_bgcolor: 'Background Color',
+  color_tcolor: 'Track Color',
+  color_fgcolor: 'Foreground Color',
+  color_mode: 'Color Mode',
+
+  // Position
+  position_anchor: 'Anchor',
+  position_offset_x: 'X Offset',
+  position_offset_y: 'Y Offset',
+  position_padding_top: 'Padding Top',
+  position_padding_bottom: 'Padding Bottom',
+  position_padding_left: 'Padding Left',
+  position_padding_right: 'Padding Right',
+
+  // Layer / Config
+  config_visible: 'Visible',
+  config_scale_value: 'Scale',
+  config_rotate_mode: 'Rotate',
+  config_rotate_offset: 'Angle',
+  config_alpha: 'Opacity',
+  config_fx: 'FX',
+  config_filter: 'Filter',
+  config_filter_amount: 'Filter Amount',
+  config_stacking: 'Stacking',
+  config_margin: 'Margin',
+  background_bitmap: 'Wallpaper Bitmap',
+  background_scroll: 'Scroll Mode',
+};
+
+function getModuleIcon(type: string) {
+  switch (type) {
+    case 'TextModule': return <TextModuleIcon size={16} />;
+    case 'ShapeModule': return <ShapeModuleIcon size={16} />;
+    case 'BitmapModule': return <ImageModuleIcon size={16} />;
+    case 'FontIconModule': return <FontIconModuleIcon size={16} />;
+    case 'ProgressModule': return <ProgressModuleIcon size={16} />;
+    case 'CurvedTextModule': return <CurvedTextModuleIcon size={16} />;
+    case 'OverlapLayerModule': return <OverlapLayerModuleIcon size={16} />;
+    case 'StackLayerModule': return <StackLayerModuleIcon size={16} />;
+    case 'KomponentModule': return <KomponentModuleIcon size={16} />;
+    default: return <ShapeModuleIcon size={16} />;
+  }
+}
+
+interface SpecProp {
+  key: string;
+  type: string;
+  default?: any;
+  enum?: string;
+  desc?: string;
+  seen?: number;
+  unverified?: boolean;
+  legacy?: boolean;
+}
+
+function getTabsForModule(node: Node): { id: string; label: string }[] {
+  const isContainer =
+    node.type === 'RootLayerModule' ||
+    node.type === 'OverlapLayerModule' ||
+    node.type === 'StackLayerModule' ||
+    node.type === 'KomponentModule';
+
+  if (isContainer) {
+    return [
+      { id: 'items', label: 'Items' },
+      { id: 'layer', label: 'Layer' },
+      { id: 'position', label: 'Position' },
+      { id: 'animation', label: 'Animation' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  }
+
+  if (node.type === 'ShapeModule') {
+    return [
+      { id: 'shape', label: 'Shape' },
+      { id: 'paint', label: 'Paint' },
+      { id: 'fx', label: 'Fx' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  }
+
+  if (node.type === 'TextModule') {
+    return [
+      { id: 'text', label: 'Text' },
+      { id: 'paint', label: 'Paint' },
+      { id: 'fx', label: 'Fx' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  }
+
+  if (node.type === 'BitmapModule') {
+    return [
+      { id: 'bitmap', label: 'Bitmap' },
+      { id: 'position', label: 'Position' },
+      { id: 'fx', label: 'Fx' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  }
+
+  if (node.type === 'FontIconModule') {
+    return [
+      { id: 'icon', label: 'Icon' },
+      { id: 'paint', label: 'Paint' },
+      { id: 'fx', label: 'Fx' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  }
+
+  if (node.type === 'ProgressModule') {
+    return [
+      { id: 'progress', label: 'Progress' },
+      { id: 'paint', label: 'Paint' },
+      { id: 'fx', label: 'Fx' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  }
+
+  if (node.type === 'CurvedTextModule') {
+    return [
+      { id: 'text', label: 'Curved' },
+      { id: 'paint', label: 'Paint' },
+      { id: 'fx', label: 'Fx' },
+      { id: 'position', label: 'Position' },
+      { id: 'touch', label: 'Touch' },
+    ];
+  }
+
+  return [
+    { id: 'primary', label: 'Properties' },
+    { id: 'position', label: 'Position' },
+    { id: 'touch', label: 'Touch' },
+  ];
+}
+
+function getPropsForTab(moduleType: string, tabId: string): SpecProp[] {
+  const modSpec = (MODULE_SPECS as any)[moduleType];
+  if (!modSpec || !modSpec.sections) return [];
+
+  let sectionsToRead: string[] = [tabId];
+  if (moduleType === 'ProgressModule' && tabId === 'progress') {
+    sectionsToRead = ['progress', 'style', 'color'];
+  } else if (moduleType === 'RootLayerModule' && tabId === 'layer') {
+    sectionsToRead = ['layer', 'background'];
+  }
+
+  const result: SpecProp[] = [];
+  const seenKeys = new Set<string>();
+
+  for (const s of sectionsToRead) {
+    const list: SpecProp[] = modSpec.sections[s] || [];
+    for (const p of list) {
+      if (!seenKeys.has(p.key)) {
+        seenKeys.add(p.key);
+        result.push(p);
+      }
+    }
+  }
+
+  return result;
+}
 
 export function Inspector() {
   const doc = currentDoc.value;
   const selectedId = selectedNodeId.value;
-
   const [activeTab, setActiveTab] = useState<string>('primary');
 
   if (!doc || !selectedId) {
@@ -45,452 +285,214 @@ export function Inspector() {
     );
   }
 
-  // Determine tabs for current module type
-  const isContainer =
-    node.type === 'RootLayerModule' ||
-    node.type === 'OverlapLayerModule' ||
-    node.type === 'StackLayerModule' ||
-    node.type === 'KomponentModule';
+  const tabs = getTabsForModule(node);
+  const currentTabId = tabs.some((t) => t.id === activeTab) ? activeTab : tabs[0].id;
 
-  let tabs: { id: string; label: string }[] = [];
-  if (isContainer) {
-    tabs = [
-      { id: 'layer', label: 'Layer' },
-      { id: 'position', label: 'Position' },
-      { id: 'animation', label: 'Animation' },
-      { id: 'touch', label: 'Touch' },
-    ];
-  } else if (node.type === 'ShapeModule') {
-    tabs = [
-      { id: 'shape', label: 'Shape' },
-      { id: 'paint', label: 'Paint' },
-      { id: 'fx', label: 'FX' },
-      { id: 'position', label: 'Position' },
-      { id: 'touch', label: 'Touch' },
-    ];
-  } else if (node.type === 'TextModule') {
-    tabs = [
-      { id: 'text', label: 'Text' },
-      { id: 'paint', label: 'Paint' },
-      { id: 'fx', label: 'FX' },
-      { id: 'position', label: 'Position' },
-      { id: 'touch', label: 'Touch' },
-    ];
-  } else if (node.type === 'BitmapModule') {
-    tabs = [
-      { id: 'bitmap', label: 'Bitmap' },
-      { id: 'paint', label: 'Paint' },
-      { id: 'fx', label: 'FX' },
-      { id: 'position', label: 'Position' },
-      { id: 'touch', label: 'Touch' },
-    ];
-  } else if (node.type === 'FontIconModule') {
-    tabs = [
-      { id: 'icon', label: 'Icon' },
-      { id: 'paint', label: 'Paint' },
-      { id: 'fx', label: 'FX' },
-      { id: 'position', label: 'Position' },
-      { id: 'touch', label: 'Touch' },
-    ];
-  } else if (node.type === 'ProgressModule') {
-    tabs = [
-      { id: 'progress', label: 'Progress' },
-      { id: 'paint', label: 'Paint' },
-      { id: 'fx', label: 'FX' },
-      { id: 'position', label: 'Position' },
-      { id: 'touch', label: 'Touch' },
-    ];
-  } else if (node.type === 'CurvedTextModule') {
-    tabs = [
-      { id: 'curved', label: 'Curved' },
-      { id: 'paint', label: 'Paint' },
-      { id: 'fx', label: 'FX' },
-      { id: 'position', label: 'Position' },
-      { id: 'touch', label: 'Touch' },
-    ];
-  } else {
-    tabs = [
-      { id: 'general', label: 'General' },
-      { id: 'position', label: 'Position' },
-      { id: 'touch', label: 'Touch' },
-    ];
-  }
+  const handleDuplicateChild = (childNode: Node) => {
+    const dup = cloneNode(childNode);
+    dup.id = `${dup.type}_${Date.now()}`;
+    dup.title = `${dup.title} (Copy)`;
+    const nextDoc = addChild(doc, node.id, dup);
+    commit(nextDoc, `Duplicate ${childNode.title}`);
+  };
 
-  // Ensure current active tab is valid
-  const currentTabId = tabs.some((t) => t.id === activeTab)
-    ? activeTab
-    : tabs[0].id;
-
-  const renderPropEditor = (
-    label: string,
-    propKey: string,
-    type: 'string' | 'number' | 'color' | 'select',
-    options?: readonly string[],
-  ) => {
-    const prop = node.props[propKey] || {};
-    const toggle = prop.toggle ?? 0;
-    const value = prop.value ?? '';
-    const formula = prop.formula ?? '';
-    const globalName = prop.global ?? '';
-
-    const handleToggle = (newToggle: number) => {
-      updateNodeProp(node.id, propKey, { toggle: newToggle });
-    };
-
-    const handleStep = (delta: number) => {
-      const num = typeof value === 'number' ? value : parseFloat(String(value)) || 0;
-      updateNodeProp(node.id, propKey, { value: num + delta });
-    };
-
-    return (
-      <div class="prop-row" key={propKey}>
-        <div class="prop-label-col">
-          <span class="prop-label" title={label}>
-            {label}
-          </span>
-        </div>
-
-        <div class="prop-control-col">
-          {/* Static Value Mode */}
-          {toggle === 0 && (
-            <>
-              {type === 'string' && (
-                <input
-                  type="text"
-                  class="prop-input-text"
-                  value={String(value)}
-                  onInput={(e) =>
-                    updateNodeProp(node.id, propKey, {
-                      value: (e.target as HTMLInputElement).value,
-                    })
-                  }
-                />
-              )}
-
-              {type === 'number' && (
-                <div class="stepper-wrap">
-                  <button
-                    class="stepper-btn stepper-fast"
-                    title="-10"
-                    onClick={() => handleStep(-10)}
-                  >
-                    «
-                  </button>
-                  <button
-                    class="stepper-btn"
-                    title="-1"
-                    onClick={() => handleStep(-1)}
-                  >
-                    -
-                  </button>
-                  <input
-                    type="number"
-                    class="stepper-input"
-                    value={value !== undefined ? String(value) : '0'}
-                    onInput={(e) => {
-                      const parsed = parseFloat(
-                        (e.target as HTMLInputElement).value,
-                      );
-                      updateNodeProp(node.id, propKey, {
-                        value: isNaN(parsed) ? 0 : parsed,
-                      });
-                    }}
-                  />
-                  <button
-                    class="stepper-btn"
-                    title="+1"
-                    onClick={() => handleStep(1)}
-                  >
-                    +
-                  </button>
-                  <button
-                    class="stepper-btn stepper-fast"
-                    title="+10"
-                    onClick={() => handleStep(10)}
-                  >
-                    »
-                  </button>
-                </div>
-              )}
-
-              {type === 'color' && (
-                <div class="color-picker-wrap">
-                  <input
-                    type="color"
-                    class="color-thumb-input"
-                    value={
-                      typeof value === 'string' && value.startsWith('#')
-                        ? `#${value.slice(-6)}`
-                        : '#ffffff'
-                    }
-                    onInput={(e) => {
-                      const hex = (e.target as HTMLInputElement).value.toUpperCase();
-                      updateNodeProp(node.id, propKey, {
-                        value: `#FF${hex.slice(1)}`,
-                      });
-                    }}
-                  />
-                  <input
-                    type="text"
-                    class="prop-input-text color-hex-text"
-                    value={String(value)}
-                    onInput={(e) =>
-                      updateNodeProp(node.id, propKey, {
-                        value: (e.target as HTMLInputElement).value,
-                      })
-                    }
-                  />
-                </div>
-              )}
-
-              {type === 'select' && options && (
-                <select
-                  class="prop-select"
-                  value={String(value)}
-                  onChange={(e) =>
-                    updateNodeProp(node.id, propKey, {
-                      value: (e.target as HTMLSelectElement).value,
-                    })
-                  }
-                >
-                  {options.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </>
-          )}
-
-          {/* Formula Mode (toggle = 10) */}
-          {(toggle & 10) === 10 && (
-            <div class="formula-field-wrap">
-              <span class="formula-prefix">$</span>
-              <input
-                type="text"
-                class="prop-input-text formula-text-input"
-                placeholder="Formula expression"
-                value={formula}
-                onInput={(e) =>
-                  updateNodeProp(node.id, propKey, {
-                    formula: (e.target as HTMLInputElement).value,
-                  })
-                }
-              />
-            </div>
-          )}
-
-          {/* Global Mode (toggle = 100) */}
-          {(toggle & 100) === 100 && (
-            <select
-              class="prop-select global-select"
-              value={globalName}
-              onChange={(e) =>
-                updateNodeProp(node.id, propKey, {
-                  global: (e.target as HTMLSelectElement).value,
-                })
-              }
-            >
-              <option value="">-- Select Global --</option>
-              {Object.keys(doc.globals).map((gk) => (
-                <option key={gk} value={gk}>
-                  gv({gk})
-                </option>
-              ))}
-            </select>
-          )}
-        </div>
-
-        {/* Source Toggle Pill */}
-        <div class="prop-source-col">
-          <button
-            class={`source-toggle-btn ${
-              (toggle & 10) === 10
-                ? 'active-fx'
-                : (toggle & 100) === 100
-                ? 'active-gv'
-                : ''
-            }`}
-            title={
-              toggle === 0
-                ? 'Switch to Formula mode'
-                : (toggle & 10) === 10
-                ? 'Switch to Global mode'
-                : 'Switch to Static value'
-            }
-            onClick={() => {
-              if (toggle === 0) handleToggle(10);
-              else if ((toggle & 10) === 10) handleToggle(100);
-              else handleToggle(0);
-            }}
-          >
-            {(toggle & 10) === 10 ? (
-              <span class="fx-chip">fx</span>
-            ) : (toggle & 100) === 100 ? (
-              <span class="gv-chip">gv</span>
-            ) : (
-              <CalculatorIcon size={14} />
-            )}
-          </button>
-        </div>
-      </div>
-    );
+  const handleDeleteChild = (childId: string) => {
+    deleteNode(childId);
   };
 
   return (
     <aside class="inspector-panel">
       {/* Header Info */}
       <div class="inspector-header">
-        <span class="inspector-title">{node.title || node.type}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {getModuleIcon(node.type)}
+          <span class="inspector-title">{node.title || node.type}</span>
+        </div>
         <span class="inspector-type">{node.type}</span>
       </div>
 
-      {/* Official Tabs Strip */}
+      {/* Tabs Strip */}
       <div class="inspector-tabs">
-        {tabs.map((t) => (
+        {tabs.map((tab) => (
           <button
-            key={t.id}
-            class={`inspector-tab-btn ${currentTabId === t.id ? 'active' : ''}`}
-            onClick={() => setActiveTab(t.id)}
+            key={tab.id}
+            class={`inspector-tab-btn ${currentTabId === tab.id ? 'active' : ''}`}
+            onClick={() => setActiveTab(tab.id)}
           >
-            {t.label}
+            {tab.label}
           </button>
         ))}
       </div>
 
-      {/* Tab Body */}
+      {/* Body Content */}
       <div class="inspector-body">
-        {/* SHAPE TAB */}
-        {currentTabId === 'shape' && (
-          <div class="inspector-group">
-            {renderPropEditor('Shape', 'shape_type', 'select', ShapeValues)}
-            {renderPropEditor('Width', 'shape_width', 'number')}
-            {renderPropEditor('Height', 'shape_height', 'number')}
-            {renderPropEditor('Corners', 'shape_corners', 'number')}
-            {renderPropEditor('Angle', 'shape_angle', 'number')}
-          </div>
-        )}
+        {currentTabId === 'items' && (
+          <div class="items-tab-container" style={{ padding: '8px' }}>
+            {(!node.children || node.children.length === 0) ? (
+              <div class="inspector-empty" style={{ padding: '20px' }}>
+                No items in this group
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {node.children.map((child) => (
+                  <div
+                    key={child.id}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '8px 10px',
+                      backgroundColor: 'var(--bg-surface-elevated, #24242A)',
+                      borderRadius: '4px',
+                      border: '1px solid var(--border-color, #2C2C34)',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => (selectedNodeId.value = child.id)}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: 'var(--text-subtle, #686872)' }}>
+                        <DragHandleIcon size={14} />
+                      </span>
+                      {getModuleIcon(child.type)}
+                      <div>
+                        <div style={{ fontSize: '12px', fontWeight: 600 }}>{child.title}</div>
+                        <div style={{ fontSize: '10px', color: 'var(--text-subtle)' }}>{child.type}</div>
+                      </div>
+                    </div>
 
-        {/* TEXT TAB */}
-        {currentTabId === 'text' && (
-          <div class="inspector-group">
-            {renderPropEditor('Text', 'text_expression', 'string')}
-            {renderPropEditor('Size', 'text_size', 'number')}
-            {renderPropEditor('Align', 'text_align', 'select', TextAlignValues)}
-            {renderPropEditor('Width', 'text_width', 'number')}
-            {renderPropEditor('Lines', 'text_lines', 'number')}
-            {renderPropEditor('Rotate', 'text_rotate_mode', 'select', RotateValues)}
-            {renderPropEditor('Rot Offset', 'text_rotate_offset', 'number')}
-          </div>
-        )}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }} onClick={(e) => e.stopPropagation()}>
+                      <button
+                        class="icon-btn"
+                        style={{ padding: '4px' }}
+                        title="Duplicate"
+                        onClick={() => handleDuplicateChild(child)}
+                      >
+                        <CopyIcon size={14} />
+                      </button>
+                      <button
+                        class="icon-btn"
+                        style={{ padding: '4px', color: 'var(--danger, #ef4444)' }}
+                        title="Delete"
+                        onClick={() => handleDeleteChild(child.id)}
+                      >
+                        <TrashIcon size={14} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
-        {/* BITMAP TAB */}
-        {currentTabId === 'bitmap' && (
-          <div class="inspector-group">
-            {renderPropEditor('Bitmap URI', 'bitmap_bitmap', 'string')}
-            {renderPropEditor('Width', 'bitmap_width', 'number')}
-            {renderPropEditor('Height', 'bitmap_height', 'number')}
-            {renderPropEditor('Alpha', 'bitmap_alpha', 'number')}
-            {renderPropEditor('Blur', 'bitmap_blur', 'number')}
-          </div>
-        )}
-
-        {/* ICON TAB */}
-        {currentTabId === 'icon' && (
-          <div class="inspector-group">
-            {renderPropEditor('Icon Set', 'icon_set', 'string')}
-            {renderPropEditor('Icon Name', 'icon_icon', 'string')}
-            {renderPropEditor('Size', 'icon_size', 'number')}
-          </div>
-        )}
-
-        {/* PROGRESS TAB */}
-        {currentTabId === 'progress' && (
-          <div class="inspector-group">
-            {renderPropEditor('Style', 'progress_style', 'select', ProgressStyleValues)}
-            {renderPropEditor('Shape', 'progress_shape', 'select', ProgressShapeValues)}
-            {renderPropEditor('Level', 'progress_level', 'number')}
-            {renderPropEditor('Width', 'progress_width', 'number')}
-            {renderPropEditor('Height', 'progress_height', 'number')}
-            {renderPropEditor('Size', 'progress_size', 'number')}
-            {renderPropEditor('Count', 'progress_count', 'number')}
-          </div>
-        )}
-
-        {/* CURVED TAB */}
-        {currentTabId === 'curved' && (
-          <div class="inspector-group">
-            {renderPropEditor('Text', 'curved_expression', 'string')}
-            {renderPropEditor('Radius', 'curved_radius', 'number')}
-            {renderPropEditor('Size', 'curved_size', 'number')}
-            {renderPropEditor('Angle', 'curved_angle', 'number')}
-          </div>
-        )}
-
-        {/* LAYER TAB (for containers) */}
-        {currentTabId === 'layer' && (
-          <div class="inspector-group">
-            {node.type === 'StackLayerModule' &&
-              renderPropEditor('Stack Mode', 'config_stacking', 'select', LayerStackingValues)}
-            {renderPropEditor('Scale', 'config_scale_value', 'number')}
-            {renderPropEditor('Visible', 'config_visibility', 'string')}
-          </div>
-        )}
-
-        {/* PAINT TAB */}
-        {currentTabId === 'paint' && (
-          <div class="inspector-group">
-            {renderPropEditor('Color', 'paint_color', 'color')}
-            {renderPropEditor('Style', 'paint_style', 'select', PaintStyleValues)}
-            {renderPropEditor('Stroke', 'paint_stroke', 'number')}
-            {renderPropEditor('Mode', 'paint_mode', 'select', PaintModeValues)}
-          </div>
-        )}
-
-        {/* FX TAB */}
-        {currentTabId === 'fx' && (
-          <div class="inspector-group">
-            {renderPropEditor('Gradient', 'fx_gradient', 'select', GradientValues)}
-            {renderPropEditor('Grad Color', 'fx_gradient_color', 'color')}
-            {renderPropEditor('Mask', 'fx_mask', 'select', MaskFilterValues)}
-            {renderPropEditor('Shadow', 'fx_shadow', 'select', ShadowValues)}
-            {renderPropEditor('Shadow Blur', 'fx_shadow_blur', 'number')}
-            {renderPropEditor('Shadow Dist', 'fx_shadow_distance', 'number')}
-            {renderPropEditor('Shadow Dir', 'fx_shadow_direction', 'number')}
-          </div>
-        )}
-
-        {/* POSITION TAB */}
-        {currentTabId === 'position' && (
-          <div class="inspector-group">
-            {renderPropEditor('Anchor', 'position_anchor', 'select', AnchorModeValues)}
-            {node.type !== 'RootLayerModule' &&
-              renderPropEditor('X Offset', 'position_offset_x', 'number')}
-            {node.type !== 'RootLayerModule' &&
-              renderPropEditor('Y Offset', 'position_offset_y', 'number')}
-            {renderPropEditor('Padding L', 'position_padding_left', 'number')}
-            {renderPropEditor('Padding T', 'position_padding_top', 'number')}
-            {renderPropEditor('Padding R', 'position_padding_right', 'number')}
-            {renderPropEditor('Padding B', 'position_padding_bottom', 'number')}
-          </div>
-        )}
-
-        {/* TOUCH TAB */}
-        {currentTabId === 'touch' && (
-          <div class="inspector-group">
-            <div class="touch-empty-note">
-              No touch actions configured. Touch actions execute in the Android launcher.
+            <div style={{ marginTop: '12px' }}>
+              <button
+                class="btn btn-sm"
+                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                onClick={() => (addModuleModalOpen.value = true)}
+              >
+                <AddIcon size={16} /> Add Item to Group
+              </button>
             </div>
           </div>
         )}
 
-        {/* ANIMATION TAB */}
         {currentTabId === 'animation' && (
+          <div class="touch-empty-note">
+            Animations preview: Configured animations run in the Live Clock simulation.
+          </div>
+        )}
+
+        {currentTabId === 'touch' && (
+          <div class="touch-empty-note">
+            Touch actions: Trigger app launch, switches, or links when tapped on phone.
+          </div>
+        )}
+
+        {currentTabId !== 'items' && currentTabId !== 'animation' && currentTabId !== 'touch' && (
           <div class="inspector-group">
-            <div class="touch-empty-note">
-              Animations trigger on scroll, gyro, or global switch changes.
-            </div>
+            {(() => {
+              const specProps = getPropsForTab(node.type, currentTabId);
+              if (specProps.length === 0) {
+                return <div class="inspector-empty">No properties for this tab</div>;
+              }
+
+              // Disambiguate duplicate labels within the tab
+              const labelCounts = new Map<string, number>();
+              for (const p of specProps) {
+                const rawLabel = PROPERTY_LABELS[p.key] || p.desc || p.key;
+                labelCounts.set(rawLabel, (labelCounts.get(rawLabel) || 0) + 1);
+              }
+
+              const getDisambiguatedLabel = (p: SpecProp) => {
+                const rawLabel = PROPERTY_LABELS[p.key] || p.desc || p.key;
+                if ((labelCounts.get(rawLabel) || 0) > 1) {
+                  return `${rawLabel} (${p.key.split('_')[0]})`;
+                }
+                return rawLabel;
+              };
+
+              const verified = specProps.filter((p) => (p.seen ?? 0) > 0);
+              const unverified = specProps.filter((p) => !p.seen || p.seen === 0);
+
+              return (
+                <div>
+                  {/* Verified observed properties */}
+                  {verified.map((p) => (
+                    <PropertyRow
+                      key={p.key}
+                      nodeId={node.id}
+                      propKey={p.key}
+                      label={getDisambiguatedLabel(p)}
+                      type={p.type}
+                      enumName={p.enum}
+                      prop={node.props[p.key]}
+                      globals={doc.globals}
+                      onUpdate={(patch) => updateNodeProp(node.id, p.key, patch)}
+                    />
+                  ))}
+
+                  {/* Unverified / Advanced properties behind details disclosure */}
+                  {unverified.length > 0 && (
+                    <details
+                      style={{
+                        margin: '12px 8px 8px 8px',
+                        backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                        borderRadius: '4px',
+                        border: '1px solid var(--border-color, #2C2C34)',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <summary
+                        style={{
+                          padding: '6px 10px',
+                          cursor: 'pointer',
+                          fontSize: '11px',
+                          color: 'var(--text-subtle, #686872)',
+                          fontWeight: 600,
+                          userSelect: 'none',
+                        }}
+                      >
+                        Advanced / Unverified Properties ({unverified.length})
+                      </summary>
+                      <div style={{ padding: '4px 0', borderTop: '1px solid var(--border-color, #2C2C34)' }}>
+                        {unverified.map((p) => (
+                          <PropertyRow
+                            key={p.key}
+                            nodeId={node.id}
+                            propKey={p.key}
+                            label={getDisambiguatedLabel(p)}
+                            type={p.type}
+                            enumName={p.enum}
+                            prop={node.props[p.key]}
+                            globals={doc.globals}
+                            onUpdate={(patch) => updateNodeProp(node.id, p.key, patch)}
+                          />
+                        ))}
+                      </div>
+                    </details>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         )}
       </div>
