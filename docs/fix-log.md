@@ -174,6 +174,30 @@
   - Updated `src/main.tsx`: extended `ErrorBoundary` to capture `info.componentStack` and display the first 8 lines of the stack on error.
 - **DoD**: Green. Smoke tests reproduce crash before fix and pass cleanly after fix; zero `[object Object]` in DOM; all 23 test suites passing.
 
+## [2026-11-16] Phase R2: Align Spec with Reality and Calibrate Real Corpus Property Keys (D-N1, D-N2)
+- **Defects Addressed**:
+  - D-N1: Inspector and creator used property keys that did not exist in real files (`progress_style`, `progress_shape`, `curved_expression`, `curved_radius`, `background_color`, `stack_mode`).
+  - D-N2: Spec differed from real corpus archives.
+- **Commands Run**:
+  - `node tools/spec-vs-corpus.mjs` -> Generated `spec/observed.json` across all 46 real archives.
+  - `node tools/merge-spec.mjs` -> Merged observed keys into `spec/modules.json` and `spec/defaults.json`.
+  - `node tools/gen-spec.mjs` -> Generated `src/core/spec/generated.ts` with `seen` corpus frequencies and `OBSERVED_KEYS`.
+  - `cmd /c npx vitest run tests/unit/spec-vs-corpus.test.ts tests/unit/no-unobserved-property-keys.test.ts` -> Passed.
+  - `cmd /c npm test` -> 25 test suites passed, 177 tests passed.
+  - `cmd /c npm run build` -> Passed (JS 262.99 kB / 70.19 kB gzip, CSS 18.32 kB / 3.64 kB gzip).
+  - `node tools/check-size.mjs` -> Passed (JS: 68.54 KB gzip <= 120 KB, CSS: 3.56 KB gzip <= 15 KB).
+- **What Changed**:
+  - Created `tools/spec-vs-corpus.mjs`: traverses all 46 archives in `samples/` and counts real module types and property keys into `spec/observed.json`.
+  - Added `tests/unit/spec-vs-corpus.test.ts` asserting exact corpus module counts (Root 44, Overlap 801, Shape 1980, Stack 702, Text 388, Progress 66, Curved 24, etc.).
+  - Updated `spec/modules.json`, `spec/defaults.json`, and `tools/gen-spec.mjs`: aligned Progress keys (`progress_progress`, `style_style`, `style_shape`, `style_width`, `style_height`, `style_size`, `color_*`), CurvedText keys (`text_expression`, `text_size`, `text_family`, `text_width`, `text_rotate_mode`), Overlap keys (`config_fx`, `config_filter`), Shape keys (`fx_bitmap_*`), and Text keys (`text_height`, `text_filter`).
+  - Added `tests/unit/no-unobserved-property-keys.test.ts`: validates that layout and painter property accesses use only observed keys or allowlisted backwards-compatibility fallbacks.
+  - Updated `src/core/layout/measure.ts`: integrated `applyTextFilter`, calibrated Progress measurement from `style_*` keys and CurvedText from `text_*` keys.
+  - Updated `src/core/render/painter.ts`: implemented data-source-driven `paintProgress` (`BATTERY`, `MUSIC`, `H12`, `H24`, `MINS`, `SECS`), calibrated `paintCurvedText`, removed opaque black `background_color` default from `paintBackground`, and connected layer FX / filters.
+  - Updated `src/ui/state/editor-state.ts`: removed `background_color` from default root node; calibrated `createOfficialNode` module templates with collision-free IDs.
+  - Updated `src/ui/dialogs/AddModuleModal.tsx`: disabled unsupported cards (`SeriesModule`, `AnimatedImageModule`) with "Not supported yet" badge.
+- **DoD**: Green. All 25 test suites passing; zero unobserved property keys; bundle budgets strictly met.
+
+
 
 
 

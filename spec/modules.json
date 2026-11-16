@@ -40,6 +40,19 @@
           "default": "NONE",
           "enum": "layerFx",
           "desc": "Layer visual effect"
+        },
+        {
+          "key": "background_bitmap",
+          "type": "bitmap",
+          "default": "",
+          "desc": "Root wallpaper bitmap URI"
+        },
+        {
+          "key": "background_scroll",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "scroll",
+          "desc": "Wallpaper scrolling mode"
         }
       ],
       "background": [
@@ -165,6 +178,49 @@
           "default": "NONE",
           "enum": "layerFx",
           "desc": "Layer visual effect"
+        },
+        {
+          "key": "config_fx_radius",
+          "type": "number",
+          "default": 0,
+          "desc": "Effect blur or radius"
+        },
+        {
+          "key": "config_fx_dist",
+          "type": "number",
+          "default": 0,
+          "desc": "Effect distance"
+        },
+        {
+          "key": "config_fx_angle",
+          "type": "angle",
+          "default": 0,
+          "desc": "Effect angle"
+        },
+        {
+          "key": "config_fx_fcolor",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Effect foreground/shadow color"
+        },
+        {
+          "key": "config_fx_bcolor",
+          "type": "color",
+          "default": "#00000000",
+          "desc": "Effect background color"
+        },
+        {
+          "key": "config_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "colorFilter",
+          "desc": "Color filter mode"
+        },
+        {
+          "key": "config_filter_amount",
+          "type": "percent",
+          "default": 100,
+          "desc": "Color filter amount"
         }
       ]
     }
@@ -525,6 +581,37 @@
           "default": "NONE",
           "enum": "mask",
           "desc": "Masking effect"
+        },
+        {
+          "key": "fx_bitmap_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "colorFilter",
+          "desc": "Bitmap color filter"
+        },
+        {
+          "key": "fx_bitmap_filter_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Bitmap filter color"
+        },
+        {
+          "key": "fx_bitmap_filter_amount",
+          "type": "percent",
+          "default": 100,
+          "desc": "Bitmap filter amount"
+        },
+        {
+          "key": "fx_bitmap_blur",
+          "type": "number",
+          "default": 0,
+          "desc": "Bitmap blur radius"
+        },
+        {
+          "key": "fx_bitmap_dim",
+          "type": "percent",
+          "default": 0,
+          "desc": "Bitmap dim amount"
         }
       ]
     }
@@ -633,6 +720,19 @@
           "type": "angle",
           "default": 0,
           "desc": "Text rotation offset in degrees"
+        },
+        {
+          "key": "text_height",
+          "type": "number",
+          "default": 40,
+          "desc": "Text block height"
+        },
+        {
+          "key": "text_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "TextFilter",
+          "desc": "Text case or format filter"
         }
       ],
       "paint": [
@@ -1073,67 +1173,36 @@
       ],
       "progress": [
         {
+          "key": "progress_progress",
+          "type": "enum",
+          "default": "BATTERY",
+          "enum": "Progress",
+          "desc": "Progress data source (BATTERY, CUSTOM, MUSIC, etc.)"
+        },
+        {
           "key": "progress_mode",
           "type": "enum",
           "default": "PROGRESS",
-          "enum": "progressMode",
+          "enum": "ProgressMode",
           "desc": "Progress data mode"
         },
         {
           "key": "progress_level",
           "type": "number",
-          "default": 0,
-          "desc": "Custom progress level (0..100)"
-        },
-        {
-          "key": "progress_min",
-          "type": "number",
-          "default": 0,
-          "desc": "Minimum value"
+          "default": 100,
+          "desc": "Progress level (0..100)"
         },
         {
           "key": "progress_max",
           "type": "number",
           "default": 100,
-          "desc": "Maximum value"
+          "desc": "Maximum progress value"
         },
         {
           "key": "progress_count",
           "type": "number",
           "default": 10,
           "desc": "Section count for split styles"
-        },
-        {
-          "key": "progress_style",
-          "type": "enum",
-          "default": "LINEAR",
-          "enum": "progressStyle",
-          "desc": "Progress visual style"
-        },
-        {
-          "key": "progress_shape",
-          "type": "enum",
-          "default": "RECT",
-          "enum": "progressShape",
-          "desc": "Shape used for split progress items"
-        },
-        {
-          "key": "progress_size",
-          "type": "number",
-          "default": 100,
-          "desc": "Progress diameter or width"
-        },
-        {
-          "key": "progress_height",
-          "type": "number",
-          "default": 20,
-          "desc": "Progress bar height"
-        },
-        {
-          "key": "progress_width",
-          "type": "number",
-          "default": 200,
-          "desc": "Progress bar width"
         },
         {
           "key": "progress_rotate_mode",
@@ -1147,6 +1216,110 @@
           "type": "angle",
           "default": 0,
           "desc": "Progress rotation offset"
+        },
+        {
+          "key": "progress_style",
+          "type": "enum",
+          "default": "LINEAR",
+          "enum": "ProgressStyle",
+          "desc": "Legacy progress style",
+          "legacy": true
+        },
+        {
+          "key": "progress_shape",
+          "type": "enum",
+          "default": "RECT",
+          "enum": "ProgressShape",
+          "desc": "Legacy progress shape",
+          "legacy": true
+        },
+        {
+          "key": "progress_size",
+          "type": "number",
+          "default": 100,
+          "desc": "Legacy progress size",
+          "legacy": true
+        },
+        {
+          "key": "progress_width",
+          "type": "number",
+          "default": 200,
+          "desc": "Legacy progress width",
+          "legacy": true
+        },
+        {
+          "key": "progress_height",
+          "type": "number",
+          "default": 20,
+          "desc": "Legacy progress height",
+          "legacy": true
+        }
+      ],
+      "style": [
+        {
+          "key": "style_style",
+          "type": "enum",
+          "default": "LINEAR",
+          "enum": "ProgressStyle",
+          "desc": "Visual style (LINEAR, CIRCLE, SPLIT)"
+        },
+        {
+          "key": "style_shape",
+          "type": "enum",
+          "default": "RECT",
+          "enum": "ProgressShape",
+          "desc": "Shape used for progress items"
+        },
+        {
+          "key": "style_width",
+          "type": "number",
+          "default": 200,
+          "desc": "Progress bar width"
+        },
+        {
+          "key": "style_height",
+          "type": "number",
+          "default": 20,
+          "desc": "Progress bar height"
+        },
+        {
+          "key": "style_size",
+          "type": "number",
+          "default": 100,
+          "desc": "Progress diameter or size"
+        }
+      ],
+      "color": [
+        {
+          "key": "color_mode",
+          "type": "enum",
+          "default": "CURRENT",
+          "enum": "ProgressColorMode",
+          "desc": "Color mode"
+        },
+        {
+          "key": "color_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Main progress color"
+        },
+        {
+          "key": "color_fgcolor",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Foreground progress color"
+        },
+        {
+          "key": "color_bgcolor",
+          "type": "color",
+          "default": "#33FFFFFF",
+          "desc": "Background track color"
+        },
+        {
+          "key": "color_tcolor",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Track/target color"
         }
       ],
       "paint": [
@@ -1347,56 +1520,72 @@
           "desc": "Padding bottom in units"
         }
       ],
-      "curved": [
+      "text": [
         {
-          "key": "curved_expression",
+          "key": "text_expression",
           "type": "formula",
           "default": "Curved Text",
-          "desc": "Text formula expression"
+          "desc": "Text expression or formula"
         },
         {
-          "key": "curved_radius",
-          "type": "number",
-          "default": 100,
-          "desc": "Curve radius in units"
-        },
-        {
-          "key": "curved_size",
+          "key": "text_size",
           "type": "number",
           "default": 40,
-          "desc": "Text font size in units"
+          "desc": "Font size in units"
         },
         {
-          "key": "curved_angle",
-          "type": "angle",
-          "default": 0,
-          "desc": "Starting angle in degrees"
-        },
-        {
-          "key": "curved_mode",
-          "type": "enum",
-          "default": "NORMAL",
-          "enum": "curvedMode",
-          "desc": "Curving direction"
-        },
-        {
-          "key": "curved_family",
+          "key": "text_family",
           "type": "font",
           "default": "",
           "desc": "Font file URI"
         },
         {
-          "key": "curved_rotate_mode",
+          "key": "text_width",
+          "type": "number",
+          "default": 200,
+          "desc": "Curve radius or width in units"
+        },
+        {
+          "key": "text_rotate_mode",
           "type": "enum",
           "default": "NONE",
           "enum": "rotate",
-          "desc": "Rotation mode"
+          "desc": "Text rotation mode"
         },
         {
-          "key": "curved_rotate_offset",
+          "key": "curved_expression",
+          "type": "formula",
+          "default": "Curved Text",
+          "desc": "Legacy curved expression",
+          "legacy": true
+        },
+        {
+          "key": "curved_radius",
+          "type": "number",
+          "default": 100,
+          "desc": "Legacy curved radius",
+          "legacy": true
+        },
+        {
+          "key": "curved_size",
+          "type": "number",
+          "default": 40,
+          "desc": "Legacy curved size",
+          "legacy": true
+        },
+        {
+          "key": "curved_angle",
           "type": "angle",
           "default": 0,
-          "desc": "Rotation offset in degrees"
+          "desc": "Legacy curved angle",
+          "legacy": true
+        },
+        {
+          "key": "curved_family",
+          "type": "font",
+          "default": "",
+          "desc": "Legacy curved family",
+          "legacy": true
         }
       ],
       "paint": [

@@ -89,7 +89,7 @@ export async function renderPreset(
 
   // Paint
   const ctx2d = canvas.getContext('2d');
-  const painter = new Painter(resources);
+  const painter = new Painter(resources, ctx.sim);
   painter.paintTree(ctx2d, layoutRoot);
 
   canvas.layoutRoot = layoutRoot;

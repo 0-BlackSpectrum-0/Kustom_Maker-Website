@@ -86,9 +86,7 @@ export function createDefaultDoc(): Doc {
       id: 'root',
       type: 'RootLayerModule',
       title: 'Root',
-      props: {
-        background_color: { value: '#00000000' },
-      },
+      props: {},
       children: [bg, clockText, minText, redDot],
       extras: {},
     },
@@ -252,7 +250,7 @@ export function getBreadcrumbTrail(root: Node, targetId: string): Node[] {
 }
 
 export function createOfficialNode(type: string): Node {
-  const id = `${type}_${Date.now()}`;
+  const id = `${type}_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
   switch (type) {
     case 'ShapeModule':
       return {
@@ -263,6 +261,8 @@ export function createOfficialNode(type: string): Node {
           shape_type: { value: 'RECT' },
           shape_width: { value: 100 },
           shape_height: { value: 100 },
+          shape_corners: { value: 0 },
+          position_anchor: { value: 'CENTER' },
           paint_color: { value: '#FFFFFFFF' },
         },
         extras: {},
@@ -275,6 +275,7 @@ export function createOfficialNode(type: string): Node {
         props: {
           text_expression: { value: 'Text' },
           text_size: { value: 40 },
+          position_anchor: { value: 'CENTER' },
           paint_color: { value: '#FFFFFFFF' },
         },
         extras: {},
@@ -287,6 +288,7 @@ export function createOfficialNode(type: string): Node {
         props: {
           bitmap_width: { value: 100 },
           bitmap_height: { value: 100 },
+          position_anchor: { value: 'CENTER' },
         },
         extras: {},
       };
@@ -297,6 +299,7 @@ export function createOfficialNode(type: string): Node {
         title: 'Icon',
         props: {
           icon_size: { value: 40 },
+          position_anchor: { value: 'CENTER' },
           paint_color: { value: '#FFFFFFFF' },
         },
         extras: {},
@@ -307,11 +310,15 @@ export function createOfficialNode(type: string): Node {
         type: 'ProgressModule',
         title: 'Progress',
         props: {
-          progress_style: { value: 'LINEAR' },
-          progress_width: { value: 200 },
-          progress_height: { value: 20 },
-          progress_level: { value: 50 },
-          paint_color: { value: '#FFFFFFFF' },
+          progress_progress: { value: 'BATTERY' },
+          progress_level: { value: 100 },
+          style_style: { value: 'LINEAR' },
+          style_shape: { value: 'RECT' },
+          style_width: { value: 200 },
+          style_height: { value: 20 },
+          position_anchor: { value: 'CENTER' },
+          color_color: { value: '#FFFFFFFF' },
+          color_bgcolor: { value: '#33FFFFFF' },
         },
         extras: {},
       };
@@ -321,9 +328,10 @@ export function createOfficialNode(type: string): Node {
         type: 'CurvedTextModule',
         title: 'Morphing Text',
         props: {
-          curved_expression: { value: 'Curved Text' },
-          curved_radius: { value: 100 },
-          curved_size: { value: 40 },
+          text_expression: { value: 'Morphing Text' },
+          text_size: { value: 40 },
+          text_width: { value: 100 },
+          position_anchor: { value: 'CENTER' },
           paint_color: { value: '#FFFFFFFF' },
         },
         extras: {},
@@ -343,7 +351,9 @@ export function createOfficialNode(type: string): Node {
         id,
         type: 'OverlapLayerModule',
         title: 'Overlap Group',
-        props: {},
+        props: {
+          config_visible: { value: 'ALWAYS' },
+        },
         children: [],
         extras: {},
       };
@@ -353,7 +363,8 @@ export function createOfficialNode(type: string): Node {
         type: 'StackLayerModule',
         title: 'Stack Group',
         props: {
-          stack_mode: { value: 'VERTICAL_LEFT' },
+          config_stacking: { value: 'VERTICAL_LEFT' },
+          config_visible: { value: 'ALWAYS' },
         },
         children: [],
         extras: {},
@@ -363,7 +374,9 @@ export function createOfficialNode(type: string): Node {
         id,
         type: 'KomponentModule',
         title: 'Komponent',
-        props: {},
+        props: {
+          config_visible: { value: 'ALWAYS' },
+        },
         children: [],
         globals: {},
         extras: {},

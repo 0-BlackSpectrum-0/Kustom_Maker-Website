@@ -4,7 +4,7 @@ import type { Box, LayoutNode, TextLayoutData } from './types.ts';
 import { PropertyResolver, propEnum, propNum, propStr } from './resolver.ts';
 import { calculateRotation, rotatedBoundingBox } from './rotation.ts';
 import { VisibleModeValues, ShapeValues, PaintStyleValues } from '../spec/generated.ts';
-import { layoutTextModule } from './text-measure.ts';
+import { layoutTextModule, applyTextFilter } from './text-measure.ts';
 
 export function stripBBCode(s: string): string {
   return s.replace(/\[\/?(b|i|u|s|up|dn|c|bl|bc|f|r|size|fa|mi|img|ic)(=[^\]]*)?\]/gi, '');
@@ -158,6 +158,8 @@ export function measureNode(
     boxH = rh + padT + padB;
   } else if (type === 'TextModule') {
     const rawText = stripBBCode(propStr(resolved, 'text_expression', ''));
+    const filter = propStr(resolved, 'text_filter', 'NONE');
+    const filteredText = applyTextFilter(rawText, filter);
     const fontSize = Math.max(1, propNum(resolved, 'text_size', 20) * unit);
     const sizeType = propEnum(
       resolved,
@@ -170,13 +172,16 @@ export function measureNode(
     const rawFamily = propStr(resolved, 'text_family', 'sans-serif');
 
     textLayout = layoutTextModule(
-      rawText,
+      filteredText,
       rawFamily,
       fontSize,
       sizeType,
       targetTextW,
       maxLines
     );
+
+    const explicitH = propNum(resolved, 'text_height', 0) * unit;
+    const finalH = explicitH > 0 ? explicitH : textLayout.totalHeight;
 
     const rInfo = calculateRotation(
       propStr(resolved, 'text_rotate_mode', 'MANUAL'),
@@ -187,7 +192,7 @@ export function measureNode(
     flipX = rInfo.flipX;
     flipY = rInfo.flipY;
 
-    const [rw, rh] = rotatedBoundingBox(textLayout.maxLineWidth, textLayout.totalHeight, rot);
+    const [rw, rh] = rotatedBoundingBox(textLayout.maxLineWidth, finalH, rot);
     boxW = rw + padL + padR;
     boxH = rh + padT + padB;
   } else if (type === 'FontIconModule') {
@@ -220,7 +225,8 @@ export function measureNode(
     boxW = rw + padL + padR;
     boxH = rh + padT + padB;
   } else if (type === 'ProgressModule') {
-    const style = propStr(resolved, 'progress_style', 'LINEAR').toUpperCase();
+    const style = propStr(resolved, 'style_style', propStr(resolved, 'progress_style', 'LINEAR')).toUpperCase();
+    const shape = propStr(resolved, 'style_shape', 'RECT').toUpperCase();
     const rotInfo = calculateRotation(
       propStr(resolved, 'progress_rotate_mode', 'NONE'),
       propNum(resolved, 'progress_rotate_offset', 0),
@@ -230,15 +236,16 @@ export function measureNode(
     flipX = rotInfo.flipX;
     flipY = rotInfo.flipY;
 
+    const isCircle = style === 'CIRCLE' || shape === 'CIRCLE';
     let pw = 0;
     let ph = 0;
-    if (style === 'CIRCLE') {
-      const size = propNum(resolved, 'progress_size', propNum(resolved, 'style_size', 100)) * unit;
+    if (isCircle) {
+      const size = propNum(resolved, 'style_size', propNum(resolved, 'progress_size', 100)) * unit;
       pw = size;
       ph = size;
     } else {
-      pw = propNum(resolved, 'progress_width', propNum(resolved, 'style_width', 200)) * unit;
-      ph = propNum(resolved, 'progress_height', propNum(resolved, 'style_height', 20)) * unit;
+      pw = propNum(resolved, 'style_width', propNum(resolved, 'progress_width', 200)) * unit;
+      ph = propNum(resolved, 'style_height', propNum(resolved, 'progress_height', 20)) * unit;
     }
 
     const [rw, rh] = rotatedBoundingBox(pw, ph, rot);
@@ -246,15 +253,15 @@ export function measureNode(
     boxH = rh + padT + padB;
   } else if (type === 'CurvedTextModule') {
     const rotInfo = calculateRotation(
-      propStr(resolved, 'curved_rotate_mode', 'NONE'),
-      propNum(resolved, 'curved_rotate_offset', 0),
+      propStr(resolved, 'text_rotate_mode', propStr(resolved, 'curved_rotate_mode', 'NONE')),
+      propNum(resolved, 'text_rotate_offset', propNum(resolved, 'curved_rotate_offset', 0)),
       ctx.sim.now,
     );
     rot = rotInfo.rot;
     flipX = rotInfo.flipX;
     flipY = rotInfo.flipY;
 
-    const r = propNum(resolved, 'curved_radius', propNum(resolved, 'text_width', 100)) * unit;
+    const r = propNum(resolved, 'text_width', propNum(resolved, 'curved_radius', 100)) * unit;
     const [rw, rh] = rotatedBoundingBox(r * 2, r * 2, rot);
     boxW = rw + padL + padR;
     boxH = rh + padT + padB;

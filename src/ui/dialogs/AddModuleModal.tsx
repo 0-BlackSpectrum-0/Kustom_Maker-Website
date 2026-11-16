@@ -118,17 +118,27 @@ export function AddModuleModal() {
         <div class="add-module-grid">
           {MODULE_OPTIONS.map((opt) => {
             const IconComp = opt.icon;
+            const unsupported = opt.type === 'SeriesModule' || opt.type === 'AnimatedImageModule';
             return (
               <div
                 key={opt.type}
-                class="module-card"
-                onClick={() => handleSelect(opt.type)}
+                class={`module-card ${unsupported ? 'module-card-disabled' : ''}`}
+                onClick={() => !unsupported && handleSelect(opt.type)}
+                style={unsupported ? { opacity: 0.45, cursor: 'not-allowed' } : undefined}
+                title={unsupported ? 'Not supported in current presets' : opt.title}
               >
                 <div class="module-card-icon">
                   <IconComp size={28} />
                 </div>
                 <div class="module-card-content">
-                  <div class="module-card-title">{opt.title}</div>
+                  <div class="module-card-title">
+                    {opt.title}
+                    {unsupported && (
+                      <span style={{ fontSize: '10px', marginLeft: '6px', color: '#ff9800', fontWeight: 'normal' }}>
+                        (Not supported yet)
+                      </span>
+                    )}
+                  </div>
                   <div class="module-card-desc">{opt.desc}</div>
                 </div>
               </div>

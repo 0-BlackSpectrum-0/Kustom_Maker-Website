@@ -1440,40 +1440,65 @@ export const MODULE_SPECS = {
           "key": "config_scale_value",
           "type": "number",
           "default": 100,
-          "desc": "Scale (%) applied inside layer"
+          "desc": "Scale (%) applied inside layer",
+          "seen": 10
         },
         {
           "key": "config_visible",
           "type": "enum",
           "default": "ALWAYS",
           "enum": "visible",
-          "desc": "Layer visibility"
+          "desc": "Layer visibility",
+          "seen": 3
         },
         {
           "key": "config_rotate_mode",
           "type": "enum",
           "default": "NONE",
           "enum": "rotate",
-          "desc": "Rotation mode"
+          "desc": "Rotation mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "config_rotate_offset",
           "type": "angle",
           "default": 0,
-          "desc": "Rotation offset in degrees"
+          "desc": "Rotation offset in degrees",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "config_alpha",
           "type": "percent",
           "default": 100,
-          "desc": "Layer opacity (0..100)"
+          "desc": "Layer opacity (0..100)",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "config_fx",
           "type": "enum",
           "default": "NONE",
           "enum": "layerFx",
-          "desc": "Layer visual effect"
+          "desc": "Layer visual effect",
+          "seen": 0,
+          "unverified": true
+        },
+        {
+          "key": "background_bitmap",
+          "type": "bitmap",
+          "default": "",
+          "desc": "Root wallpaper bitmap URI",
+          "seen": 3
+        },
+        {
+          "key": "background_scroll",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "scroll",
+          "desc": "Wallpaper scrolling mode",
+          "seen": 3
         }
       ],
       "background": [
@@ -1482,33 +1507,41 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "SOLID",
           "enum": "backgroundType",
-          "desc": "Background type"
+          "desc": "Background type",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "background_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Solid background colour"
+          "desc": "Solid background colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "background_bitmap",
           "type": "bitmap",
           "default": "",
-          "desc": "Background wallpaper image"
+          "desc": "Background wallpaper image",
+          "seen": 3
         },
         {
           "key": "background_scroll",
           "type": "enum",
           "default": "NORMAL",
           "enum": "backgroundScroll",
-          "desc": "Wallpaper scrolling mode"
+          "desc": "Wallpaper scrolling mode",
+          "seen": 3
         },
         {
           "key": "background_bitmap_scale",
           "type": "enum",
           "default": "CENTER_CROP",
           "enum": "bitmapScale",
-          "desc": "Bitmap scaling mode"
+          "desc": "Bitmap scaling mode",
+          "seen": 0,
+          "unverified": true
         }
       ]
     }
@@ -1521,43 +1554,50 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "CENTER",
           "enum": "anchor",
-          "desc": "Where the module sits inside its parent"
+          "desc": "Where the module sits inside its parent",
+          "seen": 141
         },
         {
           "key": "position_offset_x",
           "type": "number",
           "default": 0,
-          "desc": "Horizontal offset from the anchor in units"
+          "desc": "Horizontal offset from the anchor in units",
+          "seen": 49
         },
         {
           "key": "position_offset_y",
           "type": "number",
           "default": 0,
-          "desc": "Vertical offset from the anchor in units"
+          "desc": "Vertical offset from the anchor in units",
+          "seen": 94
         },
         {
           "key": "position_padding_left",
           "type": "number",
           "default": 0,
-          "desc": "Padding left in units"
+          "desc": "Padding left in units",
+          "seen": 35
         },
         {
           "key": "position_padding_top",
           "type": "number",
           "default": 0,
-          "desc": "Padding top in units"
+          "desc": "Padding top in units",
+          "seen": 61
         },
         {
           "key": "position_padding_right",
           "type": "number",
           "default": 0,
-          "desc": "Padding right in units"
+          "desc": "Padding right in units",
+          "seen": 31
         },
         {
           "key": "position_padding_bottom",
           "type": "number",
           "default": 0,
-          "desc": "Padding bottom in units"
+          "desc": "Padding bottom in units",
+          "seen": 62
         }
       ],
       "layer": [
@@ -1565,40 +1605,96 @@ export const MODULE_SPECS = {
           "key": "config_scale_value",
           "type": "number",
           "default": 100,
-          "desc": "Scale (%) applied inside layer"
+          "desc": "Scale (%) applied inside layer",
+          "seen": 21
         },
         {
           "key": "config_visible",
           "type": "enum",
           "default": "ALWAYS",
           "enum": "visible",
-          "desc": "Layer visibility"
+          "desc": "Layer visibility",
+          "seen": 86
         },
         {
           "key": "config_rotate_mode",
           "type": "enum",
           "default": "NONE",
           "enum": "rotate",
-          "desc": "Rotation mode"
+          "desc": "Rotation mode",
+          "seen": 136
         },
         {
           "key": "config_rotate_offset",
           "type": "angle",
           "default": 0,
-          "desc": "Rotation offset in degrees"
+          "desc": "Rotation offset in degrees",
+          "seen": 92
         },
         {
           "key": "config_alpha",
           "type": "percent",
           "default": 100,
-          "desc": "Layer opacity (0..100)"
+          "desc": "Layer opacity (0..100)",
+          "seen": 28
         },
         {
           "key": "config_fx",
           "type": "enum",
           "default": "NONE",
           "enum": "layerFx",
-          "desc": "Layer visual effect"
+          "desc": "Layer visual effect",
+          "seen": 1
+        },
+        {
+          "key": "config_fx_radius",
+          "type": "number",
+          "default": 0,
+          "desc": "Effect blur or radius",
+          "seen": 22
+        },
+        {
+          "key": "config_fx_dist",
+          "type": "number",
+          "default": 0,
+          "desc": "Effect distance",
+          "seen": 16
+        },
+        {
+          "key": "config_fx_angle",
+          "type": "angle",
+          "default": 0,
+          "desc": "Effect angle",
+          "seen": 10
+        },
+        {
+          "key": "config_fx_fcolor",
+          "type": "color",
+          "default": "#FF000000",
+          "desc": "Effect foreground/shadow color",
+          "seen": 10
+        },
+        {
+          "key": "config_fx_bcolor",
+          "type": "color",
+          "default": "#00000000",
+          "desc": "Effect background color",
+          "seen": 9
+        },
+        {
+          "key": "config_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "colorFilter",
+          "desc": "Color filter mode",
+          "seen": 15
+        },
+        {
+          "key": "config_filter_amount",
+          "type": "percent",
+          "default": 100,
+          "desc": "Color filter amount",
+          "seen": 9
         }
       ]
     }
@@ -1611,43 +1707,50 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "CENTER",
           "enum": "anchor",
-          "desc": "Where the module sits inside its parent"
+          "desc": "Where the module sits inside its parent",
+          "seen": 175
         },
         {
           "key": "position_offset_x",
           "type": "number",
           "default": 0,
-          "desc": "Horizontal offset from the anchor in units"
+          "desc": "Horizontal offset from the anchor in units",
+          "seen": 8
         },
         {
           "key": "position_offset_y",
           "type": "number",
           "default": 0,
-          "desc": "Vertical offset from the anchor in units"
+          "desc": "Vertical offset from the anchor in units",
+          "seen": 10
         },
         {
           "key": "position_padding_left",
           "type": "number",
           "default": 0,
-          "desc": "Padding left in units"
+          "desc": "Padding left in units",
+          "seen": 63
         },
         {
           "key": "position_padding_top",
           "type": "number",
           "default": 0,
-          "desc": "Padding top in units"
+          "desc": "Padding top in units",
+          "seen": 31
         },
         {
           "key": "position_padding_right",
           "type": "number",
           "default": 0,
-          "desc": "Padding right in units"
+          "desc": "Padding right in units",
+          "seen": 64
         },
         {
           "key": "position_padding_bottom",
           "type": "number",
           "default": 0,
-          "desc": "Padding bottom in units"
+          "desc": "Padding bottom in units",
+          "seen": 44
         }
       ],
       "layer": [
@@ -1656,52 +1759,64 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "VERTICAL_LEFT",
           "enum": "stacking",
-          "desc": "Stack direction and alignment"
+          "desc": "Stack direction and alignment",
+          "seen": 568
         },
         {
           "key": "config_margin",
           "type": "number",
           "default": 0,
-          "desc": "Gap between stacked children"
+          "desc": "Gap between stacked children",
+          "seen": 557
         },
         {
           "key": "config_scale_value",
           "type": "number",
           "default": 100,
-          "desc": "Scale (%) applied inside layer"
+          "desc": "Scale (%) applied inside layer",
+          "seen": 23
         },
         {
           "key": "config_visible",
           "type": "enum",
           "default": "ALWAYS",
           "enum": "visible",
-          "desc": "Layer visibility"
+          "desc": "Layer visibility",
+          "seen": 6
         },
         {
           "key": "config_rotate_mode",
           "type": "enum",
           "default": "NONE",
           "enum": "rotate",
-          "desc": "Rotation mode"
+          "desc": "Rotation mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "config_rotate_offset",
           "type": "angle",
           "default": 0,
-          "desc": "Rotation offset in degrees"
+          "desc": "Rotation offset in degrees",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "config_alpha",
           "type": "percent",
           "default": 100,
-          "desc": "Layer opacity (0..100)"
+          "desc": "Layer opacity (0..100)",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "config_fx",
           "type": "enum",
           "default": "NONE",
           "enum": "layerFx",
-          "desc": "Layer visual effect"
+          "desc": "Layer visual effect",
+          "seen": 0,
+          "unverified": true
         }
       ]
     }
@@ -1714,43 +1829,50 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "CENTER",
           "enum": "anchor",
-          "desc": "Where the module sits inside its parent"
+          "desc": "Where the module sits inside its parent",
+          "seen": 558
         },
         {
           "key": "position_offset_x",
           "type": "number",
           "default": 0,
-          "desc": "Horizontal offset from the anchor in units"
+          "desc": "Horizontal offset from the anchor in units",
+          "seen": 30
         },
         {
           "key": "position_offset_y",
           "type": "number",
           "default": 0,
-          "desc": "Vertical offset from the anchor in units"
+          "desc": "Vertical offset from the anchor in units",
+          "seen": 65
         },
         {
           "key": "position_padding_left",
           "type": "number",
           "default": 0,
-          "desc": "Padding left in units"
+          "desc": "Padding left in units",
+          "seen": 59
         },
         {
           "key": "position_padding_top",
           "type": "number",
           "default": 0,
-          "desc": "Padding top in units"
+          "desc": "Padding top in units",
+          "seen": 103
         },
         {
           "key": "position_padding_right",
           "type": "number",
           "default": 0,
-          "desc": "Padding right in units"
+          "desc": "Padding right in units",
+          "seen": 55
         },
         {
           "key": "position_padding_bottom",
           "type": "number",
           "default": 0,
-          "desc": "Padding bottom in units"
+          "desc": "Padding bottom in units",
+          "seen": 89
         }
       ],
       "shape": [
@@ -1759,57 +1881,67 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "SQUARE",
           "enum": "shape",
-          "desc": "Shape geometry"
+          "desc": "Shape geometry",
+          "seen": 1740
         },
         {
           "key": "shape_width",
           "type": "number",
           "default": 100,
-          "desc": "Shape width in units"
+          "desc": "Shape width in units",
+          "seen": 1595
         },
         {
           "key": "shape_height",
           "type": "number",
           "default": 100,
-          "desc": "Shape height in units"
+          "desc": "Shape height in units",
+          "seen": 1149
         },
         {
           "key": "shape_corners",
           "type": "number",
           "default": 0,
-          "desc": "Corner radius in units"
+          "desc": "Corner radius in units",
+          "seen": 700
         },
         {
           "key": "shape_angle",
           "type": "angle",
           "default": 0,
-          "desc": "Sweep angle for ARC/SLICE in degrees"
+          "desc": "Sweep angle for ARC/SLICE in degrees",
+          "seen": 52
         },
         {
           "key": "shape_path",
           "type": "text",
           "default": "",
-          "desc": "SVG Path data when shape_type is PATH"
+          "desc": "SVG Path data when shape_type is PATH",
+          "seen": 10
         },
         {
           "key": "shape_path_scale",
           "type": "enum",
           "default": "AUTO",
           "enum": "pathScale",
-          "desc": "Path scaling mode"
+          "desc": "Path scaling mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "shape_rotate_mode",
           "type": "enum",
           "default": "NONE",
           "enum": "rotate",
-          "desc": "Shape rotation mode"
+          "desc": "Shape rotation mode",
+          "seen": 197
         },
         {
           "key": "shape_rotate_offset",
           "type": "angle",
           "default": 0,
-          "desc": "Shape rotation offset"
+          "desc": "Shape rotation offset",
+          "seen": 152
         }
       ],
       "paint": [
@@ -1817,52 +1949,64 @@ export const MODULE_SPECS = {
           "key": "paint_color",
           "type": "color",
           "default": "#FFFFFFFF",
-          "desc": "Fill or stroke colour"
+          "desc": "Fill or stroke colour",
+          "seen": 318
         },
         {
           "key": "paint_style",
           "type": "enum",
           "default": "FILL",
           "enum": "paintStyle",
-          "desc": "Fill or Stroke outline"
+          "desc": "Fill or Stroke outline",
+          "seen": 459
         },
         {
           "key": "paint_stroke",
           "type": "number",
           "default": 1,
-          "desc": "Stroke width in units"
+          "desc": "Stroke width in units",
+          "seen": 546
         },
         {
           "key": "paint_mode",
           "type": "enum",
           "default": "NORMAL",
           "enum": "paintMode",
-          "desc": "Blend mode"
+          "desc": "Blend mode",
+          "seen": 411
         },
         {
           "key": "paint_filter",
           "type": "enum",
           "default": "NONE",
           "enum": "colorFilter",
-          "desc": "Colour filter"
+          "desc": "Colour filter",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter_amount",
           "type": "percent",
           "default": 100,
-          "desc": "Filter amount (0..100)"
+          "desc": "Filter amount (0..100)",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter_color",
           "type": "color",
           "default": "#FFFFFFFF",
-          "desc": "Filter colour"
+          "desc": "Filter colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_blur",
           "type": "number",
           "default": 0,
-          "desc": "Blur radius in units"
+          "desc": "Blur radius in units",
+          "seen": 0,
+          "unverified": true
         }
       ],
       "fx": [
@@ -1871,94 +2015,145 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "NONE",
           "enum": "gradient",
-          "desc": "Gradient mode"
+          "desc": "Gradient mode",
+          "seen": 216
         },
         {
           "key": "fx_gradient_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Second gradient colour"
+          "desc": "Second gradient colour",
+          "seen": 36
         },
         {
           "key": "fx_gradient_width",
           "type": "percent",
           "default": 100,
-          "desc": "Gradient spread"
+          "desc": "Gradient spread",
+          "seen": 92
         },
         {
           "key": "fx_gradient_offset",
           "type": "percent",
           "default": 50,
-          "desc": "Gradient centre position"
+          "desc": "Gradient centre position",
+          "seen": 217
         },
         {
           "key": "fx_gradient_offset_x",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre X"
+          "desc": "Radial/sweep centre X",
+          "seen": 140
         },
         {
           "key": "fx_gradient_offset_y",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre Y"
+          "desc": "Radial/sweep centre Y",
+          "seen": 135
         },
         {
           "key": "fx_gradient_bitmap",
           "type": "bitmap",
           "default": "",
-          "desc": "Image used when gradient is BITMAP"
+          "desc": "Image used when gradient is BITMAP",
+          "seen": 53
         },
         {
           "key": "fx_gradient_bitmap_mode",
           "type": "enum",
           "default": "FIT_CENTER",
           "enum": "tileMode",
-          "desc": "Gradient image tile mode"
+          "desc": "Gradient image tile mode",
+          "seen": 6
         },
         {
           "key": "fx_gradient_bitmap_width",
           "type": "number",
           "default": 20,
-          "desc": "Tile width in units"
+          "desc": "Tile width in units",
+          "seen": 6
         },
         {
           "key": "fx_shadow",
           "type": "enum",
           "default": "NONE",
           "enum": "shadow",
-          "desc": "Drop shadow mode"
+          "desc": "Drop shadow mode",
+          "seen": 9
         },
         {
           "key": "fx_shadow_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Shadow colour"
+          "desc": "Shadow colour",
+          "seen": 7
         },
         {
           "key": "fx_shadow_blur",
           "type": "number",
           "default": 30,
-          "desc": "Shadow softness"
+          "desc": "Shadow softness",
+          "seen": 31
         },
         {
           "key": "fx_shadow_distance",
           "type": "number",
           "default": 15,
-          "desc": "Shadow offset in units"
+          "desc": "Shadow offset in units",
+          "seen": 41
         },
         {
           "key": "fx_shadow_direction",
           "type": "angle",
           "default": 45,
-          "desc": "Shadow direction in degrees"
+          "desc": "Shadow direction in degrees",
+          "seen": 41
         },
         {
           "key": "fx_mask",
           "type": "enum",
           "default": "NONE",
           "enum": "mask",
-          "desc": "Masking effect"
+          "desc": "Masking effect",
+          "seen": 92
+        },
+        {
+          "key": "fx_bitmap_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "colorFilter",
+          "desc": "Bitmap color filter",
+          "seen": 49
+        },
+        {
+          "key": "fx_bitmap_filter_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Bitmap filter color",
+          "seen": 16
+        },
+        {
+          "key": "fx_bitmap_filter_amount",
+          "type": "percent",
+          "default": 100,
+          "desc": "Bitmap filter amount",
+          "seen": 6
+        },
+        {
+          "key": "fx_bitmap_blur",
+          "type": "number",
+          "default": 0,
+          "desc": "Bitmap blur radius",
+          "seen": 9
+        },
+        {
+          "key": "fx_bitmap_dim",
+          "type": "percent",
+          "default": 0,
+          "desc": "Bitmap dim amount",
+          "seen": 27
         }
       ]
     }
@@ -1971,43 +2166,50 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "CENTER",
           "enum": "anchor",
-          "desc": "Where the module sits inside its parent"
+          "desc": "Where the module sits inside its parent",
+          "seen": 86
         },
         {
           "key": "position_offset_x",
           "type": "number",
           "default": 0,
-          "desc": "Horizontal offset from the anchor in units"
+          "desc": "Horizontal offset from the anchor in units",
+          "seen": 8
         },
         {
           "key": "position_offset_y",
           "type": "number",
           "default": 0,
-          "desc": "Vertical offset from the anchor in units"
+          "desc": "Vertical offset from the anchor in units",
+          "seen": 4
         },
         {
           "key": "position_padding_left",
           "type": "number",
           "default": 0,
-          "desc": "Padding left in units"
+          "desc": "Padding left in units",
+          "seen": 29
         },
         {
           "key": "position_padding_top",
           "type": "number",
           "default": 0,
-          "desc": "Padding top in units"
+          "desc": "Padding top in units",
+          "seen": 31
         },
         {
           "key": "position_padding_right",
           "type": "number",
           "default": 0,
-          "desc": "Padding right in units"
+          "desc": "Padding right in units",
+          "seen": 18
         },
         {
           "key": "position_padding_bottom",
           "type": "number",
           "default": 0,
-          "desc": "Padding bottom in units"
+          "desc": "Padding bottom in units",
+          "seen": 57
         }
       ],
       "text": [
@@ -2015,58 +2217,82 @@ export const MODULE_SPECS = {
           "key": "text_expression",
           "type": "formula",
           "default": "Text",
-          "desc": "Text formula expression"
+          "desc": "Text formula expression",
+          "seen": 385
         },
         {
           "key": "text_size",
           "type": "number",
           "default": 40,
-          "desc": "Font size in units"
+          "desc": "Font size in units",
+          "seen": 331
         },
         {
           "key": "text_size_type",
           "type": "enum",
           "default": "SINGLE_FONT_HEIGHT",
           "enum": "fontSize",
-          "desc": "Text sizing mode"
+          "desc": "Text sizing mode",
+          "seen": 174
         },
         {
           "key": "text_width",
           "type": "number",
           "default": 720,
-          "desc": "Fixed width in units when size type is FIXED_WIDTH"
+          "desc": "Fixed width in units when size type is FIXED_WIDTH",
+          "seen": 177
         },
         {
           "key": "text_lines",
           "type": "number",
           "default": 1,
-          "desc": "Maximum number of lines"
+          "desc": "Maximum number of lines",
+          "seen": 168
         },
         {
           "key": "text_family",
           "type": "font",
           "default": "",
-          "desc": "Font file URI (kfile://org.kustom.provider/fonts/...)"
+          "desc": "Font file URI (kfile://org.kustom.provider/fonts/...)",
+          "seen": 191
         },
         {
           "key": "text_align",
           "type": "enum",
           "default": "LEFT",
           "enum": "textAlign",
-          "desc": "Horizontal text alignment"
+          "desc": "Horizontal text alignment",
+          "seen": 196
         },
         {
           "key": "text_rotate_mode",
           "type": "enum",
           "default": "NONE",
           "enum": "rotate",
-          "desc": "Text rotation mode"
+          "desc": "Text rotation mode",
+          "seen": 6
         },
         {
           "key": "text_rotate_offset",
           "type": "angle",
           "default": 0,
-          "desc": "Text rotation offset in degrees"
+          "desc": "Text rotation offset in degrees",
+          "seen": 13
+        },
+        {
+          "key": "text_height",
+          "type": "number",
+          "default": 40,
+          "desc": "Text block height",
+          "seen": 33
+        },
+        {
+          "key": "text_filter",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "TextFilter",
+          "desc": "Text case or format filter",
+          "seen": 17
         }
       ],
       "paint": [
@@ -2074,52 +2300,64 @@ export const MODULE_SPECS = {
           "key": "paint_color",
           "type": "color",
           "default": "#FFFFFFFF",
-          "desc": "Fill or stroke colour"
+          "desc": "Fill or stroke colour",
+          "seen": 128
         },
         {
           "key": "paint_style",
           "type": "enum",
           "default": "FILL",
           "enum": "paintStyle",
-          "desc": "Fill or Stroke outline"
+          "desc": "Fill or Stroke outline",
+          "seen": 9
         },
         {
           "key": "paint_stroke",
           "type": "number",
           "default": 1,
-          "desc": "Stroke width in units"
+          "desc": "Stroke width in units",
+          "seen": 25
         },
         {
           "key": "paint_mode",
           "type": "enum",
           "default": "NORMAL",
           "enum": "paintMode",
-          "desc": "Blend mode"
+          "desc": "Blend mode",
+          "seen": 9
         },
         {
           "key": "paint_filter",
           "type": "enum",
           "default": "NONE",
           "enum": "colorFilter",
-          "desc": "Colour filter"
+          "desc": "Colour filter",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter_amount",
           "type": "percent",
           "default": 100,
-          "desc": "Filter amount (0..100)"
+          "desc": "Filter amount (0..100)",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter_color",
           "type": "color",
           "default": "#FFFFFFFF",
-          "desc": "Filter colour"
+          "desc": "Filter colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_blur",
           "type": "number",
           "default": 0,
-          "desc": "Blur radius in units"
+          "desc": "Blur radius in units",
+          "seen": 0,
+          "unverified": true
         }
       ],
       "fx": [
@@ -2128,94 +2366,113 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "NONE",
           "enum": "gradient",
-          "desc": "Gradient mode"
+          "desc": "Gradient mode",
+          "seen": 12
         },
         {
           "key": "fx_gradient_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Second gradient colour"
+          "desc": "Second gradient colour",
+          "seen": 12
         },
         {
           "key": "fx_gradient_width",
           "type": "percent",
           "default": 100,
-          "desc": "Gradient spread"
+          "desc": "Gradient spread",
+          "seen": 21
         },
         {
           "key": "fx_gradient_offset",
           "type": "percent",
           "default": 50,
-          "desc": "Gradient centre position"
+          "desc": "Gradient centre position",
+          "seen": 24
         },
         {
           "key": "fx_gradient_offset_x",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre X"
+          "desc": "Radial/sweep centre X",
+          "seen": 24
         },
         {
           "key": "fx_gradient_offset_y",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre Y"
+          "desc": "Radial/sweep centre Y",
+          "seen": 24
         },
         {
           "key": "fx_gradient_bitmap",
           "type": "bitmap",
           "default": "",
-          "desc": "Image used when gradient is BITMAP"
+          "desc": "Image used when gradient is BITMAP",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap_mode",
           "type": "enum",
           "default": "FIT_CENTER",
           "enum": "tileMode",
-          "desc": "Gradient image tile mode"
+          "desc": "Gradient image tile mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap_width",
           "type": "number",
           "default": 20,
-          "desc": "Tile width in units"
+          "desc": "Tile width in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow",
           "type": "enum",
           "default": "NONE",
           "enum": "shadow",
-          "desc": "Drop shadow mode"
+          "desc": "Drop shadow mode",
+          "seen": 29
         },
         {
           "key": "fx_shadow_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Shadow colour"
+          "desc": "Shadow colour",
+          "seen": 11
         },
         {
           "key": "fx_shadow_blur",
           "type": "number",
           "default": 30,
-          "desc": "Shadow softness"
+          "desc": "Shadow softness",
+          "seen": 92
         },
         {
           "key": "fx_shadow_distance",
           "type": "number",
           "default": 15,
-          "desc": "Shadow offset in units"
+          "desc": "Shadow offset in units",
+          "seen": 92
         },
         {
           "key": "fx_shadow_direction",
           "type": "angle",
           "default": 45,
-          "desc": "Shadow direction in degrees"
+          "desc": "Shadow direction in degrees",
+          "seen": 41
         },
         {
           "key": "fx_mask",
           "type": "enum",
           "default": "NONE",
           "enum": "mask",
-          "desc": "Masking effect"
+          "desc": "Masking effect",
+          "seen": 0,
+          "unverified": true
         }
       ]
     }
@@ -2228,43 +2485,52 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "CENTER",
           "enum": "anchor",
-          "desc": "Where the module sits inside its parent"
+          "desc": "Where the module sits inside its parent",
+          "seen": 29
         },
         {
           "key": "position_offset_x",
           "type": "number",
           "default": 0,
-          "desc": "Horizontal offset from the anchor in units"
+          "desc": "Horizontal offset from the anchor in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_offset_y",
           "type": "number",
           "default": 0,
-          "desc": "Vertical offset from the anchor in units"
+          "desc": "Vertical offset from the anchor in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_left",
           "type": "number",
           "default": 0,
-          "desc": "Padding left in units"
+          "desc": "Padding left in units",
+          "seen": 9
         },
         {
           "key": "position_padding_top",
           "type": "number",
           "default": 0,
-          "desc": "Padding top in units"
+          "desc": "Padding top in units",
+          "seen": 20
         },
         {
           "key": "position_padding_right",
           "type": "number",
           "default": 0,
-          "desc": "Padding right in units"
+          "desc": "Padding right in units",
+          "seen": 7
         },
         {
           "key": "position_padding_bottom",
           "type": "number",
           "default": 0,
-          "desc": "Padding bottom in units"
+          "desc": "Padding bottom in units",
+          "seen": 9
         }
       ],
       "icon": [
@@ -2272,39 +2538,46 @@ export const MODULE_SPECS = {
           "key": "icon_set",
           "type": "iconset",
           "default": "",
-          "desc": "Icon font TTF URI"
+          "desc": "Icon font TTF URI",
+          "seen": 239
         },
         {
           "key": "icon_icon",
           "type": "icon",
           "default": "",
-          "desc": "Icon glyph name from paired JSON"
+          "desc": "Icon glyph name from paired JSON",
+          "seen": 232
         },
         {
           "key": "icon_size",
           "type": "number",
           "default": 40,
-          "desc": "Icon size in units"
+          "desc": "Icon size in units",
+          "seen": 210
         },
         {
           "key": "icon_color_mode",
           "type": "enum",
           "default": "DEFAULT",
           "enum": "iconColor",
-          "desc": "Icon color mode"
+          "desc": "Icon color mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "icon_rotate_mode",
           "type": "enum",
           "default": "NONE",
           "enum": "rotate",
-          "desc": "Icon rotation mode"
+          "desc": "Icon rotation mode",
+          "seen": 11
         },
         {
           "key": "icon_rotate_offset",
           "type": "angle",
           "default": 0,
-          "desc": "Icon rotation offset in degrees"
+          "desc": "Icon rotation offset in degrees",
+          "seen": 1
         }
       ],
       "paint": [
@@ -2312,52 +2585,64 @@ export const MODULE_SPECS = {
           "key": "paint_color",
           "type": "color",
           "default": "#FFFFFFFF",
-          "desc": "Fill or stroke colour"
+          "desc": "Fill or stroke colour",
+          "seen": 108
         },
         {
           "key": "paint_style",
           "type": "enum",
           "default": "FILL",
           "enum": "paintStyle",
-          "desc": "Fill or Stroke outline"
+          "desc": "Fill or Stroke outline",
+          "seen": 21
         },
         {
           "key": "paint_stroke",
           "type": "number",
           "default": 1,
-          "desc": "Stroke width in units"
+          "desc": "Stroke width in units",
+          "seen": 40
         },
         {
           "key": "paint_mode",
           "type": "enum",
           "default": "NORMAL",
           "enum": "paintMode",
-          "desc": "Blend mode"
+          "desc": "Blend mode",
+          "seen": 47
         },
         {
           "key": "paint_filter",
           "type": "enum",
           "default": "NONE",
           "enum": "colorFilter",
-          "desc": "Colour filter"
+          "desc": "Colour filter",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter_amount",
           "type": "percent",
           "default": 100,
-          "desc": "Filter amount (0..100)"
+          "desc": "Filter amount (0..100)",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter_color",
           "type": "color",
           "default": "#FFFFFFFF",
-          "desc": "Filter colour"
+          "desc": "Filter colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_blur",
           "type": "number",
           "default": 0,
-          "desc": "Blur radius in units"
+          "desc": "Blur radius in units",
+          "seen": 0,
+          "unverified": true
         }
       ],
       "fx": [
@@ -2366,94 +2651,113 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "NONE",
           "enum": "gradient",
-          "desc": "Gradient mode"
+          "desc": "Gradient mode",
+          "seen": 19
         },
         {
           "key": "fx_gradient_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Second gradient colour"
+          "desc": "Second gradient colour",
+          "seen": 10
         },
         {
           "key": "fx_gradient_width",
           "type": "percent",
           "default": 100,
-          "desc": "Gradient spread"
+          "desc": "Gradient spread",
+          "seen": 10
         },
         {
           "key": "fx_gradient_offset",
           "type": "percent",
           "default": 50,
-          "desc": "Gradient centre position"
+          "desc": "Gradient centre position",
+          "seen": 19
         },
         {
           "key": "fx_gradient_offset_x",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre X"
+          "desc": "Radial/sweep centre X",
+          "seen": 19
         },
         {
           "key": "fx_gradient_offset_y",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre Y"
+          "desc": "Radial/sweep centre Y",
+          "seen": 19
         },
         {
           "key": "fx_gradient_bitmap",
           "type": "bitmap",
           "default": "",
-          "desc": "Image used when gradient is BITMAP"
+          "desc": "Image used when gradient is BITMAP",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap_mode",
           "type": "enum",
           "default": "FIT_CENTER",
           "enum": "tileMode",
-          "desc": "Gradient image tile mode"
+          "desc": "Gradient image tile mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap_width",
           "type": "number",
           "default": 20,
-          "desc": "Tile width in units"
+          "desc": "Tile width in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow",
           "type": "enum",
           "default": "NONE",
           "enum": "shadow",
-          "desc": "Drop shadow mode"
+          "desc": "Drop shadow mode",
+          "seen": 55
         },
         {
           "key": "fx_shadow_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Shadow colour"
+          "desc": "Shadow colour",
+          "seen": 33
         },
         {
           "key": "fx_shadow_blur",
           "type": "number",
           "default": 30,
-          "desc": "Shadow softness"
+          "desc": "Shadow softness",
+          "seen": 56
         },
         {
           "key": "fx_shadow_distance",
           "type": "number",
           "default": 15,
-          "desc": "Shadow offset in units"
+          "desc": "Shadow offset in units",
+          "seen": 72
         },
         {
           "key": "fx_shadow_direction",
           "type": "angle",
           "default": 45,
-          "desc": "Shadow direction in degrees"
+          "desc": "Shadow direction in degrees",
+          "seen": 72
         },
         {
           "key": "fx_mask",
           "type": "enum",
           "default": "NONE",
           "enum": "mask",
-          "desc": "Masking effect"
+          "desc": "Masking effect",
+          "seen": 0,
+          "unverified": true
         }
       ]
     }
@@ -2466,121 +2770,228 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "CENTER",
           "enum": "anchor",
-          "desc": "Where the module sits inside its parent"
+          "desc": "Where the module sits inside its parent",
+          "seen": 2
         },
         {
           "key": "position_offset_x",
           "type": "number",
           "default": 0,
-          "desc": "Horizontal offset from the anchor in units"
+          "desc": "Horizontal offset from the anchor in units",
+          "seen": 1
         },
         {
           "key": "position_offset_y",
           "type": "number",
           "default": 0,
-          "desc": "Vertical offset from the anchor in units"
+          "desc": "Vertical offset from the anchor in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_left",
           "type": "number",
           "default": 0,
-          "desc": "Padding left in units"
+          "desc": "Padding left in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_top",
           "type": "number",
           "default": 0,
-          "desc": "Padding top in units"
+          "desc": "Padding top in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_right",
           "type": "number",
           "default": 0,
-          "desc": "Padding right in units"
+          "desc": "Padding right in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_bottom",
           "type": "number",
           "default": 0,
-          "desc": "Padding bottom in units"
+          "desc": "Padding bottom in units",
+          "seen": 0,
+          "unverified": true
         }
       ],
       "progress": [
         {
+          "key": "progress_progress",
+          "type": "enum",
+          "default": "BATTERY",
+          "enum": "Progress",
+          "desc": "Progress data source (BATTERY, CUSTOM, MUSIC, etc.)",
+          "seen": 65
+        },
+        {
           "key": "progress_mode",
           "type": "enum",
           "default": "PROGRESS",
-          "enum": "progressMode",
-          "desc": "Progress data mode"
+          "enum": "ProgressMode",
+          "desc": "Progress data mode",
+          "seen": 63
         },
         {
           "key": "progress_level",
           "type": "number",
-          "default": 0,
-          "desc": "Custom progress level (0..100)"
-        },
-        {
-          "key": "progress_min",
-          "type": "number",
-          "default": 0,
-          "desc": "Minimum value"
+          "default": 100,
+          "desc": "Progress level (0..100)",
+          "seen": 29
         },
         {
           "key": "progress_max",
           "type": "number",
           "default": 100,
-          "desc": "Maximum value"
+          "desc": "Maximum progress value",
+          "seen": 29
         },
         {
           "key": "progress_count",
           "type": "number",
           "default": 10,
-          "desc": "Section count for split styles"
-        },
-        {
-          "key": "progress_style",
-          "type": "enum",
-          "default": "LINEAR",
-          "enum": "progressStyle",
-          "desc": "Progress visual style"
-        },
-        {
-          "key": "progress_shape",
-          "type": "enum",
-          "default": "RECT",
-          "enum": "progressShape",
-          "desc": "Shape used for split progress items"
-        },
-        {
-          "key": "progress_size",
-          "type": "number",
-          "default": 100,
-          "desc": "Progress diameter or width"
-        },
-        {
-          "key": "progress_height",
-          "type": "number",
-          "default": 20,
-          "desc": "Progress bar height"
-        },
-        {
-          "key": "progress_width",
-          "type": "number",
-          "default": 200,
-          "desc": "Progress bar width"
+          "desc": "Section count for split styles",
+          "seen": 52
         },
         {
           "key": "progress_rotate_mode",
           "type": "enum",
           "default": "NONE",
           "enum": "rotate",
-          "desc": "Progress rotation mode"
+          "desc": "Progress rotation mode",
+          "seen": 17
         },
         {
           "key": "progress_rotate_offset",
           "type": "angle",
           "default": 0,
-          "desc": "Progress rotation offset"
+          "desc": "Progress rotation offset",
+          "seen": 16
+        },
+        {
+          "key": "progress_style",
+          "type": "enum",
+          "default": "LINEAR",
+          "enum": "ProgressStyle",
+          "desc": "Legacy progress style",
+          "legacy": true,
+          "seen": 0
+        },
+        {
+          "key": "progress_shape",
+          "type": "enum",
+          "default": "RECT",
+          "enum": "ProgressShape",
+          "desc": "Legacy progress shape",
+          "legacy": true,
+          "seen": 0
+        },
+        {
+          "key": "progress_size",
+          "type": "number",
+          "default": 100,
+          "desc": "Legacy progress size",
+          "legacy": true,
+          "seen": 0
+        },
+        {
+          "key": "progress_width",
+          "type": "number",
+          "default": 200,
+          "desc": "Legacy progress width",
+          "legacy": true,
+          "seen": 0
+        },
+        {
+          "key": "progress_height",
+          "type": "number",
+          "default": 20,
+          "desc": "Legacy progress height",
+          "legacy": true,
+          "seen": 0
+        }
+      ],
+      "style": [
+        {
+          "key": "style_style",
+          "type": "enum",
+          "default": "LINEAR",
+          "enum": "ProgressStyle",
+          "desc": "Visual style (LINEAR, CIRCLE, SPLIT)",
+          "seen": 29
+        },
+        {
+          "key": "style_shape",
+          "type": "enum",
+          "default": "RECT",
+          "enum": "ProgressShape",
+          "desc": "Shape used for progress items",
+          "seen": 23
+        },
+        {
+          "key": "style_width",
+          "type": "number",
+          "default": 200,
+          "desc": "Progress bar width",
+          "seen": 65
+        },
+        {
+          "key": "style_height",
+          "type": "number",
+          "default": 20,
+          "desc": "Progress bar height",
+          "seen": 40
+        },
+        {
+          "key": "style_size",
+          "type": "number",
+          "default": 100,
+          "desc": "Progress diameter or size",
+          "seen": 35
+        }
+      ],
+      "color": [
+        {
+          "key": "color_mode",
+          "type": "enum",
+          "default": "CURRENT",
+          "enum": "ProgressColorMode",
+          "desc": "Color mode",
+          "seen": 6
+        },
+        {
+          "key": "color_color",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Main progress color",
+          "seen": 3
+        },
+        {
+          "key": "color_fgcolor",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Foreground progress color",
+          "seen": 1
+        },
+        {
+          "key": "color_bgcolor",
+          "type": "color",
+          "default": "#33FFFFFF",
+          "desc": "Background track color",
+          "seen": 17
+        },
+        {
+          "key": "color_tcolor",
+          "type": "color",
+          "default": "#FFFFFFFF",
+          "desc": "Track/target color",
+          "seen": 2
         }
       ],
       "paint": [
@@ -2588,52 +2999,68 @@ export const MODULE_SPECS = {
           "key": "paint_color",
           "type": "color",
           "default": "#FFFFFFFF",
-          "desc": "Fill or stroke colour"
+          "desc": "Fill or stroke colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_style",
           "type": "enum",
           "default": "FILL",
           "enum": "paintStyle",
-          "desc": "Fill or Stroke outline"
+          "desc": "Fill or Stroke outline",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_stroke",
           "type": "number",
           "default": 1,
-          "desc": "Stroke width in units"
+          "desc": "Stroke width in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_mode",
           "type": "enum",
           "default": "NORMAL",
           "enum": "paintMode",
-          "desc": "Blend mode"
+          "desc": "Blend mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter",
           "type": "enum",
           "default": "NONE",
           "enum": "colorFilter",
-          "desc": "Colour filter"
+          "desc": "Colour filter",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter_amount",
           "type": "percent",
           "default": 100,
-          "desc": "Filter amount (0..100)"
+          "desc": "Filter amount (0..100)",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter_color",
           "type": "color",
           "default": "#FFFFFFFF",
-          "desc": "Filter colour"
+          "desc": "Filter colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_blur",
           "type": "number",
           "default": 0,
-          "desc": "Blur radius in units"
+          "desc": "Blur radius in units",
+          "seen": 0,
+          "unverified": true
         }
       ],
       "fx": [
@@ -2642,94 +3069,124 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "NONE",
           "enum": "gradient",
-          "desc": "Gradient mode"
+          "desc": "Gradient mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Second gradient colour"
+          "desc": "Second gradient colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_width",
           "type": "percent",
           "default": 100,
-          "desc": "Gradient spread"
+          "desc": "Gradient spread",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_offset",
           "type": "percent",
           "default": 50,
-          "desc": "Gradient centre position"
+          "desc": "Gradient centre position",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_offset_x",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre X"
+          "desc": "Radial/sweep centre X",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_offset_y",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre Y"
+          "desc": "Radial/sweep centre Y",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap",
           "type": "bitmap",
           "default": "",
-          "desc": "Image used when gradient is BITMAP"
+          "desc": "Image used when gradient is BITMAP",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap_mode",
           "type": "enum",
           "default": "FIT_CENTER",
           "enum": "tileMode",
-          "desc": "Gradient image tile mode"
+          "desc": "Gradient image tile mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap_width",
           "type": "number",
           "default": 20,
-          "desc": "Tile width in units"
+          "desc": "Tile width in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow",
           "type": "enum",
           "default": "NONE",
           "enum": "shadow",
-          "desc": "Drop shadow mode"
+          "desc": "Drop shadow mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Shadow colour"
+          "desc": "Shadow colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow_blur",
           "type": "number",
           "default": 30,
-          "desc": "Shadow softness"
+          "desc": "Shadow softness",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow_distance",
           "type": "number",
           "default": 15,
-          "desc": "Shadow offset in units"
+          "desc": "Shadow offset in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow_direction",
           "type": "angle",
           "default": 45,
-          "desc": "Shadow direction in degrees"
+          "desc": "Shadow direction in degrees",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_mask",
           "type": "enum",
           "default": "NONE",
           "enum": "mask",
-          "desc": "Masking effect"
+          "desc": "Masking effect",
+          "seen": 0,
+          "unverified": true
         }
       ]
     }
@@ -2742,95 +3199,130 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "CENTER",
           "enum": "anchor",
-          "desc": "Where the module sits inside its parent"
+          "desc": "Where the module sits inside its parent",
+          "seen": 4
         },
         {
           "key": "position_offset_x",
           "type": "number",
           "default": 0,
-          "desc": "Horizontal offset from the anchor in units"
+          "desc": "Horizontal offset from the anchor in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_offset_y",
           "type": "number",
           "default": 0,
-          "desc": "Vertical offset from the anchor in units"
+          "desc": "Vertical offset from the anchor in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_left",
           "type": "number",
           "default": 0,
-          "desc": "Padding left in units"
+          "desc": "Padding left in units",
+          "seen": 6
         },
         {
           "key": "position_padding_top",
           "type": "number",
           "default": 0,
-          "desc": "Padding top in units"
+          "desc": "Padding top in units",
+          "seen": 6
         },
         {
           "key": "position_padding_right",
           "type": "number",
           "default": 0,
-          "desc": "Padding right in units"
+          "desc": "Padding right in units",
+          "seen": 6
         },
         {
           "key": "position_padding_bottom",
           "type": "number",
           "default": 0,
-          "desc": "Padding bottom in units"
+          "desc": "Padding bottom in units",
+          "seen": 8
         }
       ],
-      "curved": [
+      "text": [
+        {
+          "key": "text_expression",
+          "type": "formula",
+          "default": "Curved Text",
+          "desc": "Text expression or formula",
+          "seen": 24
+        },
+        {
+          "key": "text_size",
+          "type": "number",
+          "default": 40,
+          "desc": "Font size in units",
+          "seen": 24
+        },
+        {
+          "key": "text_family",
+          "type": "font",
+          "default": "",
+          "desc": "Font file URI",
+          "seen": 14
+        },
+        {
+          "key": "text_width",
+          "type": "number",
+          "default": 200,
+          "desc": "Curve radius or width in units",
+          "seen": 6
+        },
+        {
+          "key": "text_rotate_mode",
+          "type": "enum",
+          "default": "NONE",
+          "enum": "rotate",
+          "desc": "Text rotation mode",
+          "seen": 3
+        },
         {
           "key": "curved_expression",
           "type": "formula",
           "default": "Curved Text",
-          "desc": "Text formula expression"
+          "desc": "Legacy curved expression",
+          "legacy": true,
+          "seen": 0
         },
         {
           "key": "curved_radius",
           "type": "number",
           "default": 100,
-          "desc": "Curve radius in units"
+          "desc": "Legacy curved radius",
+          "legacy": true,
+          "seen": 0
         },
         {
           "key": "curved_size",
           "type": "number",
           "default": 40,
-          "desc": "Text font size in units"
+          "desc": "Legacy curved size",
+          "legacy": true,
+          "seen": 0
         },
         {
           "key": "curved_angle",
           "type": "angle",
           "default": 0,
-          "desc": "Starting angle in degrees"
-        },
-        {
-          "key": "curved_mode",
-          "type": "enum",
-          "default": "NORMAL",
-          "enum": "curvedMode",
-          "desc": "Curving direction"
+          "desc": "Legacy curved angle",
+          "legacy": true,
+          "seen": 0
         },
         {
           "key": "curved_family",
           "type": "font",
           "default": "",
-          "desc": "Font file URI"
-        },
-        {
-          "key": "curved_rotate_mode",
-          "type": "enum",
-          "default": "NONE",
-          "enum": "rotate",
-          "desc": "Rotation mode"
-        },
-        {
-          "key": "curved_rotate_offset",
-          "type": "angle",
-          "default": 0,
-          "desc": "Rotation offset in degrees"
+          "desc": "Legacy curved family",
+          "legacy": true,
+          "seen": 0
         }
       ],
       "paint": [
@@ -2838,52 +3330,66 @@ export const MODULE_SPECS = {
           "key": "paint_color",
           "type": "color",
           "default": "#FFFFFFFF",
-          "desc": "Fill or stroke colour"
+          "desc": "Fill or stroke colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_style",
           "type": "enum",
           "default": "FILL",
           "enum": "paintStyle",
-          "desc": "Fill or Stroke outline"
+          "desc": "Fill or Stroke outline",
+          "seen": 5
         },
         {
           "key": "paint_stroke",
           "type": "number",
           "default": 1,
-          "desc": "Stroke width in units"
+          "desc": "Stroke width in units",
+          "seen": 5
         },
         {
           "key": "paint_mode",
           "type": "enum",
           "default": "NORMAL",
           "enum": "paintMode",
-          "desc": "Blend mode"
+          "desc": "Blend mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter",
           "type": "enum",
           "default": "NONE",
           "enum": "colorFilter",
-          "desc": "Colour filter"
+          "desc": "Colour filter",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter_amount",
           "type": "percent",
           "default": 100,
-          "desc": "Filter amount (0..100)"
+          "desc": "Filter amount (0..100)",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_filter_color",
           "type": "color",
           "default": "#FFFFFFFF",
-          "desc": "Filter colour"
+          "desc": "Filter colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "paint_blur",
           "type": "number",
           "default": 0,
-          "desc": "Blur radius in units"
+          "desc": "Blur radius in units",
+          "seen": 0,
+          "unverified": true
         }
       ],
       "fx": [
@@ -2892,94 +3398,117 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "NONE",
           "enum": "gradient",
-          "desc": "Gradient mode"
+          "desc": "Gradient mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Second gradient colour"
+          "desc": "Second gradient colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_width",
           "type": "percent",
           "default": 100,
-          "desc": "Gradient spread"
+          "desc": "Gradient spread",
+          "seen": 3
         },
         {
           "key": "fx_gradient_offset",
           "type": "percent",
           "default": 50,
-          "desc": "Gradient centre position"
+          "desc": "Gradient centre position",
+          "seen": 3
         },
         {
           "key": "fx_gradient_offset_x",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre X"
+          "desc": "Radial/sweep centre X",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_offset_y",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre Y"
+          "desc": "Radial/sweep centre Y",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap",
           "type": "bitmap",
           "default": "",
-          "desc": "Image used when gradient is BITMAP"
+          "desc": "Image used when gradient is BITMAP",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap_mode",
           "type": "enum",
           "default": "FIT_CENTER",
           "enum": "tileMode",
-          "desc": "Gradient image tile mode"
+          "desc": "Gradient image tile mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap_width",
           "type": "number",
           "default": 20,
-          "desc": "Tile width in units"
+          "desc": "Tile width in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow",
           "type": "enum",
           "default": "NONE",
           "enum": "shadow",
-          "desc": "Drop shadow mode"
+          "desc": "Drop shadow mode",
+          "seen": 6
         },
         {
           "key": "fx_shadow_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Shadow colour"
+          "desc": "Shadow colour",
+          "seen": 6
         },
         {
           "key": "fx_shadow_blur",
           "type": "number",
           "default": 30,
-          "desc": "Shadow softness"
+          "desc": "Shadow softness",
+          "seen": 6
         },
         {
           "key": "fx_shadow_distance",
           "type": "number",
           "default": 15,
-          "desc": "Shadow offset in units"
+          "desc": "Shadow offset in units",
+          "seen": 6
         },
         {
           "key": "fx_shadow_direction",
           "type": "angle",
           "default": 45,
-          "desc": "Shadow direction in degrees"
+          "desc": "Shadow direction in degrees",
+          "seen": 6
         },
         {
           "key": "fx_mask",
           "type": "enum",
           "default": "NONE",
           "enum": "mask",
-          "desc": "Masking effect"
+          "desc": "Masking effect",
+          "seen": 0,
+          "unverified": true
         }
       ]
     }
@@ -2992,43 +3521,54 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "CENTER",
           "enum": "anchor",
-          "desc": "Where the module sits inside its parent"
+          "desc": "Where the module sits inside its parent",
+          "seen": 1
         },
         {
           "key": "position_offset_x",
           "type": "number",
           "default": 0,
-          "desc": "Horizontal offset from the anchor in units"
+          "desc": "Horizontal offset from the anchor in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_offset_y",
           "type": "number",
           "default": 0,
-          "desc": "Vertical offset from the anchor in units"
+          "desc": "Vertical offset from the anchor in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_left",
           "type": "number",
           "default": 0,
-          "desc": "Padding left in units"
+          "desc": "Padding left in units",
+          "seen": 4
         },
         {
           "key": "position_padding_top",
           "type": "number",
           "default": 0,
-          "desc": "Padding top in units"
+          "desc": "Padding top in units",
+          "seen": 4
         },
         {
           "key": "position_padding_right",
           "type": "number",
           "default": 0,
-          "desc": "Padding right in units"
+          "desc": "Padding right in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_bottom",
           "type": "number",
           "default": 0,
-          "desc": "Padding bottom in units"
+          "desc": "Padding bottom in units",
+          "seen": 0,
+          "unverified": true
         }
       ],
       "bitmap": [
@@ -3037,64 +3577,79 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "BITMAP",
           "enum": "bitmapMode",
-          "desc": "Image type (raster or SVG vector)"
+          "desc": "Image type (raster or SVG vector)",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "bitmap_bitmap",
           "type": "bitmap",
           "default": "",
-          "desc": "Image file URI"
+          "desc": "Image file URI",
+          "seen": 5
         },
         {
           "key": "bitmap_width",
           "type": "number",
           "default": 100,
-          "desc": "Bitmap display width"
+          "desc": "Bitmap display width",
+          "seen": 6
         },
         {
           "key": "bitmap_height",
           "type": "number",
           "default": 100,
-          "desc": "Bitmap display height"
+          "desc": "Bitmap display height",
+          "seen": 4
         },
         {
           "key": "bitmap_filter",
           "type": "enum",
           "default": "NONE",
           "enum": "colorFilter",
-          "desc": "Bitmap filter"
+          "desc": "Bitmap filter",
+          "seen": 5
         },
         {
           "key": "bitmap_filter_amount",
           "type": "percent",
           "default": 100,
-          "desc": "Filter amount"
+          "desc": "Filter amount",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "bitmap_filter_color",
           "type": "color",
           "default": "#FFFFFFFF",
-          "desc": "Filter colour"
+          "desc": "Filter colour",
+          "seen": 5
         },
         {
           "key": "bitmap_scale",
           "type": "enum",
           "default": "FIT_WIDTH",
           "enum": "bitmapScale",
-          "desc": "Scaling mode"
+          "desc": "Scaling mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "bitmap_rotate_mode",
           "type": "enum",
           "default": "NONE",
           "enum": "rotate",
-          "desc": "Bitmap rotation mode"
+          "desc": "Bitmap rotation mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "bitmap_rotate_offset",
           "type": "angle",
           "default": 0,
-          "desc": "Bitmap rotation offset"
+          "desc": "Bitmap rotation offset",
+          "seen": 0,
+          "unverified": true
         }
       ],
       "fx": [
@@ -3103,94 +3658,124 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "NONE",
           "enum": "gradient",
-          "desc": "Gradient mode"
+          "desc": "Gradient mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Second gradient colour"
+          "desc": "Second gradient colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_width",
           "type": "percent",
           "default": 100,
-          "desc": "Gradient spread"
+          "desc": "Gradient spread",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_offset",
           "type": "percent",
           "default": 50,
-          "desc": "Gradient centre position"
+          "desc": "Gradient centre position",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_offset_x",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre X"
+          "desc": "Radial/sweep centre X",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_offset_y",
           "type": "percent",
           "default": 50,
-          "desc": "Radial/sweep centre Y"
+          "desc": "Radial/sweep centre Y",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap",
           "type": "bitmap",
           "default": "",
-          "desc": "Image used when gradient is BITMAP"
+          "desc": "Image used when gradient is BITMAP",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap_mode",
           "type": "enum",
           "default": "FIT_CENTER",
           "enum": "tileMode",
-          "desc": "Gradient image tile mode"
+          "desc": "Gradient image tile mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_gradient_bitmap_width",
           "type": "number",
           "default": 20,
-          "desc": "Tile width in units"
+          "desc": "Tile width in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow",
           "type": "enum",
           "default": "NONE",
           "enum": "shadow",
-          "desc": "Drop shadow mode"
+          "desc": "Drop shadow mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow_color",
           "type": "color",
           "default": "#FF000000",
-          "desc": "Shadow colour"
+          "desc": "Shadow colour",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow_blur",
           "type": "number",
           "default": 30,
-          "desc": "Shadow softness"
+          "desc": "Shadow softness",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow_distance",
           "type": "number",
           "default": 15,
-          "desc": "Shadow offset in units"
+          "desc": "Shadow offset in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_shadow_direction",
           "type": "angle",
           "default": 45,
-          "desc": "Shadow direction in degrees"
+          "desc": "Shadow direction in degrees",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "fx_mask",
           "type": "enum",
           "default": "NONE",
           "enum": "mask",
-          "desc": "Masking effect"
+          "desc": "Masking effect",
+          "seen": 0,
+          "unverified": true
         }
       ]
     }
@@ -3203,43 +3788,57 @@ export const MODULE_SPECS = {
           "type": "enum",
           "default": "CENTER",
           "enum": "anchor",
-          "desc": "Where the module sits inside its parent"
+          "desc": "Where the module sits inside its parent",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_offset_x",
           "type": "number",
           "default": 0,
-          "desc": "Horizontal offset from the anchor in units"
+          "desc": "Horizontal offset from the anchor in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_offset_y",
           "type": "number",
           "default": 0,
-          "desc": "Vertical offset from the anchor in units"
+          "desc": "Vertical offset from the anchor in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_left",
           "type": "number",
           "default": 0,
-          "desc": "Padding left in units"
+          "desc": "Padding left in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_top",
           "type": "number",
           "default": 0,
-          "desc": "Padding top in units"
+          "desc": "Padding top in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_right",
           "type": "number",
           "default": 0,
-          "desc": "Padding right in units"
+          "desc": "Padding right in units",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "position_padding_bottom",
           "type": "number",
           "default": 0,
-          "desc": "Padding bottom in units"
+          "desc": "Padding bottom in units",
+          "seen": 0,
+          "unverified": true
         }
       ],
       "layer": [
@@ -3247,40 +3846,52 @@ export const MODULE_SPECS = {
           "key": "config_scale_value",
           "type": "number",
           "default": 100,
-          "desc": "Scale (%) applied inside layer"
+          "desc": "Scale (%) applied inside layer",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "config_visible",
           "type": "enum",
           "default": "ALWAYS",
           "enum": "visible",
-          "desc": "Layer visibility"
+          "desc": "Layer visibility",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "config_rotate_mode",
           "type": "enum",
           "default": "NONE",
           "enum": "rotate",
-          "desc": "Rotation mode"
+          "desc": "Rotation mode",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "config_rotate_offset",
           "type": "angle",
           "default": 0,
-          "desc": "Rotation offset in degrees"
+          "desc": "Rotation offset in degrees",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "config_alpha",
           "type": "percent",
           "default": 100,
-          "desc": "Layer opacity (0..100)"
+          "desc": "Layer opacity (0..100)",
+          "seen": 0,
+          "unverified": true
         },
         {
           "key": "config_fx",
           "type": "enum",
           "default": "NONE",
           "enum": "layerFx",
-          "desc": "Layer visual effect"
+          "desc": "Layer visual effect",
+          "seen": 0,
+          "unverified": true
         }
       ]
     }
@@ -3386,6 +3997,258 @@ export const SPEC_DEFAULTS = {
   "bitmap_filter_color": "#FFFFFFFF",
   "bitmap_scale": "FIT_WIDTH",
   "bitmap_rotate_mode": "NONE",
-  "bitmap_rotate_offset": 0
+  "bitmap_rotate_offset": 0,
+  "progress_progress": "BATTERY",
+  "style_shape": "RECT",
+  "style_style": "LINEAR",
+  "style_width": 200,
+  "style_height": 20,
+  "style_size": 100,
+  "color_mode": "CURRENT",
+  "color_color": "#FFFFFFFF",
+  "color_bgcolor": "#33FFFFFF",
+  "color_fgcolor": "#FFFFFFFF",
+  "color_tcolor": "#FFFFFFFF",
+  "config_fx_radius": 0,
+  "config_fx_dist": 0,
+  "config_fx_angle": 0,
+  "config_fx_fcolor": "#FF000000",
+  "config_fx_bcolor": "#00000000",
+  "config_filter": "NONE",
+  "config_filter_amount": 100,
+  "text_height": 40,
+  "text_filter": "NONE"
 } as const;
+
+// --- OBSERVED CORPUS PROPERTY LOOKUP ---
+
+export const OBSERVED_KEYS: Record<string, string[]> = {
+  "RootLayerModule": [
+    "globals_list",
+    "config_scale_value",
+    "internal_formulas",
+    "internal_globals",
+    "background_bitmap",
+    "background_scroll",
+    "config_visible"
+  ],
+  "OverlapLayerModule": [
+    "position_anchor",
+    "position_offset_x",
+    "position_padding_left",
+    "position_padding_top",
+    "internal_formulas",
+    "config_rotate_offset",
+    "config_visible",
+    "config_alpha",
+    "config_rotate_mode",
+    "position_padding_bottom",
+    "position_offset_y",
+    "config_fx_radius",
+    "position_padding_right",
+    "config_fx_fcolor",
+    "config_fx_bcolor",
+    "config_filter",
+    "config_fx_angle",
+    "config_fx_dist",
+    "config_filter_amount",
+    "internal_globals",
+    "config_scale_value",
+    "config_fx"
+  ],
+  "ShapeModule": [
+    "internal_globals",
+    "shape_type",
+    "shape_corners",
+    "paint_color",
+    "shape_width",
+    "shape_height",
+    "internal_formulas",
+    "shape_angle",
+    "shape_rotate_mode",
+    "fx_gradient",
+    "fx_gradient_width",
+    "fx_gradient_bitmap",
+    "fx_bitmap_dim",
+    "fx_bitmap_blur",
+    "position_anchor",
+    "fx_mask",
+    "paint_mode",
+    "position_padding_bottom",
+    "position_padding_left",
+    "position_padding_right",
+    "shape_rotate_offset",
+    "paint_style",
+    "paint_stroke",
+    "position_padding_top",
+    "fx_shadow_direction",
+    "fx_shadow_distance",
+    "fx_shadow_blur",
+    "fx_gradient_offset",
+    "fx_bitmap_filter",
+    "fx_bitmap_filter_color",
+    "fx_gradient_color",
+    "fx_gradient_offset_x",
+    "shape_path",
+    "position_offset_x",
+    "fx_shadow_color",
+    "position_offset_y",
+    "fx_bitmap_filter_amount",
+    "fx_gradient_offset_y",
+    "fx_gradient_bitmap_mode",
+    "fx_gradient_bitmap_width",
+    "fx_shadow"
+  ],
+  "StackLayerModule": [
+    "config_margin",
+    "position_anchor",
+    "position_offset_x",
+    "position_padding_left",
+    "position_padding_bottom",
+    "config_stacking",
+    "internal_formulas",
+    "position_padding_right",
+    "position_padding_top",
+    "config_scale_value",
+    "position_offset_y",
+    "internal_globals",
+    "config_visible"
+  ],
+  "TextModule": [
+    "internal_globals",
+    "text_expression",
+    "text_family",
+    "text_size",
+    "position_padding_left",
+    "internal_formulas",
+    "paint_color",
+    "position_anchor",
+    "position_offset_x",
+    "position_padding_right",
+    "position_padding_bottom",
+    "fx_shadow",
+    "fx_shadow_blur",
+    "fx_shadow_direction",
+    "fx_shadow_distance",
+    "fx_shadow_color",
+    "text_align",
+    "text_rotate_mode",
+    "position_padding_top",
+    "position_offset_y",
+    "text_rotate_offset",
+    "text_size_type",
+    "text_width",
+    "text_lines",
+    "fx_gradient_width",
+    "fx_gradient_offset",
+    "fx_gradient_offset_x",
+    "fx_gradient_offset_y",
+    "paint_style",
+    "paint_stroke",
+    "text_height",
+    "text_filter",
+    "fx_gradient_color",
+    "fx_gradient",
+    "paint_mode"
+  ],
+  "ProgressModule": [
+    "progress_progress",
+    "progress_level",
+    "progress_mode",
+    "progress_count",
+    "style_shape",
+    "style_width",
+    "style_height",
+    "progress_max",
+    "style_style",
+    "style_size",
+    "internal_globals",
+    "internal_formulas",
+    "progress_rotate_mode",
+    "progress_rotate_offset",
+    "color_mode",
+    "color_bgcolor",
+    "color_fgcolor",
+    "position_anchor",
+    "position_offset_x",
+    "color_color",
+    "color_tcolor"
+  ],
+  "BitmapModule": [
+    "internal_formulas",
+    "bitmap_bitmap",
+    "bitmap_width",
+    "position_padding_left",
+    "position_padding_top",
+    "bitmap_height",
+    "bitmap_filter",
+    "bitmap_filter_color",
+    "internal_globals",
+    "position_anchor"
+  ],
+  "KomponentModule": [
+    "globals_list",
+    "internal_description",
+    "internal_formulas",
+    "internal_author_email",
+    "internal_author_name"
+  ],
+  "FontIconModule": [
+    "internal_formulas",
+    "icon_icon",
+    "icon_size",
+    "internal_globals",
+    "icon_set",
+    "paint_color",
+    "position_anchor",
+    "position_padding_right",
+    "position_padding_top",
+    "position_padding_left",
+    "icon_rotate_mode",
+    "icon_rotate_offset",
+    "paint_mode",
+    "fx_shadow_blur",
+    "fx_shadow_direction",
+    "fx_shadow_distance",
+    "fx_shadow_color",
+    "fx_shadow",
+    "fx_gradient",
+    "fx_gradient_color",
+    "fx_gradient_width",
+    "fx_gradient_offset",
+    "fx_gradient_offset_x",
+    "fx_gradient_offset_y",
+    "position_padding_bottom",
+    "paint_stroke",
+    "paint_style"
+  ],
+  "CurvedTextModule": [
+    "internal_globals",
+    "text_expression",
+    "text_family",
+    "position_padding_top",
+    "text_size",
+    "fx_shadow",
+    "fx_shadow_blur",
+    "fx_shadow_direction",
+    "fx_shadow_distance",
+    "fx_shadow_color",
+    "position_anchor",
+    "position_padding_left",
+    "position_padding_bottom",
+    "position_padding_right",
+    "internal_formulas",
+    "paint_style",
+    "paint_stroke",
+    "text_width",
+    "fx_gradient_width",
+    "fx_gradient_offset",
+    "text_rotate_mode"
+  ]
+};
+
+export function isObservedProperty(moduleType: string, key: string): boolean {
+  const keys = OBSERVED_KEYS[moduleType];
+  return Boolean(keys && keys.includes(key));
+}
 

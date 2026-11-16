@@ -1,0 +1,2646 @@
+{
+  "stats": {
+    "totalArchives": 46,
+    "moduleCounts": {
+      "RootLayerModule": 44,
+      "OverlapLayerModule": 801,
+      "ShapeModule": 1980,
+      "StackLayerModule": 702,
+      "TextModule": 388,
+      "ProgressModule": 66,
+      "BitmapModule": 10,
+      "KomponentModule": 9,
+      "FontIconModule": 256,
+      "CurvedTextModule": 24
+    }
+  },
+  "modules": {
+    "RootLayerModule": {
+      "count": 44,
+      "props": {
+        "globals_list": {
+          "count": 35,
+          "values": {}
+        },
+        "config_scale_value": {
+          "count": 10,
+          "values": {
+            "110.735825": 2,
+            "88.276726": 1,
+            "88.0844": 1,
+            "64.22536": 3,
+            "157.74908": 3
+          }
+        },
+        "internal_formulas": {
+          "count": 11,
+          "values": {}
+        },
+        "internal_globals": {
+          "count": 11,
+          "values": {}
+        },
+        "background_bitmap": {
+          "count": 3,
+          "values": {
+            "kfile://org.kustom.provider/bitmaps/IMGd338164e276bc1d89ea826de0e9d3da": 3
+          }
+        },
+        "background_scroll": {
+          "count": 3,
+          "values": {
+            "NONE": 3
+          }
+        },
+        "config_visible": {
+          "count": 3,
+          "values": {
+            "ALWAYS": 3
+          }
+        }
+      }
+    },
+    "OverlapLayerModule": {
+      "count": 801,
+      "props": {
+        "position_anchor": {
+          "count": 141,
+          "values": {
+            "TOPLEFT": 5,
+            "CENTERRIGHT": 9,
+            "BOTTOM": 22,
+            "TOPRIGHT": 11,
+            "CENTERLEFT": 21,
+            "BOTTOMRIGHT": 28,
+            "BOTTOMLEFT": 18,
+            "TOP": 9,
+            "CENTER": 18
+          }
+        },
+        "position_offset_x": {
+          "count": 49,
+          "values": {
+            "5": 3,
+            "24": 1,
+            "25": 3,
+            "28": 1,
+            "43": 3,
+            "50": 9,
+            "60": 3,
+            "80": 3,
+            "83": 6,
+            "100": 9,
+            "102": 3,
+            "304": 1,
+            "-175": 4
+          }
+        },
+        "position_padding_left": {
+          "count": 35,
+          "values": {
+            "5": 1,
+            "10": 6,
+            "15": 1,
+            "20": 6,
+            "24": 1,
+            "25": 8,
+            "28": 1,
+            "32": 2,
+            "36": 2,
+            "50": 1,
+            "365": 4,
+            "415": 1,
+            "420": 1
+          }
+        },
+        "position_padding_top": {
+          "count": 61,
+          "values": {
+            "5": 1,
+            "8": 3,
+            "10": 6,
+            "20": 1,
+            "24": 1,
+            "25": 6,
+            "28": 1,
+            "32": 1,
+            "36": 4,
+            "40": 1,
+            "125": 1,
+            "133": 3,
+            "228": 24,
+            "275": 2,
+            "335": 4,
+            "370": 1,
+            "385": 1
+          }
+        },
+        "internal_formulas": {
+          "count": 267,
+          "values": {}
+        },
+        "config_rotate_offset": {
+          "count": 92,
+          "values": {
+            "1": 7,
+            "24": 4,
+            "30": 3,
+            "45": 3,
+            "60": 3,
+            "90": 4,
+            "120": 3,
+            "150": 3,
+            "165": 3,
+            "180": 36,
+            "199": 2,
+            "210": 3,
+            "225": 3,
+            "240": 3,
+            "271": 3,
+            "300": 3,
+            "330": 3,
+            "345": 3
+          }
+        },
+        "config_visible": {
+          "count": 86,
+          "values": {
+            "NEVER": 28,
+            "REMOVE": 5,
+            "IF_NOT_LOCKED": 51,
+            "IF_LOCKED": 2
+          }
+        },
+        "config_alpha": {
+          "count": 28,
+          "values": {
+            "0": 2,
+            "19": 1,
+            "49": 3,
+            "50": 4,
+            "51": 3,
+            "63": 3,
+            "70": 7,
+            "75": 1,
+            "85": 3,
+            "90": 1
+          }
+        },
+        "config_rotate_mode": {
+          "count": 136,
+          "values": {
+            "FLIP_X": 11,
+            "CLOCK_HOUR_SMOOTH": 14,
+            "CLOCK_MINUTE": 17,
+            "MANUAL": 42,
+            "DEG180": 9,
+            "FLIP_Y": 27,
+            "DEG90": 3,
+            "DEG270": 3,
+            "CLOCK_HOUR": 4,
+            "CLOCK_MINUTE_SMOOTH": 3,
+            "CLOCK_SECOND_SMOOTH": 3
+          }
+        },
+        "position_padding_bottom": {
+          "count": 62,
+          "values": {
+            "1": 3,
+            "2": 4,
+            "5": 1,
+            "10": 9,
+            "13": 2,
+            "24": 1,
+            "25": 6,
+            "32": 2,
+            "37": 3,
+            "38": 3,
+            "50": 1,
+            "60": 3,
+            "75": 3,
+            "150": 3,
+            "260": 12,
+            "335": 4,
+            "360": 1,
+            "385": 1
+          }
+        },
+        "position_offset_y": {
+          "count": 94,
+          "values": {
+            "19": 1,
+            "20": 3,
+            "21": 3,
+            "22": 1,
+            "24": 6,
+            "25": 3,
+            "28": 2,
+            "30": 3,
+            "38": 3,
+            "40": 6,
+            "50": 1,
+            "65": 3,
+            "67": 6,
+            "80": 3,
+            "100": 4,
+            "105": 3,
+            "106": 3,
+            "158": 6,
+            "320": 1,
+            "-188": 1,
+            "-80": 5,
+            "-340": 2,
+            "-41": 2,
+            "-40": 13,
+            "-480": 9,
+            "-20": 1
+          }
+        },
+        "config_fx_radius": {
+          "count": 22,
+          "values": {
+            "10": 19,
+            "30": 3
+          }
+        },
+        "position_padding_right": {
+          "count": 31,
+          "values": {
+            "5": 1,
+            "10": 6,
+            "13": 3,
+            "14": 1,
+            "24": 1,
+            "25": 6,
+            "36": 4,
+            "50": 1,
+            "275": 2,
+            "365": 4,
+            "415": 1,
+            "430": 1
+          }
+        },
+        "config_fx_fcolor": {
+          "count": 10,
+          "values": {
+            "#96000000": 3,
+            "#8C000000": 3,
+            "#44000000": 3,
+            "#62000000": 1
+          }
+        },
+        "config_fx_bcolor": {
+          "count": 9,
+          "values": {
+            "#00FFFFFF": 3,
+            "#00FBFBFB": 3,
+            "#00FDFDFD": 3
+          }
+        },
+        "config_filter": {
+          "count": 15,
+          "values": {
+            "CONTRAST": 9,
+            "DESATURATE": 6
+          }
+        },
+        "config_fx_angle": {
+          "count": 10,
+          "values": {
+            "104": 1,
+            "230": 3,
+            "253": 3,
+            "274": 3
+          }
+        },
+        "config_fx_dist": {
+          "count": 16,
+          "values": {
+            "2": 6,
+            "4": 7,
+            "10": 3
+          }
+        },
+        "config_filter_amount": {
+          "count": 9,
+          "values": {
+            "100": 9
+          }
+        },
+        "internal_globals": {
+          "count": 6,
+          "values": {}
+        },
+        "config_scale_value": {
+          "count": 21,
+          "values": {
+            "125": 3,
+            "150": 9,
+            "175": 9
+          }
+        },
+        "config_fx": {
+          "count": 1,
+          "values": {
+            "DROP_SHADOW": 1
+          }
+        }
+      }
+    },
+    "ShapeModule": {
+      "count": 1980,
+      "props": {
+        "internal_globals": {
+          "count": 1427,
+          "values": {}
+        },
+        "shape_type": {
+          "count": 1740,
+          "values": {
+            "RECT": 1063,
+            "SLICE": 9,
+            "CIRCLE": 531,
+            "RTRIANGLE": 54,
+            "OVAL": 12,
+            "TRIANGLE": 34,
+            "ARC": 24,
+            "PATH": 7,
+            "EXAGON": 6
+          }
+        },
+        "shape_corners": {
+          "count": 700,
+          "values": {
+            "1": 12,
+            "2": 24,
+            "3": 28,
+            "4": 2,
+            "5": 72,
+            "6": 1,
+            "7": 1,
+            "9": 6,
+            "10": 39,
+            "14": 4,
+            "15": 54,
+            "18": 7,
+            "20": 36,
+            "21": 3,
+            "25": 60,
+            "27": 3,
+            "30": 9,
+            "33": 1,
+            "35": 20,
+            "36": 4,
+            "38": 1,
+            "40": 20,
+            "48": 10,
+            "50": 10,
+            "52": 2,
+            "54": 16,
+            "55": 3,
+            "58": 29,
+            "60": 7,
+            "69": 1,
+            "71": 2,
+            "73": 3,
+            "85": 3,
+            "88": 3,
+            "97": 3,
+            "102": 6,
+            "110": 26,
+            "111": 2,
+            "128": 12,
+            "130": 12,
+            "133": 8,
+            "151": 3,
+            "157": 6,
+            "164": 3,
+            "165": 3,
+            "186": 3,
+            "206": 6,
+            "209": 3,
+            "210": 2,
+            "218": 3,
+            "221": 15,
+            "231": 12,
+            "246": 6,
+            "285": 2,
+            "297": 6,
+            "298": 6,
+            "303": 3,
+            "360": 53
+          }
+        },
+        "paint_color": {
+          "count": 318,
+          "values": {
+            "#FF000000": 10,
+            "#87FFFFFF": 1,
+            "#00FFFFFF": 139,
+            "#FFAD3D3D": 2,
+            "#FFF04848": 2,
+            "#FF959595": 1,
+            "#FFFF0000": 2,
+            "#6FFF0000": 1,
+            "#FF313131": 12,
+            "#33FFFFFF": 4,
+            "#66FFFFFF": 3,
+            "#FF1E1F26": 1,
+            "#FF9B1919": 1,
+            "#FF1B1B1D": 28,
+            "#FFD71921": 48,
+            "#80FFFFFF": 2,
+            "#31FFD8D8": 1,
+            "#1BFFFFFF": 1,
+            "#FF323232": 1,
+            "#83FFFFFF": 3,
+            "#77FFFFFF": 15,
+            "#65FFFFFF": 3,
+            "#FF390000": 3,
+            "#FFB5B5B5": 3,
+            "#37FFFFFF": 15,
+            "#80000000": 6,
+            "#68FFFFFF": 9,
+            "#00750000": 1
+          }
+        },
+        "shape_width": {
+          "count": 1595,
+          "values": {
+            "1": 1,
+            "2": 194,
+            "3": 168,
+            "4": 141,
+            "5": 28,
+            "6": 5,
+            "8": 51,
+            "9": 5,
+            "10": 9,
+            "11": 12,
+            "12": 16,
+            "13": 7,
+            "14": 40,
+            "15": 1,
+            "16": 4,
+            "18": 27,
+            "21": 4,
+            "23": 3,
+            "24": 1,
+            "25": 10,
+            "26": 37,
+            "30": 23,
+            "32": 9,
+            "35": 9,
+            "36": 1,
+            "45": 2,
+            "46": 1,
+            "48": 17,
+            "50": 7,
+            "52": 16,
+            "58": 8,
+            "59": 1,
+            "60": 23,
+            "64": 1,
+            "65": 13,
+            "68": 30,
+            "69": 1,
+            "70": 24,
+            "72": 1,
+            "75": 1,
+            "80": 84,
+            "88": 3,
+            "89": 1,
+            "90": 5,
+            "92": 7,
+            "95": 3,
+            "99": 2,
+            "100": 71,
+            "102": 3,
+            "105": 72,
+            "109": 7,
+            "110": 23,
+            "114": 1,
+            "115": 1,
+            "120": 8,
+            "130": 6,
+            "135": 6,
+            "140": 16,
+            "145": 8,
+            "150": 1,
+            "160": 48,
+            "164": 2,
+            "170": 2,
+            "175": 2,
+            "179": 1,
+            "190": 3,
+            "192": 3,
+            "195": 1,
+            "200": 15,
+            "205": 1,
+            "220": 7,
+            "230": 1,
+            "232": 5,
+            "240": 6,
+            "245": 1,
+            "249": 2,
+            "250": 3,
+            "255": 3,
+            "260": 12,
+            "275": 3,
+            "277": 4,
+            "280": 2,
+            "285": 2,
+            "290": 6,
+            "300": 4,
+            "310": 2,
+            "326": 1,
+            "330": 3,
+            "340": 3,
+            "345": 1,
+            "350": 6,
+            "355": 4,
+            "370": 4,
+            "380": 5,
+            "395": 4,
+            "396": 1,
+            "420": 12,
+            "440": 6,
+            "460": 2,
+            "480": 81,
+            "520": 7,
+            "546": 21,
+            "560": 3,
+            "657": 5,
+            "780": 1,
+            "880": 1,
+            "10.5": 1,
+            "4.5": 2
+          }
+        },
+        "shape_height": {
+          "count": 1149,
+          "values": {
+            "1": 10,
+            "2": 192,
+            "3": 46,
+            "4": 4,
+            "5": 42,
+            "6": 3,
+            "8": 63,
+            "9": 3,
+            "11": 6,
+            "12": 12,
+            "13": 6,
+            "14": 6,
+            "16": 1,
+            "17": 2,
+            "18": 6,
+            "21": 12,
+            "22": 39,
+            "23": 16,
+            "24": 132,
+            "25": 1,
+            "27": 1,
+            "28": 3,
+            "29": 1,
+            "30": 9,
+            "32": 3,
+            "36": 39,
+            "38": 1,
+            "40": 8,
+            "48": 2,
+            "50": 9,
+            "51": 3,
+            "55": 12,
+            "60": 34,
+            "64": 1,
+            "65": 17,
+            "67": 2,
+            "70": 9,
+            "74": 1,
+            "75": 16,
+            "78": 1,
+            "79": 15,
+            "80": 51,
+            "81": 4,
+            "82": 2,
+            "85": 18,
+            "87": 12,
+            "90": 2,
+            "92": 2,
+            "100": 27,
+            "104": 16,
+            "111": 3,
+            "112": 2,
+            "120": 4,
+            "129": 12,
+            "130": 1,
+            "140": 9,
+            "148": 1,
+            "152": 7,
+            "160": 1,
+            "180": 3,
+            "200": 3,
+            "215": 3,
+            "220": 3,
+            "225": 10,
+            "232": 15,
+            "240": 5,
+            "280": 9,
+            "304": 4,
+            "310": 12,
+            "320": 2,
+            "330": 3,
+            "355": 3,
+            "390": 18,
+            "400": 3,
+            "419": 3,
+            "461": 3,
+            "540": 6,
+            "560": 3,
+            "599": 3,
+            "620": 9,
+            "663": 3,
+            "679": 3,
+            "700": 5,
+            "705": 9,
+            "780": 4,
+            "825": 3,
+            "12.4": 12,
+            "4.5": 24
+          }
+        },
+        "internal_formulas": {
+          "count": 1742,
+          "values": {}
+        },
+        "shape_angle": {
+          "count": 52,
+          "values": {
+            "0": 2,
+            "30": 4,
+            "90": 37,
+            "103": 3,
+            "180": 4,
+            "360": 2
+          }
+        },
+        "shape_rotate_mode": {
+          "count": 197,
+          "values": {
+            "DEG180": 19,
+            "MANUAL": 116,
+            "DEG90": 17,
+            "DEG270": 39,
+            "FLIP_Y": 6
+          }
+        },
+        "fx_gradient": {
+          "count": 216,
+          "values": {
+            "BITMAP": 72,
+            "VERTICAL": 125,
+            "RADIAL": 6,
+            "SWEEP": 4,
+            "HORIZONTAL": 9
+          }
+        },
+        "fx_gradient_width": {
+          "count": 92,
+          "values": {
+            "3": 6,
+            "19": 3,
+            "35": 1,
+            "45": 2,
+            "51": 1,
+            "52": 3,
+            "54": 2,
+            "58": 3,
+            "59": 1,
+            "63": 3,
+            "64": 6,
+            "65": 3,
+            "71": 1,
+            "73": 3,
+            "75": 4,
+            "83": 3,
+            "90": 2,
+            "91": 45
+          }
+        },
+        "fx_gradient_bitmap": {
+          "count": 53,
+          "values": {
+            "kfile://org.kustom.provider/bitmaps/IMG718befb261acf17a52fc205d18d0efe8": 1,
+            "kfile://org.kustom.provider/bitmaps/IMG8fe62d43ebed2b2f74f67ea29669424f": 2,
+            "kfile://org.kustom.provider/bitmaps/IMG611190b0dd08c318c0f3607ac4c181c5": 45,
+            "kfile://org.kustom.provider/bitmaps/IMG130041d3d0e3b9210fd0a2f174ca1bdc": 2,
+            "kfile://org.kustom.provider/bitmaps/IMG4ecf4f334d112749f23cf2bc033ea986": 3
+          }
+        },
+        "fx_bitmap_dim": {
+          "count": 27,
+          "values": {
+            "3": 3,
+            "19": 1,
+            "24": 1,
+            "32": 2,
+            "38": 14,
+            "40": 3,
+            "42": 2,
+            "100": 1
+          }
+        },
+        "fx_bitmap_blur": {
+          "count": 9,
+          "values": {
+            "5": 3,
+            "15": 3,
+            "24": 2,
+            "200": 1
+          }
+        },
+        "position_anchor": {
+          "count": 558,
+          "values": {
+            "TOP": 51,
+            "BOTTOM": 92,
+            "BOTTOMRIGHT": 295,
+            "TOPRIGHT": 24,
+            "TOPLEFT": 20,
+            "CENTERLEFT": 22,
+            "CENTERRIGHT": 8,
+            "CENTER": 24,
+            "BOTTOMLEFT": 22
+          }
+        },
+        "fx_mask": {
+          "count": 92,
+          "values": {
+            "CLIP_NEXT": 75,
+            "CLIP_ALL": 17
+          }
+        },
+        "paint_mode": {
+          "count": 411,
+          "values": {
+            "CLEAR": 375,
+            "MULTIPLY": 1,
+            "LIGHTEN": 1,
+            "XOR": 18,
+            "SRC": 16
+          }
+        },
+        "position_padding_bottom": {
+          "count": 89,
+          "values": {
+            "2": 12,
+            "5": 3,
+            "8": 3,
+            "10": 5,
+            "11": 3,
+            "15": 6,
+            "20": 6,
+            "25": 12,
+            "27": 1,
+            "29": 1,
+            "40": 2,
+            "45": 2,
+            "48": 3,
+            "50": 1,
+            "60": 1,
+            "64": 1,
+            "75": 6,
+            "80": 1,
+            "89": 2,
+            "101": 1,
+            "112": 1,
+            "120": 2,
+            "125": 3,
+            "140": 1,
+            "148": 2,
+            "150": 4,
+            "160": 1,
+            "227": 1,
+            "92.7": 1,
+            "62.75": 1
+          }
+        },
+        "position_padding_left": {
+          "count": 59,
+          "values": {
+            "2": 6,
+            "3": 12,
+            "5": 3,
+            "16": 1,
+            "20": 6,
+            "25": 10,
+            "30": 1,
+            "36": 4,
+            "50": 1,
+            "75": 14,
+            "249": 1
+          }
+        },
+        "position_padding_right": {
+          "count": 55,
+          "values": {
+            "5": 3,
+            "6": 12,
+            "16": 1,
+            "20": 6,
+            "25": 10,
+            "30": 1,
+            "43": 1,
+            "45": 1,
+            "50": 1,
+            "75": 14,
+            "100": 1,
+            "202": 1,
+            "242": 1,
+            "245": 1,
+            "249": 1
+          }
+        },
+        "shape_rotate_offset": {
+          "count": 152,
+          "values": {
+            "14": 12,
+            "15": 12,
+            "36": 6,
+            "45": 1,
+            "91": 24,
+            "142": 6,
+            "170": 4,
+            "194": 24,
+            "197": 6,
+            "241": 36,
+            "270": 19,
+            "282": 1,
+            "359": 1
+          }
+        },
+        "paint_style": {
+          "count": 459,
+          "values": {
+            "STROKE": 459
+          }
+        },
+        "paint_stroke": {
+          "count": 546,
+          "values": {
+            "2": 10,
+            "3": 6,
+            "4": 1,
+            "5": 8,
+            "6": 6,
+            "7": 3,
+            "8": 40,
+            "9": 6,
+            "10": 61,
+            "11": 6,
+            "14": 8,
+            "15": 3,
+            "20": 3,
+            "30": 38,
+            "40": 1,
+            "41": 2,
+            "50": 5,
+            "0.5": 338,
+            "3.5": 1
+          }
+        },
+        "position_padding_top": {
+          "count": 103,
+          "values": {
+            "1": 16,
+            "4": 12,
+            "5": 3,
+            "8": 15,
+            "13": 2,
+            "20": 6,
+            "25": 10,
+            "26": 1,
+            "27": 10,
+            "40": 1,
+            "50": 1,
+            "75": 14,
+            "1.5": 12
+          }
+        },
+        "fx_shadow_direction": {
+          "count": 41,
+          "values": {
+            "0": 34,
+            "131": 3,
+            "359": 4
+          }
+        },
+        "fx_shadow_distance": {
+          "count": 41,
+          "values": {
+            "0": 23,
+            "1": 2,
+            "3": 12,
+            "5": 3,
+            "21": 1
+          }
+        },
+        "fx_shadow_blur": {
+          "count": 31,
+          "values": {
+            "1": 24,
+            "2": 3,
+            "8": 3,
+            "43": 1
+          }
+        },
+        "fx_gradient_offset": {
+          "count": 217,
+          "values": {
+            "0": 4,
+            "6": 45,
+            "15": 3,
+            "20": 3,
+            "30": 3,
+            "34": 3,
+            "40": 54,
+            "46": 1,
+            "60": 6,
+            "61": 1,
+            "64": 2,
+            "65": 1,
+            "67": 36,
+            "69": 1,
+            "80": 3,
+            "84": 8,
+            "88": 1,
+            "89": 3,
+            "90": 4,
+            "92": 6,
+            "100": 29
+          }
+        },
+        "fx_bitmap_filter": {
+          "count": 49,
+          "values": {
+            "COLORIZE": 46,
+            "DARKEN": 1,
+            "BW": 2
+          }
+        },
+        "fx_bitmap_filter_color": {
+          "count": 16,
+          "values": {
+            "#FF000000": 10,
+            "#FBB41500": 6
+          }
+        },
+        "fx_gradient_color": {
+          "count": 36,
+          "values": {
+            "#FFD71921": 4,
+            "#00000000": 22,
+            "#D4000000": 6,
+            "#01000000": 3,
+            "#56000000": 1
+          }
+        },
+        "fx_gradient_offset_x": {
+          "count": 140,
+          "values": {
+            "34": 81,
+            "51": 1,
+            "56": 4,
+            "58": 6,
+            "97": 45,
+            "100": 3
+          }
+        },
+        "shape_path": {
+          "count": 10,
+          "values": {
+            "M 50 0 L 100 50 L 50 100 L 0 50 Z": 3,
+            "M 55,0 L 100,25 L 100,75 L 55,50 Z": 2,
+            "M 0,25 L 45,0 L 45,50 L 0,75 Z": 2,
+            "$gv(rhomb)$": 3
+          }
+        },
+        "position_offset_x": {
+          "count": 30,
+          "values": {
+            "35": 16,
+            "85": 3,
+            "100": 9,
+            "-42": 1,
+            "-18": 1
+          }
+        },
+        "fx_shadow_color": {
+          "count": 7,
+          "values": {
+            "#FFFFFFFF": 1,
+            "#D8FFFFFF": 3,
+            "#3DFFFFFF": 3
+          }
+        },
+        "position_offset_y": {
+          "count": 65,
+          "values": {
+            "10": 16,
+            "34": 6,
+            "37": 12,
+            "40": 3,
+            "100": 10,
+            "460": 3,
+            "-360": 3,
+            "-11": 12
+          }
+        },
+        "fx_bitmap_filter_amount": {
+          "count": 6,
+          "values": {
+            "98": 6
+          }
+        },
+        "fx_gradient_offset_y": {
+          "count": 135,
+          "values": {
+            "33": 45,
+            "49": 3,
+            "54": 6,
+            "72": 81
+          }
+        },
+        "fx_gradient_bitmap_mode": {
+          "count": 6,
+          "values": {
+            "MIRROR": 3,
+            "REPEAT": 3
+          }
+        },
+        "fx_gradient_bitmap_width": {
+          "count": 6,
+          "values": {
+            "43": 6
+          }
+        },
+        "fx_shadow": {
+          "count": 9,
+          "values": {
+            "OUTER": 9
+          }
+        }
+      }
+    },
+    "StackLayerModule": {
+      "count": 702,
+      "props": {
+        "config_margin": {
+          "count": 557,
+          "values": {
+            "1": 148,
+            "2": 14,
+            "3": 51,
+            "4": 13,
+            "5": 16,
+            "6": 8,
+            "7": 7,
+            "8": 7,
+            "10": 55,
+            "11": 3,
+            "12": 15,
+            "14": 5,
+            "15": 22,
+            "16": 15,
+            "18": 3,
+            "20": 31,
+            "24": 3,
+            "25": 3,
+            "32": 5,
+            "40": 5,
+            "48": 1,
+            "58": 1,
+            "63": 3,
+            "-15": 8,
+            "-5": 2,
+            "-168": 1,
+            "-2": 26,
+            "-48": 3,
+            "-3": 6,
+            "-5.5": 12,
+            "-4.4": 14,
+            "3.5": 1,
+            "-4": 3,
+            "-18": 1,
+            "-12": 6,
+            "-8": 2,
+            "10.5": 6,
+            "-61": 1,
+            "-26": 1,
+            "-6": 1,
+            "-520": 3,
+            "-17": 2,
+            "-25": 3,
+            "-45": 3,
+            "-70": 3,
+            "-24": 3,
+            "-10": 12
+          }
+        },
+        "position_anchor": {
+          "count": 175,
+          "values": {
+            "BOTTOMLEFT": 27,
+            "BOTTOMRIGHT": 43,
+            "CENTERLEFT": 59,
+            "TOPRIGHT": 12,
+            "BOTTOM": 8,
+            "CENTERRIGHT": 10,
+            "TOPLEFT": 1,
+            "CENTER": 3,
+            "TOP": 12
+          }
+        },
+        "position_offset_x": {
+          "count": 8,
+          "values": {
+            "20": 3,
+            "24": 3,
+            "94": 1,
+            "-6": 1
+          }
+        },
+        "position_padding_left": {
+          "count": 63,
+          "values": {
+            "2": 48,
+            "7": 1,
+            "10": 1,
+            "12": 2,
+            "14": 1,
+            "24": 2,
+            "28": 1,
+            "32": 2,
+            "36": 2,
+            "50": 1,
+            "100": 1,
+            "237": 1
+          }
+        },
+        "position_padding_bottom": {
+          "count": 44,
+          "values": {
+            "2": 15,
+            "5": 3,
+            "10": 7,
+            "15": 3,
+            "24": 1,
+            "25": 3,
+            "28": 3,
+            "50": 3,
+            "102": 3,
+            "195": 3
+          }
+        },
+        "config_stacking": {
+          "count": 568,
+          "values": {
+            "HORIZONTAL_CENTER": 261,
+            "HORIZONTAL_BOTTOM": 31,
+            "VERTICAL_CENTER": 249,
+            "HORIZONTAL_TOP": 14,
+            "VERTICAL_RIGHT": 13
+          }
+        },
+        "internal_formulas": {
+          "count": 357,
+          "values": {}
+        },
+        "position_padding_right": {
+          "count": 64,
+          "values": {
+            "2": 24,
+            "5": 1,
+            "8": 24,
+            "10": 3,
+            "15": 3,
+            "25": 6,
+            "30": 3
+          }
+        },
+        "position_padding_top": {
+          "count": 31,
+          "values": {
+            "4": 12,
+            "5": 3,
+            "8": 1,
+            "10": 4,
+            "20": 1,
+            "25": 3,
+            "54": 3,
+            "75": 3,
+            "132": 1
+          }
+        },
+        "config_scale_value": {
+          "count": 23,
+          "values": {
+            "85": 3,
+            "95": 3,
+            "99": 4,
+            "105": 3,
+            "115": 7,
+            "150": 3
+          }
+        },
+        "position_offset_y": {
+          "count": 10,
+          "values": {
+            "4": 1,
+            "10": 1,
+            "12": 1,
+            "105": 3,
+            "-8": 1,
+            "-485": 3
+          }
+        },
+        "internal_globals": {
+          "count": 11,
+          "values": {}
+        },
+        "config_visible": {
+          "count": 6,
+          "values": {
+            "NEVER": 2,
+            "REMOVE": 1,
+            "IF_NOT_LOCKED": 3
+          }
+        }
+      }
+    },
+    "TextModule": {
+      "count": 388,
+      "props": {
+        "internal_globals": {
+          "count": 379,
+          "values": {}
+        },
+        "text_expression": {
+          "count": 385,
+          "values": {
+            "1": 3,
+            "2": 3,
+            "3": 6,
+            "4": 3,
+            "6": 3,
+            "9": 3,
+            "12": 3,
+            "$df(EEEE)$": 1,
+            "$tc(up, df(MMMM d))$": 1,
+            "$df(h:mm)$": 1,
+            "[b]$bi(level)$[/b]%": 1,
+            "$aaumgupta$": 1,
+            "$gv(b)$%": 1,
+            "$tc(ell,mi(title),24)$": 1,
+            "$tc(ell,mi(artist),40)$": 1,
+            "$tc(ell,mi(title),26)$": 1,
+            "$tc(ell,mi(artist),30)$": 1,
+            "$tc(ell, ni(0, title), 33)$": 1,
+            "$tc(ell, ni(0, text), 34)$": 1,
+            "$ni(0, app)$": 1,
+            "・": 1,
+            "$tf(ni(0, time))$": 1,
+            "Clear": 1,
+            "NO NOTIFICATIONS": 1,
+            "$bi(level)$%": 7,
+            "BATTERY": 1,
+            "$bi(level)$": 3,
+            "%": 2,
+            "$tf(bi(fullempty), h)$H$tf(bi(fullempty), m)$M": 1,
+            "REMAINING": 1,
+            "CPU USAGE": 1,
+            "$rm(cused)$": 1,
+            "SYS": 1,
+            "$rm(csys)$%": 1,
+            "USR": 1,
+            "$rm(cusr)$%": 1,
+            "IDL": 1,
+            "$rm(cidle)$%": 1,
+            "$df(EEE, a)$": 1,
+            "$df(hh:mma)$": 1,
+            "$df(MMMM)$": 1,
+            "$df(d)$$tc(ord, df(d))$": 2,
+            "$df(EEE)$": 1,
+            "$df(d)$": 1,
+            "$df(hh)$": 3,
+            "$df(mm)$": 3,
+            "$tc(up,df(a))$": 1,
+            "$df(EEE)$, $df(d)$ $df(MMM)$": 1,
+            "$wi(temp)$°$wi(tempu)$ $tc(cap,wi(cond))$, AQI $aq(index)$": 1,
+            "$df(mm, r1m)$": 1,
+            "$df(mm, a1m)$": 1,
+            "$tc(up,df(hh))$": 1,
+            "$tc(up,df(mm))$": 1,
+            "$tc(up,df(aa))$": 1,
+            "$df(mm)$ ": 1,
+            " $df(hh)$": 1,
+            "$df(hh)$ hr": 1,
+            "$df(mm)$ min": 1,
+            "$df(ss)$ sec": 1,
+            "$tc(up,df(EEE))$": 2,
+            "$tc(up,df(MMM))$": 1,
+            "$wf(max, 0)$°": 1,
+            ">": 2,
+            "$wi(temp)$°$wi(tempu)$": 4,
+            "$wf(min, 0)$°": 1,
+            "$si(pkgname,mi(package))$": 2,
+            "$tc(up, tc(ell, mi(title), 17))$": 1,
+            "$tc(up, tc(ell, mi(artist), 16))$": 1,
+            "$tf(mi(pos), mm:ss)$": 1,
+            "$tf(mi(len), mm:ss)$": 1,
+            "—": 1,
+            "$tc(up, tc(ell, mi(title), 20))$": 1,
+            "$tc(up, tc(ell, mi(artist), 20))$": 1,
+            "$mi(title)$": 1,
+            "+": 1,
+            "-": 1,
+            "$tc(up,df(EEE,r2d))$": 1,
+            "$df(dd,r2d)$": 1,
+            "$tc(up,df(EEE,r1d))$": 1,
+            "$df(dd,r1d)$": 1,
+            "$df(dd)$": 1,
+            "$tc(up,df(EEE,a1d))$": 1,
+            "$df(dd,a1d)$": 1,
+            "$tc(up,df(EEE,a2d))$": 1,
+            "$df(dd,a2d)$": 1,
+            "$if(gv(cond)=1,SUNSET,SUNRISE)$": 1,
+            "$df(\"hh:mma\", ai(if(gv(cond)=1,sunset,sunrise)))$": 1,
+            "$wf(min, 0)$°$wi(tempu)$": 1,
+            "H : $wf(min, 0)$°   L : $wf(max, 0)$°": 1,
+            "$tc(ell,tc(up, mi(artist)),21)$": 1,
+            "$tc(ell,mi(title),20)$": 1,
+            "No Notifications": 3,
+            "$tc(reg,tc(reg,tc(reg,mi(title),\"\\(.*\",\"\"),\"\\_.*\",\"\"),\"\\[.*\",\"\")$": 3,
+            "$tc(reg,tc(reg,mi(artist),\"\\(.*\",\"\"),\"\\_.*\",\"\")$": 3,
+            "$tc(reg,tc(reg,mi(album),\"\\(.*\",\"\"),\"\\_.*\",\"\")$": 3,
+            "$tc(ell,mi(title), 25)$": 3,
+            "$mi(artist)$": 3,
+            "$if(mi(state)=PLAYING,PAUSE,PLAY)$": 3,
+            "NEXT: $mq(sub, mi(track) + 1)$": 3,
+            "$mq(title, mi(track) + 1)$": 3,
+            "$br(tasker, vol)$": 2,
+            "$tf(mi(pos), m:ss)$": 3,
+            "$tf(mi(len), m:ss)$": 3,
+            "PLAYLIST": 3,
+            "$si(mindex, 2)$.": 8,
+            "$tc(reg,tc(reg,tc(reg,mq(title, mi(track) + si(mindex,2)),\"\\(.*\",\"\"),\"\\_.*\",\"\"),\"\\[.*\",\"\")$": 8,
+            "•": 12,
+            "$tc(reg,tc(reg,tc(reg,mq(sub, mi(track) + si(mindex,2)),\"\\(.*\",\"\"),\"\\_.*\",\"\"),\"\\[.*\",\"\")$": 8,
+            "$ci(title, si(mindex,1))$": 12,
+            "$ci(desc, si(mindex,1))$": 12,
+            "$wi(lid)$": 3,
+            "NOW: $wi(cond)$": 3,
+            "Current Temp is [s=1.3]$wi(temp)$°$wi(tempu)$[/s]": 3,
+            "$tc(cut,df(E,a+si(mindex)+d),3)$": 20,
+            "$wf(max, si(mindex,1))$°$wi(tempu)$": 21,
+            "[x=0.9]$df(h:mm,a0h)$[/x]": 3,
+            "$nc(dtypes)$": 3,
+            "$df(EEE,a0d)$": 3,
+            "$df(dd,a0d)$": 3,
+            "$df(MMM,a0M)$": 3,
+            "[u][i]CURRENT[/i][/u]": 3,
+            "Updated @ $df(\"h:mm a\", wi(updated))$": 3,
+            "$wi(cond)$": 3,
+            "$wi(provider)$ • $wi(lid)$": 3,
+            "[i][u]BATTERY[/u][/i]": 3,
+            "[b][i][u]WIFI INFO[/u][/i][/b]": 3,
+            "[s=1.3]SSID[/s]-$if(nc(ssid)=noSSID, NOT AVAIL, nc(ssid))$": 3,
+            "Wifi is [b]$nc(wifi)$[/b]": 3,
+            "[b][i][u]SIM 2[/u][/i][/b]": 2,
+            "$if(nc(operator,1)~=\"No\",\"NONE\",nc(operator,1))$": 3,
+            "Cellular Data Status: [s=1.4]$nc(cell,1)$[/s]": 3,
+            "Palette": 3,
+            "$tc(lpad, \"Chooser\", 7, \" \")$": 3,
+            "$ni(count)$": 3,
+            "LOADING": 2,
+            "$si(mindex, 2)-1$.": 4,
+            "$tc(reg,tc(reg,tc(reg,mq(title, mi(track) + si(mindex,2)-1),\"\\(.*\",\"\"),\"\\_.*\",\"\"),\"\\[.*\",\"\")$": 4,
+            "$tc(reg,tc(reg,tc(reg,mq(sub, mi(track) + si(mindex,2)-1),\"\\(.*\",\"\"),\"\\_.*\",\"\"),\"\\[.*\",\"\")$": 4,
+            "NOW": 1,
+            "[b][i][u]SIM $if(nc(cell)!=OFF|nc(cell)!=AIRPLANE,\"Active\",\"Inactive\")$[/u][/i][/b]": 1,
+            "Signal:": 2,
+            "[b][i][u]Mobile Internet[/u][/i][/b]": 1,
+            "$nc(dtypes)$ $nc(dtype)$": 1,
+            "Cellular Data Status: [s=1.4]$if(nc(cell,0)!=DATA, DISCONNECTED,nc(cell,0))$[/s]": 1,
+            "(:ss)": 2
+          }
+        },
+        "text_family": {
+          "count": 191,
+          "values": {
+            "kfile://org.kustom.provider/fonts/ProductSans-Bold.ttf": 2,
+            "kfile://org.kustom.provider/fonts/ProductSans-Medium.ttf": 5,
+            "kfile://org.kustom.provider/fonts/ProductSans.ttf": 8,
+            "kfile://org.kustom.provider/fonts/ProductSans-Light.ttf": 1,
+            "kfile://org.kustom.provider/fonts/ndot-47.ttf": 68,
+            "kfile://org.kustom.provider/fonts/NType82-Regularotf.ttf": 6,
+            "kfile://org.kustom.provider/fonts/NType82-Headlineotf.ttf": 2,
+            "kfile://org.kustom.provider/fonts/ndot-45.ttf": 2,
+            "kfile://org.kustom.provider/fonts/NType82Mono-Regularotf.ttf": 1,
+            "kfile://org.kustom.provider/fonts/Roboto.ttf": 1,
+            "kfile://org.kustom.provider/fonts/Roboto-Bold.ttf": 1,
+            "kfile://org.kustom.provider/fonts/Golden Girdle.otf": 7,
+            "kfile://org.kustom.provider/fonts/Allerta_Stencil_regular.ttf": 44,
+            "kfile://org.kustom.provider/fonts/RobotoSlab-Light.ttf": 9,
+            "kfile://org.kustom.provider/fonts/Roboto_900.ttf": 3,
+            "kfile://org.kustom.provider/fonts/Roboto-Regular.ttf": 6,
+            "kfile://org.kustom.provider/fonts/IBM_Plex_Mono_600.ttf": 21,
+            "kfile://org.kustom.provider/fonts/Youre Gone.otf": 4
+          }
+        },
+        "text_size": {
+          "count": 331,
+          "values": {
+            "13": 3,
+            "15": 21,
+            "16": 7,
+            "18": 4,
+            "19": 5,
+            "22": 18,
+            "24": 20,
+            "25": 11,
+            "26": 6,
+            "27": 3,
+            "28": 27,
+            "30": 19,
+            "32": 32,
+            "35": 3,
+            "36": 1,
+            "40": 49,
+            "42": 3,
+            "45": 7,
+            "46": 9,
+            "47": 6,
+            "50": 5,
+            "51": 2,
+            "52": 3,
+            "60": 18,
+            "68": 3,
+            "69": 1,
+            "70": 12,
+            "72": 3,
+            "78": 2,
+            "80": 2,
+            "92": 1,
+            "95": 3,
+            "100": 12,
+            "120": 3,
+            "158": 3,
+            "190": 3,
+            "196": 1
+          }
+        },
+        "position_padding_left": {
+          "count": 29,
+          "values": {
+            "2": 2,
+            "3": 5,
+            "4": 2,
+            "5": 1,
+            "6": 3,
+            "20": 3,
+            "25": 9,
+            "32": 1,
+            "325": 3
+          }
+        },
+        "internal_formulas": {
+          "count": 356,
+          "values": {}
+        },
+        "paint_color": {
+          "count": 128,
+          "values": {
+            "#33FFFFFF": 1,
+            "#0AFFFFFF": 1,
+            "#FF000000": 29,
+            "#81000000": 1,
+            "#FFD71921": 5,
+            "#FF1B1B1D": 1,
+            "#B1000000": 15,
+            "#FC000000": 3,
+            "#B1FFFFFF": 36,
+            "#9D000000": 9,
+            "#AB000000": 21,
+            "#FF2F2C2C": 3,
+            "#9C000000": 3
+          }
+        },
+        "position_anchor": {
+          "count": 86,
+          "values": {
+            "CENTERRIGHT": 10,
+            "BOTTOMLEFT": 1,
+            "TOPLEFT": 10,
+            "BOTTOMRIGHT": 1,
+            "TOPRIGHT": 1,
+            "TOP": 24,
+            "BOTTOM": 36,
+            "CENTERLEFT": 3
+          }
+        },
+        "position_offset_x": {
+          "count": 8,
+          "values": {
+            "3": 1,
+            "24": 7
+          }
+        },
+        "position_padding_right": {
+          "count": 18,
+          "values": {
+            "3": 4,
+            "10": 1,
+            "20": 3,
+            "25": 9,
+            "28": 1
+          }
+        },
+        "position_padding_bottom": {
+          "count": 57,
+          "values": {
+            "2": 3,
+            "3": 4,
+            "4": 7,
+            "5": 21,
+            "8": 2,
+            "12": 7,
+            "15": 3,
+            "16": 2,
+            "25": 5,
+            "285": 3
+          }
+        },
+        "fx_shadow": {
+          "count": 29,
+          "values": {
+            "OUTER": 29
+          }
+        },
+        "fx_shadow_blur": {
+          "count": 92,
+          "values": {
+            "1": 51,
+            "2": 15,
+            "3": 9,
+            "10": 3,
+            "29": 1,
+            "35": 1,
+            "37": 3,
+            "46": 3,
+            "55": 3,
+            "68": 3
+          }
+        },
+        "fx_shadow_direction": {
+          "count": 41,
+          "values": {
+            "0": 17,
+            "1": 3,
+            "80": 3,
+            "133": 6,
+            "155": 3,
+            "178": 3,
+            "359": 6
+          }
+        },
+        "fx_shadow_distance": {
+          "count": 92,
+          "values": {
+            "0": 5,
+            "1": 54,
+            "2": 9,
+            "3": 12,
+            "4": 6,
+            "6": 3,
+            "8": 3
+          }
+        },
+        "fx_shadow_color": {
+          "count": 11,
+          "values": {
+            "#80000000": 1,
+            "#91000000": 1,
+            "#CA000000": 3,
+            "#AA000000": 3,
+            "#6D000000": 3
+          }
+        },
+        "text_align": {
+          "count": 196,
+          "values": {
+            "CENTER": 173,
+            "RIGHT": 23
+          }
+        },
+        "text_rotate_mode": {
+          "count": 6,
+          "values": {
+            "DEG270": 5,
+            "DEG90": 1
+          }
+        },
+        "position_padding_top": {
+          "count": 31,
+          "values": {
+            "3": 3,
+            "8": 3,
+            "10": 11,
+            "15": 3,
+            "18": 1,
+            "24": 1,
+            "25": 6,
+            "75": 3
+          }
+        },
+        "position_offset_y": {
+          "count": 4,
+          "values": {
+            "360": 3,
+            "-4": 1
+          }
+        },
+        "text_rotate_offset": {
+          "count": 13,
+          "values": {
+            "55": 1,
+            "316": 12
+          }
+        },
+        "text_size_type": {
+          "count": 174,
+          "values": {
+            "FIXED_WIDTH": 144,
+            "FIT_TO_BOX": 3,
+            "SINGLE_FIXED_WIDTH": 27
+          }
+        },
+        "text_width": {
+          "count": 177,
+          "values": {
+            "50": 3,
+            "70": 7,
+            "84": 1,
+            "120": 3,
+            "170": 23,
+            "190": 3,
+            "202": 3,
+            "215": 3,
+            "220": 3,
+            "224": 5,
+            "225": 3,
+            "230": 10,
+            "235": 3,
+            "240": 9,
+            "245": 5,
+            "250": 3,
+            "253": 3,
+            "275": 3,
+            "280": 3,
+            "290": 3,
+            "304": 3,
+            "309": 3,
+            "362": 3,
+            "376": 3,
+            "420": 36,
+            "480": 15,
+            "510": 3,
+            "560": 12
+          }
+        },
+        "text_lines": {
+          "count": 168,
+          "values": {
+            "1": 98,
+            "2": 54,
+            "3": 15,
+            "5": 1
+          }
+        },
+        "fx_gradient_width": {
+          "count": 21,
+          "values": {
+            "27": 3,
+            "29": 3,
+            "43": 3,
+            "48": 3,
+            "49": 3,
+            "78": 3,
+            "82": 3
+          }
+        },
+        "fx_gradient_offset": {
+          "count": 24,
+          "values": {
+            "40": 3,
+            "42": 3,
+            "44": 3,
+            "53": 3,
+            "64": 3,
+            "67": 3,
+            "71": 3,
+            "88": 3
+          }
+        },
+        "fx_gradient_offset_x": {
+          "count": 24,
+          "values": {
+            "0": 3,
+            "16": 3,
+            "22": 9,
+            "29": 3,
+            "32": 3,
+            "100": 3
+          }
+        },
+        "fx_gradient_offset_y": {
+          "count": 24,
+          "values": {
+            "20": 3,
+            "24": 3,
+            "36": 3,
+            "38": 9,
+            "39": 3,
+            "100": 3
+          }
+        },
+        "paint_style": {
+          "count": 9,
+          "values": {
+            "STROKE": 9
+          }
+        },
+        "paint_stroke": {
+          "count": 25,
+          "values": {
+            "2": 8,
+            "4": 12,
+            "5": 4,
+            "30": 1
+          }
+        },
+        "text_height": {
+          "count": 33,
+          "values": {
+            "35": 6,
+            "40": 3,
+            "60": 3,
+            "140": 9,
+            "300": 9,
+            "360": 3
+          }
+        },
+        "text_filter": {
+          "count": 17,
+          "values": {}
+        },
+        "fx_gradient_color": {
+          "count": 12,
+          "values": {
+            "#B8000000": 12
+          }
+        },
+        "fx_gradient": {
+          "count": 12,
+          "values": {
+            "VERTICAL": 12
+          }
+        },
+        "paint_mode": {
+          "count": 9,
+          "values": {
+            "LIGHTEN": 3,
+            "DARKEN": 6
+          }
+        }
+      }
+    },
+    "ProgressModule": {
+      "count": 66,
+      "props": {
+        "progress_progress": {
+          "count": 65,
+          "values": {
+            "CUSTOM": 57,
+            "MUSIC_VOLUME": 1,
+            "MUSIC": 7
+          }
+        },
+        "progress_level": {
+          "count": 29,
+          "values": {
+            "12": 17,
+            "20": 4,
+            "60": 3,
+            "100": 5
+          }
+        },
+        "progress_mode": {
+          "count": 63,
+          "values": {
+            "SHAPES": 63
+          }
+        },
+        "progress_count": {
+          "count": 52,
+          "values": {
+            "12": 19,
+            "16": 3,
+            "18": 2,
+            "20": 4,
+            "22": 8,
+            "24": 6,
+            "30": 2,
+            "40": 3,
+            "60": 4,
+            "100": 1
+          }
+        },
+        "style_shape": {
+          "count": 23,
+          "values": {
+            "RECT": 21,
+            "SQUARE": 2
+          }
+        },
+        "style_width": {
+          "count": 65,
+          "values": {
+            "2": 2,
+            "4": 2,
+            "6": 2,
+            "8": 2,
+            "10": 1,
+            "11": 1,
+            "12": 3,
+            "15": 3,
+            "18": 3,
+            "20": 3,
+            "29": 3,
+            "60": 1,
+            "61": 11,
+            "62": 1,
+            "64": 3,
+            "76": 10,
+            "80": 3,
+            "100": 2,
+            "360": 1,
+            "400": 1,
+            "720": 3,
+            "935": 3,
+            "3600": 1
+          }
+        },
+        "style_height": {
+          "count": 40,
+          "values": {
+            "6": 3,
+            "7": 1,
+            "8": 13,
+            "10": 1,
+            "15": 1,
+            "16": 1,
+            "30": 2,
+            "40": 6,
+            "50": 2,
+            "64": 1,
+            "68": 2,
+            "85": 1,
+            "780": 5,
+            "4.5": 1
+          }
+        },
+        "progress_max": {
+          "count": 29,
+          "values": {
+            "10": 2,
+            "12": 17,
+            "20": 4,
+            "50": 3,
+            "60": 2,
+            "200": 1
+          }
+        },
+        "style_style": {
+          "count": 29,
+          "values": {
+            "CIRCLE": 29
+          }
+        },
+        "style_size": {
+          "count": 35,
+          "values": {
+            "9": 3,
+            "36": 1,
+            "92": 1,
+            "160": 1,
+            "164": 1,
+            "175": 2,
+            "184": 1,
+            "222": 3,
+            "238": 9,
+            "239": 3,
+            "250": 1,
+            "258": 1,
+            "440": 6,
+            "460": 1,
+            "464": 1
+          }
+        },
+        "internal_globals": {
+          "count": 49,
+          "values": {}
+        },
+        "internal_formulas": {
+          "count": 58,
+          "values": {}
+        },
+        "progress_rotate_mode": {
+          "count": 17,
+          "values": {
+            "MANUAL": 16,
+            "DEG270": 1
+          }
+        },
+        "progress_rotate_offset": {
+          "count": 16,
+          "values": {
+            "15": 9,
+            "354": 1,
+            "14.8": 6
+          }
+        },
+        "color_mode": {
+          "count": 6,
+          "values": {
+            "CLEAR": 6
+          }
+        },
+        "color_bgcolor": {
+          "count": 17,
+          "values": {
+            "#FFFFFFFF": 3,
+            "#FF343434": 1,
+            "#00FFFFFF": 5,
+            "#FFB4070F": 1,
+            "#FF656565": 1,
+            "#44AAAAAA": 6
+          }
+        },
+        "color_fgcolor": {
+          "count": 1,
+          "values": {
+            "#FF2CBE53": 1
+          }
+        },
+        "position_anchor": {
+          "count": 2,
+          "values": {
+            "TOPLEFT": 1,
+            "CENTERLEFT": 1
+          }
+        },
+        "position_offset_x": {
+          "count": 1,
+          "values": {
+            "-93": 1
+          }
+        },
+        "color_color": {
+          "count": 3,
+          "values": {
+            "CURRENT": 3
+          }
+        },
+        "color_tcolor": {
+          "count": 2,
+          "values": {
+            "#00777777": 2
+          }
+        }
+      }
+    },
+    "BitmapModule": {
+      "count": 10,
+      "props": {
+        "internal_formulas": {
+          "count": 10,
+          "values": {}
+        },
+        "bitmap_bitmap": {
+          "count": 5,
+          "values": {
+            "kfile://org.kustom.provider/bitmaps/IMG1624e2ce457a50dd7d112dbb0ea90d2b": 1,
+            "kfile://org.kustom.provider/bitmaps/IMGefbbf6e7d14b6b4d37ec363d3ae494fd": 1,
+            "kfile://org.kustom.provider/bitmaps/IMG54339d4ea5aa221031a056f1a88f89b4": 1,
+            "kfile://org.kustom.provider/bitmaps/IMGcb239f2ed780a09d48828a39c8687086": 2
+          }
+        },
+        "bitmap_width": {
+          "count": 6,
+          "values": {
+            "34": 2,
+            "36": 1,
+            "60": 1,
+            "64": 1,
+            "250": 1
+          }
+        },
+        "position_padding_left": {
+          "count": 4,
+          "values": {
+            "2": 3,
+            "3": 1
+          }
+        },
+        "position_padding_top": {
+          "count": 4,
+          "values": {
+            "1": 4
+          }
+        },
+        "bitmap_height": {
+          "count": 4,
+          "values": {
+            "36": 4
+          }
+        },
+        "bitmap_filter": {
+          "count": 5,
+          "values": {
+            "COLORIZE": 4,
+            "BW": 1
+          }
+        },
+        "bitmap_filter_color": {
+          "count": 5,
+          "values": {
+            "#FFFFFFFF": 4,
+            "#FF000000": 1
+          }
+        },
+        "internal_globals": {
+          "count": 4,
+          "values": {}
+        },
+        "position_anchor": {
+          "count": 1,
+          "values": {
+            "BOTTOMRIGHT": 1
+          }
+        }
+      }
+    },
+    "KomponentModule": {
+      "count": 9,
+      "props": {
+        "globals_list": {
+          "count": 9,
+          "values": {}
+        },
+        "internal_description": {
+          "count": 8,
+          "values": {
+            "Simple media player with configurable buttons": 8
+          }
+        },
+        "internal_formulas": {
+          "count": 8,
+          "values": {}
+        },
+        "internal_author_email": {
+          "count": 1,
+          "values": {
+            "aredubyacee03@gmail.com": 1
+          }
+        },
+        "internal_author_name": {
+          "count": 1,
+          "values": {
+            "Wallee Woo": 1
+          }
+        }
+      }
+    },
+    "FontIconModule": {
+      "count": 256,
+      "props": {
+        "internal_formulas": {
+          "count": 235,
+          "values": {}
+        },
+        "icon_icon": {
+          "count": 232,
+          "values": {
+            "battery_charging_full": 1,
+            "music_note": 3,
+            "skip_previous": 3,
+            "skip_next": 5,
+            "pause_circle_filled": 7,
+            "headset_mic": 1,
+            "camera": 1,
+            "phone": 3,
+            "controller-paus": 1,
+            "step-backward": 1,
+            "step-forward": 1,
+            "save-2": 15,
+            "delete": 23,
+            "prev": 6,
+            "play-rounded": 3,
+            "next": 3,
+            "next2": 3,
+            "playlist": 6,
+            "text-align-right": 2,
+            "blue-tooth-connected": 2,
+            "batt-0": 2,
+            "os-clear1": 3,
+            "wifi-r0": 6,
+            "csig-0": 3,
+            "mobile_signal_alt": 3,
+            "electric": 3,
+            "temp-hot": 2,
+            "chubby-wifi4": 2,
+            "search": 6,
+            "box-menu": 2,
+            "folder": 2,
+            "google": 2,
+            "kustom": 3,
+            "messaging": 2,
+            "logo": 2,
+            "orca": 3,
+            "google-gmail-alt": 3,
+            "arrow-up": 3,
+            "arrow-dn": 3,
+            "music": 2,
+            "bell": 2,
+            "os-clear0": 3,
+            "cal-empty": 2,
+            "arrow-12": 2,
+            "chubby-settings": 2,
+            "paint": 3,
+            "clear-list": 2,
+            "refresh": 4,
+            "clock_degree_07": 6,
+            "zig_clock-min": 3,
+            "rect_minute": 3,
+            "zig_clock-hour": 6,
+            "clock-sec-hand": 8,
+            "record": 7,
+            "shapes": 6,
+            "settings": 5,
+            "Volume": 1,
+            "RSS": 1,
+            "PLAYLIST-DELETE": 1,
+            "coffee": 1,
+            "fattery_charging": 1,
+            "signal4": 1,
+            "SAVER-LEAF": 1,
+            "airplane": 1,
+            "drawer-circles": 1,
+            "folder_open": 1,
+            "internet_www": 1,
+            "SHARE": 1,
+            "GOOGLE_MESSAGES": 1,
+            "PHONE": 1,
+            "music_alt": 1,
+            "notification": 1,
+            "Cal-Empty": 1,
+            "arrow_top_r": 1,
+            "clear_list": 1,
+            "settings_alt2": 2
+          }
+        },
+        "icon_size": {
+          "count": 210,
+          "values": {
+            "24": 1,
+            "25": 1,
+            "32": 4,
+            "35": 2,
+            "36": 8,
+            "39": 7,
+            "40": 23,
+            "41": 2,
+            "42": 6,
+            "48": 1,
+            "50": 37,
+            "51": 5,
+            "52": 7,
+            "55": 1,
+            "60": 21,
+            "63": 1,
+            "64": 1,
+            "65": 2,
+            "69": 3,
+            "70": 8,
+            "75": 14,
+            "85": 3,
+            "89": 2,
+            "90": 9,
+            "91": 1,
+            "92": 1,
+            "100": 2,
+            "105": 2,
+            "110": 2,
+            "120": 3,
+            "260": 20,
+            "380": 4,
+            "410": 6
+          }
+        },
+        "internal_globals": {
+          "count": 171,
+          "values": {}
+        },
+        "icon_set": {
+          "count": 239,
+          "values": {
+            "kfile://org.kustom.provider/widgets/Material3_Media_Player.kwgt/icons/material.ttf": 2,
+            "kfile://org.kustom.provider/icons/entypo.ttf": 3,
+            "kfile://org.kustom.provider/icons/fontawesome.ttf": 3,
+            "kfile://org.kustom.provider/wallpapers/02_05_25_DarkWave_Release (1).klwp/icons/OS-ICONS_1-9.ttf": 15,
+            "kfile://org.kustom.provider/wallpapers/01_23_25_DarkWave_Release.klwp/icons/OS-ICONS_1-9.ttf": 37,
+            "kfile://org.kustom.provider/wallpapers/01_09_25_DarkWave_Release.klwp/icons/OS-WEATHER_2-0.ttf": 2,
+            "kfile://org.kustom.provider/wallpapers/02_05_25_DarkWave_Release.klwp/icons/OS-WEATHER_2-0.ttf": 3,
+            "kfile://org.kustom.provider/icons/WALLSTARS_OVERSIZE_v3-1.ttf": 2,
+            "kfile://org.kustom.provider/icons/WALLSTARS_FONTICONS_v17-5.ttf": 2,
+            "kfile://org.kustom.provider/icons/WALLSTARS_OVERSIZED_v4-5.ttf": 3,
+            "kfile://org.kustom.provider/wallpapers/DarkWave_Redux.klwp/icons/WALLSTARS-FONTICONS_13-4_05_19.ttf": 4,
+            "kfile://org.kustom.provider/wallpapers/01_30_25_DarkWave_Release.klwp/icons/OS-ICONS_1-9.ttf": 14,
+            "kfile://org.kustom.provider/icons/WALLSTARS-FONTICONS_13-3_04_23.ttf": 12,
+            "kfile://org.kustom.provider/wallpapers/01_23_25_DarkWave_Release.klwp/icons/OS-WEATHER_2-0.ttf": 3,
+            "kfile://org.kustom.provider/icons/OS-ICONS_1-9.ttf": 4,
+            "kfile://org.kustom.provider/wallpapers/02_03_25_DarkWave_Release.klwp/icons/OS-ICONS_1-9.ttf": 2,
+            "kfile://org.kustom.provider/wallpapers/01_23_25_DarkWave_Release.klwp/icons/OS-ICONS_1-8.ttf": 4,
+            "kfile://org.kustom.provider/icons/WALLSTARS_CLOCKICONS_v3-4.ttf": 12,
+            "kfile://org.kustom.provider/icons/WALLSTARS_CLOCKICONS_v3-2.ttf": 4,
+            "kfile://org.kustom.provider/icons/WALLSTARS_OVERSIZED_v5-0.ttf": 15,
+            "kfile://org.kustom.provider/icons/WALLSTARS_FONTICONS_v18-1.ttf": 5,
+            "kfile://org.kustom.provider/icons/OS-WEATHER_2-0.ttf": 1,
+            "kfile://org.kustom.provider/icons/WEATHER_OR_NOT_WCODE_v1-3.ttf": 7,
+            "kfile://org.kustom.provider/icons/WALLSTARS_OVERSIZED_v4-8.ttf": 2,
+            "kfile://org.kustom.provider/icons/WALLSTARS_OVERSIZED_v4-6.ttf": 4,
+            "kfile://org.kustom.provider/icons/WALLSTARS_FONTICONS_v18-0.ttf": 1,
+            "kfile://org.kustom.provider/icons/WALLSTARS_OVERSIZED_v4-7.ttf": 3,
+            "kfile://org.kustom.provider/icons/WALLSTARS_CLOCKICONS_v3-7.ttf": 10
+          }
+        },
+        "paint_color": {
+          "count": 108,
+          "values": {
+            "#FF0B0606": 6,
+            "#FF000000": 48,
+            "#89000000": 3,
+            "#84000000": 3,
+            "#FF14FF00": 4,
+            "#FFFF0011": 2,
+            "#00000000": 3,
+            "#AA000000": 30,
+            "#A8000000": 9
+          }
+        },
+        "position_anchor": {
+          "count": 29,
+          "values": {
+            "TOPRIGHT": 1,
+            "TOPLEFT": 1,
+            "TOP": 27
+          }
+        },
+        "position_padding_right": {
+          "count": 7,
+          "values": {
+            "25": 6,
+            "31": 1
+          }
+        },
+        "position_padding_top": {
+          "count": 20,
+          "values": {
+            "22": 6,
+            "25": 9,
+            "29": 3,
+            "74": 1,
+            "77": 1
+          }
+        },
+        "position_padding_left": {
+          "count": 9,
+          "values": {
+            "6": 1,
+            "14": 1,
+            "17": 1,
+            "25": 6
+          }
+        },
+        "icon_rotate_mode": {
+          "count": 11,
+          "values": {
+            "MANUAL": 7,
+            "DEG90": 2,
+            "DEG180": 2
+          }
+        },
+        "icon_rotate_offset": {
+          "count": 1,
+          "values": {
+            "352": 1
+          }
+        },
+        "paint_mode": {
+          "count": 47,
+          "values": {
+            "CLEAR": 1,
+            "DARKEN": 3,
+            "XOR": 43
+          }
+        },
+        "fx_shadow_blur": {
+          "count": 56,
+          "values": {
+            "1": 6,
+            "3": 27,
+            "4": 2,
+            "5": 2,
+            "6": 3,
+            "37": 5,
+            "38": 5,
+            "39": 6
+          }
+        },
+        "fx_shadow_direction": {
+          "count": 72,
+          "values": {
+            "0": 44,
+            "35": 9,
+            "90": 12,
+            "148": 3,
+            "208": 1,
+            "270": 3
+          }
+        },
+        "fx_shadow_distance": {
+          "count": 72,
+          "values": {
+            "1": 3,
+            "2": 17,
+            "3": 40,
+            "7": 6,
+            "10": 6
+          }
+        },
+        "fx_shadow_color": {
+          "count": 33,
+          "values": {
+            "#9DFFFDFD": 15,
+            "#FFFFFFFF": 6,
+            "#3F000000": 6,
+            "#31000000": 6
+          }
+        },
+        "fx_shadow": {
+          "count": 55,
+          "values": {
+            "OUTER": 55
+          }
+        },
+        "fx_gradient": {
+          "count": 19,
+          "values": {
+            "RADIAL": 6,
+            "VERTICAL": 13
+          }
+        },
+        "fx_gradient_color": {
+          "count": 10,
+          "values": {
+            "#00000000": 6,
+            "#01000000": 4
+          }
+        },
+        "fx_gradient_width": {
+          "count": 10,
+          "values": {
+            "1": 6,
+            "21": 4
+          }
+        },
+        "fx_gradient_offset": {
+          "count": 19,
+          "values": {
+            "45": 6,
+            "53": 4,
+            "100": 9
+          }
+        },
+        "fx_gradient_offset_x": {
+          "count": 19,
+          "values": {
+            "0": 9,
+            "30": 6,
+            "68": 4
+          }
+        },
+        "fx_gradient_offset_y": {
+          "count": 19,
+          "values": {
+            "0": 13,
+            "30": 6
+          }
+        },
+        "position_padding_bottom": {
+          "count": 9,
+          "values": {
+            "25": 9
+          }
+        },
+        "paint_stroke": {
+          "count": 40,
+          "values": {
+            "4": 3,
+            "5": 6,
+            "8": 1,
+            "10": 5,
+            "20": 2,
+            "25": 8,
+            "30": 4,
+            "35": 5,
+            "40": 2,
+            "50": 4
+          }
+        },
+        "paint_style": {
+          "count": 21,
+          "values": {
+            "STROKE": 21
+          }
+        }
+      }
+    },
+    "CurvedTextModule": {
+      "count": 24,
+      "props": {
+        "internal_globals": {
+          "count": 24,
+          "values": {}
+        },
+        "text_expression": {
+          "count": 24,
+          "values": {
+            "$if(mi(state)!=NONE,si(pkgname, mi(package)), Play Music)$": 1,
+            "$tf(mi(pos), mm:ss)$": 2,
+            "$tf(mi(len), mm:ss)$": 2,
+            "$tc(ell,if(nc(bt)=2,nc(aname, 0), This Phone), 10)$": 1,
+            "$tc(ell,mi(title),22)$": 1,
+            "$tc(ell,mi(artist),30)$": 1,
+            "$tc(ell,mi(title),17)$": 1,
+            "$tc(ell,mi(artist),24)$": 1,
+            "$tc(ell,mi(title), 24)$": 1,
+            "$tc(ell,mi(artist), 30)$": 1,
+            "$tc(ell,mi(title),18)$": 1,
+            "$tc(ell,mi(artist),32)$": 1,
+            "$df(d)$$tc(ord, df(d))$": 4,
+            "$df(h:mm)$": 6
+          }
+        },
+        "text_family": {
+          "count": 14,
+          "values": {
+            "kfile://org.kustom.provider/fonts/ProductSans.ttf": 9,
+            "kfile://org.kustom.provider/fonts/ProductSans-Medium.ttf": 5
+          }
+        },
+        "position_padding_top": {
+          "count": 6,
+          "values": {
+            "3": 2,
+            "20": 4
+          }
+        },
+        "text_size": {
+          "count": 24,
+          "values": {
+            "14": 1,
+            "22": 2,
+            "24": 1,
+            "28": 7,
+            "36": 3,
+            "50": 4,
+            "130": 6
+          }
+        },
+        "fx_shadow": {
+          "count": 6,
+          "values": {
+            "OUTER": 6
+          }
+        },
+        "fx_shadow_blur": {
+          "count": 6,
+          "values": {
+            "40": 1,
+            "41": 5
+          }
+        },
+        "fx_shadow_direction": {
+          "count": 6,
+          "values": {
+            "0": 6
+          }
+        },
+        "fx_shadow_distance": {
+          "count": 6,
+          "values": {
+            "0": 6
+          }
+        },
+        "fx_shadow_color": {
+          "count": 6,
+          "values": {
+            "#80000000": 6
+          }
+        },
+        "position_anchor": {
+          "count": 4,
+          "values": {
+            "BOTTOMLEFT": 2,
+            "BOTTOMRIGHT": 2
+          }
+        },
+        "position_padding_left": {
+          "count": 6,
+          "values": {
+            "20": 4,
+            "36": 2
+          }
+        },
+        "position_padding_bottom": {
+          "count": 8,
+          "values": {
+            "20": 4,
+            "45": 4
+          }
+        },
+        "position_padding_right": {
+          "count": 6,
+          "values": {
+            "20": 4,
+            "36": 2
+          }
+        },
+        "internal_formulas": {
+          "count": 13,
+          "values": {}
+        },
+        "paint_style": {
+          "count": 5,
+          "values": {
+            "STROKE": 5
+          }
+        },
+        "paint_stroke": {
+          "count": 5,
+          "values": {
+            "40": 2,
+            "50": 3
+          }
+        },
+        "text_width": {
+          "count": 6,
+          "values": {
+            "225": 6
+          }
+        },
+        "fx_gradient_width": {
+          "count": 3,
+          "values": {
+            "76": 3
+          }
+        },
+        "fx_gradient_offset": {
+          "count": 3,
+          "values": {
+            "88": 3
+          }
+        },
+        "text_rotate_mode": {
+          "count": 3,
+          "values": {
+            "MANUAL": 3
+          }
+        }
+      }
+    }
+  }
+}

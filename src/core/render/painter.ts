@@ -1,7 +1,9 @@
 import type { LayoutNode } from '../layout/types.ts';
 import type { ResourceManager } from './resources.ts';
+import type { SimState } from '../formula/types.ts';
 import { propEnum, propNum, propStr } from '../layout/resolver.ts';
 import { arcGeometry, stripBBCode } from '../layout/measure.ts';
+import { applyTextFilter } from '../layout/text-measure.ts';
 import { parseColor } from '../formula/functions/color-utils.ts';
 
 export function cssColor(hexStr: string, fallback = 'rgba(255,255,255,1)'): string {
@@ -94,9 +96,11 @@ function createOffscreenCanvas(width: number, height: number): { canvas: any; ct
 
 export class Painter {
   private resources?: ResourceManager;
+  private sim?: SimState;
 
-  constructor(resources?: ResourceManager) {
+  constructor(resources?: ResourceManager, sim?: SimState) {
     this.resources = resources;
+    this.sim = sim;
   }
 
   paintTree(ctx: CanvasRenderingContext2D, root: LayoutNode) {
@@ -105,23 +109,15 @@ export class Painter {
   }
 
   private paintBackground(ctx: CanvasRenderingContext2D, root: LayoutNode) {
-    const bgType = propStr(root.resolvedProps, 'background_type', 'SOLID').toUpperCase();
-    const bgColor = propStr(root.resolvedProps, 'background_color', '#FF000000');
-
-    ctx.save();
-    ctx.fillStyle = cssColor(bgColor, '#000000');
-    ctx.fillRect(0, 0, root.box.w, root.box.h);
-
-    if (bgType === 'IMAGE') {
-      const bgUri = propStr(root.resolvedProps, 'background_bitmap');
-      if (bgUri) {
-        const img = this.resources?.getImage(bgUri);
-        if (img && img.image) {
-          ctx.drawImage(img.image, 0, 0, root.box.w, root.box.h);
-        }
+    const bgUri = propStr(root.resolvedProps, 'background_bitmap', '');
+    if (bgUri && this.resources) {
+      const img = this.resources.getImage(bgUri);
+      if (img && img.image) {
+        ctx.save();
+        ctx.drawImage(img.image, 0, 0, root.box.w, root.box.h);
+        ctx.restore();
       }
     }
-    ctx.restore();
   }
 
   paintNode(ctx: CanvasRenderingContext2D, node: LayoutNode) {
@@ -133,6 +129,29 @@ export class Painter {
     if (node.type !== 'RootLayerModule') {
       const alpha = Math.max(0, Math.min(100, propNum(node.resolvedProps, 'config_alpha', 100)));
       ctx.globalAlpha *= alpha / 100;
+
+      // Handle layer filters and effects
+      const filter = propStr(node.resolvedProps, 'config_filter', 'NONE').toUpperCase();
+      const filterAmount = propNum(node.resolvedProps, 'config_filter_amount', 100);
+      if (filter === 'BW' || filter === 'DESATURATE') {
+        ctx.filter = `grayscale(${filterAmount}%)`;
+      } else if (filter === 'INVERT') {
+        ctx.filter = `invert(${filterAmount}%)`;
+      } else if (filter === 'SEPIA') {
+        ctx.filter = `sepia(${filterAmount}%)`;
+      }
+
+      // Handle layer fx (shadows, blur)
+      const fx = propStr(node.resolvedProps, 'config_fx', 'NONE').toUpperCase();
+      if (fx === 'DROP_SHADOW') {
+        const shadowColor = cssColor(propStr(node.resolvedProps, 'config_fx_fcolor', '#FF000000'));
+        const dist = propNum(node.resolvedProps, 'config_fx_dist', 10) * node.unit;
+        const angle = (propNum(node.resolvedProps, 'config_fx_angle', 45) * Math.PI) / 180;
+        ctx.shadowColor = shadowColor;
+        ctx.shadowBlur = propNum(node.resolvedProps, 'config_fx_radius', 10) * node.unit;
+        ctx.shadowOffsetX = Math.cos(angle) * dist;
+        ctx.shadowOffsetY = Math.sin(angle) * dist;
+      }
     }
 
     const { x, y, rot, scaleX, scaleY } = node.transform;
@@ -503,39 +522,77 @@ export class Painter {
 
   private paintProgress(ctx: CanvasRenderingContext2D, node: LayoutNode) {
     this.applyStyleAndShadow(ctx, node, node.box.w, node.box.h);
-    const style = propStr(node.resolvedProps, 'progress_style', 'LINEAR').toUpperCase();
-    const min = propNum(node.resolvedProps, 'progress_min', 0);
-    const max = Math.max(1, propNum(node.resolvedProps, 'progress_max', 100));
-    const level = propNum(
-      node.resolvedProps,
-      'progress_level',
-      propNum(node.resolvedProps, 'progress_progress', 50)
-    );
+    const style = propStr(node.resolvedProps, 'style_style', propStr(node.resolvedProps, 'progress_style', 'LINEAR')).toUpperCase();
+    const shape = propStr(node.resolvedProps, 'style_shape', 'RECT').toUpperCase();
+    const progressMode = propStr(node.resolvedProps, 'progress_progress', 'CUSTOM').toUpperCase();
+    let min = propNum(node.resolvedProps, 'progress_min', 0);
+    let max = Math.max(1, propNum(node.resolvedProps, 'progress_max', 100));
+    let level = 0;
+
+    const now = this.sim?.now ?? new Date();
+    if (progressMode === 'BATTERY') {
+      level = this.sim?.battery?.level ?? 100;
+      min = 0;
+      max = 100;
+    } else if (progressMode === 'MUSIC') {
+      const len = this.sim?.music?.len ?? 0;
+      const pos = this.sim?.music?.pos ?? 0;
+      level = len > 0 ? (pos / len) * 100 : 0;
+      min = 0;
+      max = 100;
+    } else if (progressMode === 'MUSIC_VOLUME') {
+      level = this.sim?.music?.vol ?? 50;
+      min = 0;
+      max = 100;
+    } else if (progressMode === 'H12') {
+      level = ((now.getHours() % 12) + now.getMinutes() / 60) * (100 / 12);
+      min = 0;
+      max = 100;
+    } else if (progressMode === 'H24') {
+      level = (now.getHours() + now.getMinutes() / 60) * (100 / 24);
+      min = 0;
+      max = 100;
+    } else if (progressMode === 'MINS') {
+      level = (now.getMinutes() + now.getSeconds() / 60) * (100 / 60);
+      min = 0;
+      max = 100;
+    } else if (progressMode === 'SECS') {
+      level = now.getSeconds() * (100 / 60);
+      min = 0;
+      max = 100;
+    } else {
+      level = propNum(node.resolvedProps, 'progress_level', 50);
+    }
+
     const ratio = Math.max(0, Math.min(1, (level - min) / (max - min)));
 
     const [padL, padT] = node.box.pad;
     const w = Math.max(1, node.box.w - padL * 2);
     const h = Math.max(1, node.box.h - padT * 2);
 
-    const bgColor = propStr(node.resolvedProps, 'color_bgcolor', '#33FFFFFF');
+    const colorMode = propStr(node.resolvedProps, 'color_mode', 'CURRENT').toUpperCase();
+    const bgColor = colorMode === 'CLEAR' ? '#00000000' : propStr(node.resolvedProps, 'color_bgcolor', '#33FFFFFF');
     const fillColor = propStr(
       node.resolvedProps,
       'color_color',
-      propStr(node.resolvedProps, 'paint_color', '#FFFFFFFF')
+      propStr(node.resolvedProps, 'color_fgcolor', propStr(node.resolvedProps, 'paint_color', '#FFFFFFFF'))
     );
 
-    if (style === 'CIRCLE') {
-      const strokeW = Math.max(1, propNum(node.resolvedProps, 'paint_stroke', 10) * node.unit);
+    const isCircle = style === 'CIRCLE' || shape === 'CIRCLE';
+    if (isCircle) {
+      const strokeW = Math.max(1, propNum(node.resolvedProps, 'style_height', propNum(node.resolvedProps, 'paint_stroke', 10)) * node.unit);
       const r = Math.max(1, Math.min(w, h) / 2 - strokeW / 2);
       const cx = padL + w / 2;
       const cy = padT + h / 2;
 
       ctx.save();
       ctx.lineWidth = strokeW;
-      ctx.strokeStyle = cssColor(bgColor);
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.stroke();
+      if (colorMode !== 'CLEAR') {
+        ctx.strokeStyle = cssColor(bgColor);
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
 
       if (ratio > 0) {
         ctx.strokeStyle = cssColor(fillColor);
@@ -547,8 +604,10 @@ export class Painter {
       ctx.restore();
     } else {
       ctx.save();
-      ctx.fillStyle = cssColor(bgColor);
-      ctx.fillRect(padL, padT, w, h);
+      if (colorMode !== 'CLEAR') {
+        ctx.fillStyle = cssColor(bgColor);
+        ctx.fillRect(padL, padT, w, h);
+      }
 
       if (ratio > 0) {
         ctx.fillStyle = cssColor(fillColor);
@@ -560,20 +619,22 @@ export class Painter {
 
   private paintCurvedText(ctx: CanvasRenderingContext2D, node: LayoutNode) {
     this.applyStyleAndShadow(ctx, node, node.box.w, node.box.h);
-    const text = stripBBCode(
-      propStr(node.resolvedProps, 'curved_expression', propStr(node.resolvedProps, 'text_expression', ''))
+    const rawText = stripBBCode(
+      propStr(node.resolvedProps, 'text_expression', propStr(node.resolvedProps, 'curved_expression', ''))
     );
+    const filter = propStr(node.resolvedProps, 'text_filter', 'NONE');
+    const text = applyTextFilter(rawText, filter);
     if (!text) return;
 
     const radius = Math.max(
       1,
-      propNum(node.resolvedProps, 'curved_radius', propNum(node.resolvedProps, 'text_width', 100)) * node.unit
+      propNum(node.resolvedProps, 'text_width', propNum(node.resolvedProps, 'curved_radius', 100)) * node.unit
     );
     const fontSize = Math.max(
       1,
-      propNum(node.resolvedProps, 'curved_size', propNum(node.resolvedProps, 'text_size', 40)) * node.unit
+      propNum(node.resolvedProps, 'text_size', propNum(node.resolvedProps, 'curved_size', 40)) * node.unit
     );
-    const rawFamily = propStr(node.resolvedProps, 'curved_family', propStr(node.resolvedProps, 'text_family', ''));
+    const rawFamily = propStr(node.resolvedProps, 'text_family', propStr(node.resolvedProps, 'curved_family', ''));
     const family = this.resources ? this.resources.family(rawFamily) : 'sans-serif';
     ctx.font = `${Math.round(fontSize)}px ${quoteCssFamily(family)}, sans-serif`;
     ctx.textAlign = 'center';
@@ -581,7 +642,7 @@ export class Painter {
 
     const cx = node.box.w / 2;
     const cy = node.box.h / 2;
-    const angleOffset = (propNum(node.resolvedProps, 'curved_angle', 0) * Math.PI) / 180;
+    const angleOffset = (propNum(node.resolvedProps, 'text_rotate_offset', propNum(node.resolvedProps, 'curved_angle', 0)) * Math.PI) / 180;
 
     const charSpacing = fontSize * 0.7;
     const angularSpan = (text.length * charSpacing) / radius;

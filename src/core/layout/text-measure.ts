@@ -67,6 +67,25 @@ export function measureTextWidth(text: string, font: string, fontSize: number): 
 }
 
 /**
+ * Applies text case and formatting filters (e.g. UPPERCASE, LOWERCASE, CAPITALIZE, REVERSE).
+ */
+export function applyTextFilter(text: string, filter: string): string {
+  if (!text || !filter || filter === 'NONE') return text;
+  switch (filter.toUpperCase()) {
+    case 'UP':
+      return text.toUpperCase();
+    case 'LO':
+      return text.toLowerCase();
+    case 'CAP':
+      return text.replace(/\b\w/g, (c) => c.toUpperCase());
+    case 'REV':
+      return text.split('').reverse().join('');
+    default:
+      return text;
+  }
+}
+
+/**
  * Word wraps text to fit within maxWidth.
  */
 export function wrapTextToWidth(
