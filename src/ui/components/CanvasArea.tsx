@@ -9,14 +9,22 @@ import {
   selectedNodeId,
   showGridOverlay,
   showDeviceFrame,
-  currentProfileId,
   targetOrientation,
-  toggleOrientation,
   multiSizeModalOpen,
+  exportModalOpen,
   currentResourceManager,
+  deleteNode,
+  undo,
+  redo,
+  commit,
+  findParentNode,
+  findNodeById,
 } from '../state/editor-state.ts';
 import { renderPreset, getResourceManagerForDoc } from '../../core/render/renderer.ts';
 import type { LayoutNode } from '../../core/layout/types.ts';
+import { setProp, addChild, cloneNode } from '../../core/model/edit.ts';
+import { WIDGET_SIZE_PRESETS } from '../targets/widget-sizes.ts';
+import { DEVICE_PROFILES } from '../targets/device-profiles.ts';
 import {
   FitFrameIcon,
   ScreenIcon,
@@ -25,8 +33,12 @@ import {
   PlayIcon,
   PauseIcon,
   LayersIcon,
+  TargetIcon,
+  SimIcon,
+  HelpIcon,
 } from '../icons/icons.tsx';
 import { MultiSizeModal } from './MultiSizeModal.tsx';
+import { ShortcutsDialog } from '../dialogs/ShortcutsDialog.tsx';
 
 function findLayoutNode(node: LayoutNode, id: string): LayoutNode | null {
   if (node.id === id) return node;
@@ -44,10 +56,11 @@ function hitTest(node: LayoutNode, px: number, py: number): LayoutNode | null {
     const hit = hitTest(child, px, py);
     if (hit) return hit;
   }
-  const bx = node.box.x ?? 0;
-  const by = node.box.y ?? 0;
-  const bw = node.box.w;
-  const bh = node.box.h;
+  const box = node.absBox ?? node.box;
+  const bx = box.x ?? 0;
+  const by = box.y ?? 0;
+  const bw = box.w;
+  const bh = box.h;
   if (px >= bx && px <= bx + bw && py >= by && py <= by + bh) {
     return node;
   }
@@ -67,10 +80,102 @@ export function CanvasArea() {
   const [layoutTree, setLayoutTree] = useState<LayoutNode | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isLocked, setIsLocked] = useState<boolean>(false);
+  const [targetPopoverOpen, setTargetPopoverOpen] = useState(false);
+  const [simPopoverOpen, setSimPopoverOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
 
   // Dragging / Panning State
   const [isPanning, setIsPanning] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+
+  // Live Simulation Clock Ticking
+  useEffect(() => {
+    if (!isPlaying) return;
+    const interval = setInterval(() => {
+      simState.value = {
+        ...simState.value,
+        now: new Date(),
+      };
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [isPlaying]);
+
+  // Global Keyboard Shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const activeTag = (document.activeElement?.tagName || '').toLowerCase();
+      if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') {
+        return;
+      }
+
+      const isMac = typeof navigator !== 'undefined' && /mac/i.test(navigator.platform || '');
+      const mod = isMac ? e.metaKey : e.ctrlKey;
+
+      if (e.key === 'Delete' || e.key === 'Backspace') {
+        if (selectedId && doc && selectedId !== doc.root.id) {
+          e.preventDefault();
+          deleteNode(selectedId);
+        }
+      } else if (mod && (e.key === 'z' || e.key === 'Z')) {
+        e.preventDefault();
+        if (e.shiftKey) redo();
+        else undo();
+      } else if (mod && (e.key === 'y' || e.key === 'Y')) {
+        e.preventDefault();
+        redo();
+      } else if (mod && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        exportModalOpen.value = true;
+      } else if (mod && (e.key === 'd' || e.key === 'D')) {
+        e.preventDefault();
+        if (selectedId && doc && selectedId !== doc.root.id) {
+          const parent = findParentNode(doc.root, selectedId);
+          if (parent) {
+            const nodeToDup = parent.children?.find((c) => c.id === selectedId);
+            if (nodeToDup) {
+              const dup = cloneNode(nodeToDup);
+              dup.id = `${dup.type}_${Date.now()}`;
+              dup.title = `${dup.title} (Copy)`;
+              commit(addChild(doc, parent.id, dup), `Duplicate ${nodeToDup.title}`);
+            }
+          }
+        }
+      } else if (e.key === 'f' || e.key === 'F') {
+        handleFit();
+      } else if (e.key === 'Escape') {
+        if (selectedId && doc && selectedId !== doc.root.id) {
+          const parent = findParentNode(doc.root, selectedId);
+          if (parent) selectedNodeId.value = parent.id;
+        }
+      } else if (e.key === '?') {
+        setShortcutsOpen(true);
+      } else if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        if (selectedId && doc && selectedId !== doc.root.id) {
+          e.preventDefault();
+          const step = e.shiftKey ? 10 : 1;
+          const selNode = findNodeById(doc.root, selectedId);
+          const currX = Number(selNode?.props?.position_offset_x?.value || 0);
+          const currY = Number(selNode?.props?.position_offset_y?.value || 0);
+          let dx = 0;
+          let dy = 0;
+          if (e.key === 'ArrowLeft') dx = -step;
+          if (e.key === 'ArrowRight') dx = step;
+          if (e.key === 'ArrowUp') dy = -step;
+          if (e.key === 'ArrowDown') dy = step;
+
+          if (dx !== 0) {
+            commit(setProp(doc, selectedId, 'position_offset_x', { value: currX + dx }), 'Nudge X');
+          }
+          if (dy !== 0) {
+            commit(setProp(doc, selectedId, 'position_offset_y', { value: currY + dy }), 'Nudge Y');
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedId, doc]);
 
   useEffect(() => {
     let active = true;
@@ -156,9 +261,10 @@ export function CanvasArea() {
     }
   };
 
-  // Find selection box
+  // Find selection box (using calibrated absBox)
   const selectedLayout = layoutTree && selectedId ? findLayoutNode(layoutTree, selectedId) : null;
   const isSelectedRoot = selectedId === doc?.root.id;
+  const selBox = selectedLayout ? (selectedLayout.absBox ?? selectedLayout.box) : null;
 
   const handleFit = () => {
     if (!containerRef.current) return;
@@ -213,22 +319,21 @@ export function CanvasArea() {
             style={{ display: 'block', width: '100%', height: '100%' }}
           />
 
-          {/* Interactive Selection Outline */}
-          {selectedLayout && !isSelectedRoot && (
+          {/* Interactive Selection Outline with absolute coordinates */}
+          {selBox && !isSelectedRoot && (
             <div
               class="selection-box"
               style={{
                 position: 'absolute',
-                left: `${selectedLayout.box.x}px`,
-                top: `${selectedLayout.box.y}px`,
-                width: `${selectedLayout.box.w}px`,
-                height: `${selectedLayout.box.h}px`,
+                left: `${selBox.x ?? 0}px`,
+                top: `${selBox.y ?? 0}px`,
+                width: `${selBox.w}px`,
+                height: `${selBox.h}px`,
                 border: '2px solid #E53935',
                 pointerEvents: 'none',
                 zIndex: 10,
               }}
             >
-              {/* Corner Handles */}
               <div class="handle handle-tl" />
               <div class="handle handle-tr" />
               <div class="handle handle-bl" />
@@ -256,7 +361,7 @@ export function CanvasArea() {
                   y1="0"
                   x2={`${(col / 4) * 100}%`}
                   y2="100%"
-                  stroke="rgba(229, 57, 53, 0.3)"
+                  stroke="rgba(255, 255, 255, 0.2)"
                   strokeDasharray="4 4"
                   strokeWidth="1"
                 />
@@ -268,7 +373,7 @@ export function CanvasArea() {
                   y1={`${(row / 6) * 100}%`}
                   x2="100%"
                   y2={`${(row / 6) * 100}%`}
-                  stroke="rgba(229, 57, 53, 0.3)"
+                  stroke="rgba(255, 255, 255, 0.2)"
                   strokeDasharray="4 4"
                   strokeWidth="1"
                 />
@@ -278,8 +383,212 @@ export function CanvasArea() {
         </div>
       </div>
 
-      {/* Official Right Vertical Floating Tool Strip */}
+      {/* Right Vertical Floating Tool Strip */}
       <div class="stage-tools-strip">
+        {/* Target (Size & Device) Popover Trigger */}
+        <div style={{ position: 'relative' }}>
+          <button
+            class={`stage-tool-btn ${targetPopoverOpen ? 'active' : ''}`}
+            title="Target & Dimensions"
+            onClick={() => {
+              setTargetPopoverOpen(!targetPopoverOpen);
+              setSimPopoverOpen(false);
+            }}
+          >
+            <TargetIcon size={18} />
+          </button>
+
+          {targetPopoverOpen && (
+            <div
+              class="popover-menu"
+              style={{
+                position: 'absolute',
+                right: '48px',
+                top: '0',
+                width: '240px',
+                backgroundColor: '#1A1A1E',
+                border: '1px solid #24242A',
+                borderRadius: '8px',
+                padding: '12px',
+                zIndex: 100,
+                boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+              }}
+            >
+              <div style={{ fontSize: '12px', fontWeight: 600, marginBottom: '8px', color: '#FFF' }}>
+                Target Dimensions
+              </div>
+
+              {doc?.kind === 'kwgt' ? (
+                <div>
+                  <div style={{ fontSize: '11px', color: '#8E8E93', marginBottom: '6px' }}>Widget Presets</div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', marginBottom: '10px' }}>
+                    {WIDGET_SIZE_PRESETS.map((p) => (
+                      <button
+                        key={p.id}
+                        class={`btn btn-sm ${target.w === p.width && target.h === p.height ? 'btn-active' : ''}`}
+                        style={{ fontSize: '10px', padding: '4px' }}
+                        onClick={() => {
+                          canvasTarget.value = { ...target, w: p.width, h: p.height };
+                          setTargetPopoverOpen(false);
+                        }}
+                      >
+                        {p.name.split(' ')[0]} ({p.width}×{p.height})
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    class="btn btn-sm btn-block"
+                    style={{ fontSize: '11px', width: '100%', marginBottom: '8px' }}
+                    onClick={() => {
+                      multiSizeModalOpen.value = true;
+                      setTargetPopoverOpen(false);
+                    }}
+                  >
+                    Compare Sizes...
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <div style={{ fontSize: '11px', color: '#8E8E93', marginBottom: '6px' }}>Device Profiles</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '10px' }}>
+                    {DEVICE_PROFILES.slice(0, 4).map((p) => (
+                      <button
+                        key={p.id}
+                        class={`btn btn-sm ${target.w === p.width && target.h === p.height ? 'btn-active' : ''}`}
+                        style={{ fontSize: '11px', textAlign: 'left', padding: '4px 8px' }}
+                        onClick={() => {
+                          canvasTarget.value = { ...target, w: p.width, h: p.height };
+                          setTargetPopoverOpen(false);
+                        }}
+                      >
+                        {p.name} ({p.width}×{p.height})
+                      </button>
+                    ))}
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
+                    <button
+                      class={`btn btn-sm ${targetOrientation.value === 'landscape' ? 'btn-active' : ''}`}
+                      style={{ flex: 1, fontSize: '11px' }}
+                      onClick={() => {
+                        targetOrientation.value = targetOrientation.value === 'portrait' ? 'landscape' : 'portrait';
+                        canvasTarget.value = { ...target, w: target.h, h: target.w };
+                      }}
+                    >
+                      {targetOrientation.value === 'portrait' ? 'Portrait' : 'Landscape'}
+                    </button>
+                    <button
+                      class={`btn btn-sm ${showDeviceFrame.value ? 'btn-active' : ''}`}
+                      style={{ flex: 1, fontSize: '11px' }}
+                      onClick={() => (showDeviceFrame.value = !showDeviceFrame.value)}
+                    >
+                      Frame
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Simulation Popover Trigger */}
+        <div style={{ position: 'relative' }}>
+          <button
+            class={`stage-tool-btn ${simPopoverOpen ? 'active' : ''}`}
+            title="Simulation Controls"
+            onClick={() => {
+              setSimPopoverOpen(!simPopoverOpen);
+              setTargetPopoverOpen(false);
+            }}
+          >
+            <SimIcon size={18} />
+          </button>
+
+          {simPopoverOpen && (
+            <div
+              class="popover-menu"
+              style={{
+                position: 'absolute',
+                right: '48px',
+                top: '0',
+                width: '230px',
+                backgroundColor: '#1A1A1E',
+                border: '1px solid #24242A',
+                borderRadius: '8px',
+                padding: '12px',
+                zIndex: 100,
+                boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+              }}
+            >
+              <div style={{ fontSize: '12px', fontWeight: 600, marginBottom: '10px', color: '#FFF' }}>
+                Environment Simulation
+              </div>
+
+              {/* Dark Mode */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                <span style={{ fontSize: '11px', color: '#AAA' }}>Dark Mode</span>
+                <button
+                  class={`btn btn-sm ${sim.darkmode ? 'btn-active' : ''}`}
+                  style={{ fontSize: '11px', padding: '2px 8px' }}
+                  onClick={() => {
+                    simState.value = {
+                      ...sim,
+                      darkmode: sim.darkmode ? 0 : 1,
+                      darkwp: sim.darkwp ? 0 : 1,
+                    };
+                  }}
+                >
+                  {sim.darkmode ? 'Dark (ON)' : 'Light (OFF)'}
+                </button>
+              </div>
+
+              {/* Battery Level */}
+              <div style={{ marginBottom: '8px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#AAA', marginBottom: '4px' }}>
+                  <span>Battery</span>
+                  <span>{sim.battery.level}% {sim.battery.charging ? '⚡' : ''}</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={sim.battery.level}
+                  style={{ width: '100%' }}
+                  onInput={(e) => {
+                    const level = Number((e.target as HTMLInputElement).value);
+                    simState.value = {
+                      ...sim,
+                      battery: { ...sim.battery, level },
+                    };
+                  }}
+                />
+              </div>
+
+              {/* Network */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                <span style={{ fontSize: '11px', color: '#AAA' }}>Network</span>
+                <button
+                  class="btn btn-sm"
+                  style={{ fontSize: '11px', padding: '2px 8px' }}
+                  onClick={() => {
+                    simState.value = {
+                      ...sim,
+                      network: {
+                        ...sim.network,
+                        wifi: !sim.network.wifi,
+                      },
+                    };
+                  }}
+                >
+                  {sim.network.wifi ? 'Wi-Fi' : 'Cellular'}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Screen count indicator */}
         <button
           class="stage-tool-btn"
           title={`Screen ${currentScreenIndex} of ${target.screens ?? 1}`}
@@ -294,14 +603,16 @@ export function CanvasArea() {
           </span>
         </button>
 
+        {/* Fit to Stage */}
         <button
           class="stage-tool-btn"
-          title="Fit to Stage"
+          title="Fit to Stage (F)"
           onClick={handleFit}
         >
           <FitFrameIcon size={18} />
         </button>
 
+        {/* Lock toggle */}
         <button
           class={`stage-tool-btn ${isLocked ? 'active' : ''}`}
           title={isLocked ? 'Locked (click to unlock)' : 'Unlocked (click to lock)'}
@@ -310,20 +621,31 @@ export function CanvasArea() {
           {isLocked ? <LockIcon size={18} /> : <UnlockIcon size={18} />}
         </button>
 
+        {/* Grid toggle */}
         <button
           class={`stage-tool-btn ${showGridOverlay.value ? 'active' : ''}`}
-          title="Toggle Grid / Layers"
+          title="Toggle Grid Overlay"
           onClick={() => (showGridOverlay.value = !showGridOverlay.value)}
         >
           <LayersIcon size={18} />
         </button>
 
+        {/* Animation Play / Pause (Live Ticking) */}
         <button
           class={`stage-tool-btn ${isPlaying ? 'active' : ''}`}
-          title={isPlaying ? 'Pause Animation' : 'Play Animation'}
+          title={isPlaying ? 'Pause Simulation Clock' : 'Resume Simulation Clock'}
           onClick={() => setIsPlaying(!isPlaying)}
         >
           {isPlaying ? <PauseIcon size={18} /> : <PlayIcon size={18} />}
+        </button>
+
+        {/* Shortcuts Help */}
+        <button
+          class="stage-tool-btn"
+          title="Keyboard Shortcuts (?)"
+          onClick={() => setShortcutsOpen(true)}
+        >
+          <HelpIcon size={18} />
         </button>
       </div>
 
@@ -355,6 +677,7 @@ export function CanvasArea() {
       </div>
 
       <MultiSizeModal />
+      <ShortcutsDialog isOpen={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
     </main>
   );
 }

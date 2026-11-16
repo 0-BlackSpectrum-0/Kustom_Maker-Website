@@ -147,8 +147,8 @@ export function ExportModal() {
               style={{ width: '100%' }}
               value={doc.info.title || ''}
               onInput={(e) => {
-                doc.info.title = (e.target as HTMLInputElement).value;
-                currentDoc.value = { ...doc };
+                const title = (e.target as HTMLInputElement).value;
+                commit({ ...doc, info: { ...doc.info, title } }, 'Edit Title');
               }}
             />
           </div>
@@ -161,8 +161,8 @@ export function ExportModal() {
               style={{ width: '100%' }}
               value={doc.info.author || ''}
               onInput={(e) => {
-                doc.info.author = (e.target as HTMLInputElement).value;
-                currentDoc.value = { ...doc };
+                const author = (e.target as HTMLInputElement).value;
+                commit({ ...doc, info: { ...doc.info, author } }, 'Edit Author');
               }}
             />
           </div>

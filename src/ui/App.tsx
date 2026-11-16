@@ -6,6 +6,7 @@ import { Inspector } from './components/Inspector.tsx';
 import { StatusBar } from './components/StatusBar.tsx';
 import { ExportModal } from './components/ExportModal.tsx';
 import { AddModuleModal } from './dialogs/AddModuleModal.tsx';
+import { FormulaDialog } from './dialogs/FormulaDialog.tsx';
 
 export function App() {
   return (
@@ -19,6 +20,7 @@ export function App() {
       <StatusBar />
       <ExportModal />
       <AddModuleModal />
+      <FormulaDialog />
     </div>
   );
 }

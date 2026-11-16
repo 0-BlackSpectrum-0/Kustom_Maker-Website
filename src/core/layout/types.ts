@@ -41,6 +41,7 @@ export interface LayoutNode {
   title: string;
   node: Node;
   box: Box;
+  absBox?: { x: number; y: number; w: number; h: number };
   transform: Transform;
   resolvedProps: Record<string, unknown>;
   unit: number;

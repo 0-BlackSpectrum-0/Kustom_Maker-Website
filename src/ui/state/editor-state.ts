@@ -122,6 +122,15 @@ export const targetOrientation = signal<'portrait' | 'landscape'>('portrait');
 export const multiSizeModalOpen = signal<boolean>(false);
 export const exportModalOpen = signal<boolean>(false);
 
+export interface FormulaDialogState {
+  open: boolean;
+  nodeId?: string;
+  propKey?: string;
+  label?: string;
+  formula?: string;
+}
+export const formulaDialogState = signal<FormulaDialogState | null>(null);
+
 export function setTargetSize(w: number, h: number, profileId: string = 'custom') {
   currentProfileId.value = profileId;
   const isLandscape = targetOrientation.value === 'landscape';

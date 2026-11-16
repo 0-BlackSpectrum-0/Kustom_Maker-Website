@@ -298,6 +298,7 @@ export const t1Functions: Record<string, FormulaFunction> = {
     const sim = ctx.sim;
     switch (key) {
       case 'darkmode':
+      case 'dark':
         return sim.darkmode;
       case 'darkwp':
         return sim.darkwp;
