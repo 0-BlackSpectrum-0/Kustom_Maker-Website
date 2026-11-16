@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
 import pixelmatch from 'pixelmatch';
+import { unzipSync } from 'fflate';
 import { readPresetArchive } from '../../src/core/archive/reader.ts';
 import { renderPreset } from '../../src/core/render/renderer.ts';
 import { createSimState } from '../../src/core/formula/sim/sim-state.ts';
@@ -9,6 +10,8 @@ import { validateDoc } from '../../src/core/validate/validator.ts';
 import { writePresetArchive } from '../../src/core/archive/writer.ts';
 import { areCanonicallyEqual } from '../../src/core/model/canonical.ts';
 import { serializePresetJson } from '../../src/core/model/serializer.ts';
+
+globalThis.__kustom_create_canvas = createCanvas;
 
 const args = process.argv.slice(2);
 const isStructOnly = args.includes('--struct');
@@ -32,16 +35,16 @@ function computeAlphaIoU(img1Data, img2Data) {
 }
 
 async function verifyStruct() {
-  console.log('\n--- Running L1 / L2 / L3 Structural Verification ---');
+  console.log('\n--- Running V1 Lossless & L3 Schema Verification ---');
   const manifestPath = path.resolve('samples/manifest.json');
   if (!fs.existsSync(manifestPath)) {
     console.log('manifest.json not found');
-    return { passed: 0, failed: 0 };
+    return { v1Passed: 0, v1Failed: 0, l3Passed: 0, l3Failed: 0 };
   }
 
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-  let l1Passed = 0;
-  let l1Failed = 0;
+  let v1Passed = 0;
+  let v1Failed = 0;
   let l3Passed = 0;
   let l3Failed = 0;
 
@@ -51,18 +54,22 @@ async function verifyStruct() {
 
     try {
       const bytes = fs.readFileSync(presetPath);
-      const doc = readPresetArchive(bytes);
+      const unzipped = unzipSync(bytes);
+      const rootJsonName = sample.preset.endsWith('.komp') || unzipped['komponent.json'] ? 'komponent.json' : 'preset.json';
+      const rawOriginalJson = JSON.parse(new TextDecoder('utf-8').decode(unzipped[rootJsonName]));
 
-      // L1 / L2: Untouched export canonical equality
+      const doc = readPresetArchive(bytes, { fileName: path.basename(presetPath) });
+
+      // V1: Untouched export canonical equality against raw original preset.json
       const exportedBytes = writePresetArchive(doc, { preserveEntryOrder: true });
       const reloadedDoc = readPresetArchive(exportedBytes, { fileName: path.basename(presetPath) });
-      const origJson = serializePresetJson(doc);
       const reReadJson = serializePresetJson(reloadedDoc);
-      if (areCanonicallyEqual(origJson, reReadJson)) {
-        l1Passed++;
+
+      if (areCanonicallyEqual(rawOriginalJson, reReadJson)) {
+        v1Passed++;
       } else {
-        l1Failed++;
-        console.error(`  L1 Failed for ${sample.id}`);
+        v1Failed++;
+        console.error(`  V1 Failed for ${sample.id}`);
       }
 
       // L3: Schema validation
@@ -75,29 +82,35 @@ async function verifyStruct() {
         console.error(`  L3 Schema error for ${sample.id}: ${errors[0].message}`);
       }
     } catch (err) {
-      l1Failed++;
+      v1Failed++;
       l3Failed++;
       console.error(`  Error processing ${sample.id}:`, err.message);
     }
   }
 
-  console.log(`Structural Verification complete: L1/L2: ${l1Passed} passed, ${l1Failed} failed. L3: ${l3Passed} passed, ${l3Failed} failed.`);
-  return { l1Passed, l1Failed, l3Passed, l3Failed };
+  console.log(`Structural Verification complete: V1: ${v1Passed} passed, ${v1Failed} failed. L3: ${l3Passed} passed, ${l3Failed} failed.`);
+  return { v1Passed, v1Failed, l3Passed, l3Failed };
 }
 
 async function verifyVisual() {
-  console.log('\n--- Running L5 / L6 Visual Verification ---');
+  console.log('\n--- Running V3 Visual Ratchet Verification ---');
   const manifestPath = path.resolve('samples/manifest.json');
   if (!fs.existsSync(manifestPath)) {
     console.log('manifest.json not found');
-    return { totalChecked: 0 };
+    return { totalChecked: 0, regressions: [], passedCount: 0 };
   }
 
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   const reportsDir = path.resolve('reports');
   if (!fs.existsSync(reportsDir)) fs.mkdirSync(reportsDir, { recursive: true });
 
-  const baselines = {};
+  const baselinePath = path.join(reportsDir, 'visual-baselines.json');
+  const existingBaselines = fs.existsSync(baselinePath)
+    ? JSON.parse(fs.readFileSync(baselinePath, 'utf8'))
+    : {};
+
+  const baselines = { ...existingBaselines };
+  const regressions = [];
   let totalChecked = 0;
   let passedCount = 0;
 
@@ -115,7 +128,7 @@ async function verifyVisual() {
       if (!fs.existsSync(prevPath)) continue;
 
       try {
-        const previewImg = await loadImage(prevPath);
+        const previewImg = await loadImage(fs.readFileSync(prevPath));
         const w = previewImg.width;
         const h = previewImg.height;
 
@@ -133,31 +146,46 @@ async function verifyVisual() {
         const prevData = prevCtx.getImageData(0, 0, w, h);
 
         const alphaIoU = computeAlphaIoU(renderedData, prevData);
+        const currentAlphaIoU = parseFloat(alphaIoU.toFixed(4));
         totalChecked++;
 
-        // Baseline recording
         const key = `${sample.id}_${prev.variant}`;
+        const prevBaseline = existingBaselines[key]?.alphaIoU;
+
+        if (prevBaseline !== undefined) {
+          if (currentAlphaIoU < prevBaseline - 0.02) {
+            regressions.push({
+              key,
+              prevBaseline,
+              currentAlphaIoU,
+              delta: parseFloat((currentAlphaIoU - prevBaseline).toFixed(4)),
+            });
+            console.error(`  [V3 REGRESSION] ${key}: dropped from ${(prevBaseline * 100).toFixed(1)}% to ${(currentAlphaIoU * 100).toFixed(1)}%`);
+          }
+        }
+
+        // Ratchet: baselines may only go up
+        const ratchetedIoU = prevBaseline !== undefined ? Math.max(prevBaseline, currentAlphaIoU) : currentAlphaIoU;
         baselines[key] = {
-          alphaIoU: parseFloat(alphaIoU.toFixed(4)),
+          alphaIoU: ratchetedIoU,
           size: [w, h],
           variant: prev.variant,
         };
 
-        if (alphaIoU >= 0.7) {
+        if (currentAlphaIoU >= 0.7) {
           passedCount++;
         }
 
-        console.log(`  ${sample.id} (${prev.variant}): alpha IoU = ${(alphaIoU * 100).toFixed(1)}%`);
+        console.log(`  ${sample.id} (${prev.variant}): alpha IoU = ${(currentAlphaIoU * 100).toFixed(1)}% (ratchet: ${(ratchetedIoU * 100).toFixed(1)}%)`);
       } catch (err) {
         console.error(`  ${sample.id} error:`, err.message);
       }
     }
   }
 
-  const baselinePath = path.join(reportsDir, 'visual-baselines.json');
   fs.writeFileSync(baselinePath, JSON.stringify(baselines, null, 2));
-  console.log(`\nVisual Verification complete: ${totalChecked} previews compared. Baselines saved to reports/visual-baselines.json`);
-  return { totalChecked, baselinesCount: Object.keys(baselines).length };
+  console.log(`\nVisual Verification complete: ${totalChecked} previews compared. Regressions: ${regressions.length}.`);
+  return { totalChecked, regressions, passedCount, baselinesCount: Object.keys(baselines).length };
 }
 
 async function main() {
@@ -166,13 +194,20 @@ async function main() {
 
   let structRes = null;
   let visualRes = null;
+  let hasFailure = false;
 
   if (isStructOnly || runAll) {
     structRes = await verifyStruct();
+    if (structRes.v1Failed > 0 || structRes.l3Failed > 0) {
+      hasFailure = true;
+    }
   }
 
   if (isVisualOnly || runAll) {
     visualRes = await verifyVisual();
+    if (visualRes.regressions && visualRes.regressions.length > 0) {
+      hasFailure = true;
+    }
   }
 
   // Write summary report
@@ -182,19 +217,43 @@ async function main() {
   const updatedSummary = {
     ...existingSummary,
     timestamp: new Date().toISOString(),
-    overall: 'PASSED',
+    overall: hasFailure ? 'FAILED' : 'PASSED',
   };
 
   if (structRes) {
-    updatedSummary.l1_lossless = { total: structRes.l1Passed + structRes.l1Failed, passed: structRes.l1Passed, failed: structRes.l1Failed };
-    updatedSummary.l3_schema = { total: structRes.l3Passed + structRes.l3Failed, passed: structRes.l3Passed, failed: structRes.l3Failed };
+    updatedSummary.v1_lossless_original = {
+      total: structRes.v1Passed + structRes.v1Failed,
+      passed: structRes.v1Passed,
+      failed: structRes.v1Failed,
+    };
+    updatedSummary.l3_schema = {
+      total: structRes.l3Passed + structRes.l3Failed,
+      passed: structRes.l3Passed,
+      failed: structRes.l3Failed,
+    };
   }
   if (visualRes) {
-    updatedSummary.l5_visual = visualRes;
+    updatedSummary.v3_visual_ratchet = {
+      totalChecked: visualRes.totalChecked,
+      regressionsCount: visualRes.regressions.length,
+      regressions: visualRes.regressions,
+      passedCount: visualRes.passedCount,
+    };
   }
 
   fs.writeFileSync(summaryPath, JSON.stringify(updatedSummary, null, 2));
   console.log(`\nVerification summary written to reports/summary.json`);
+
+  if (hasFailure) {
+    console.error('\n❌ Verification gate failed.');
+    process.exit(1);
+  } else {
+    console.log('\n✓ Verification gate passed.');
+    process.exit(0);
+  }
 }
 
-main().catch(console.error);
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

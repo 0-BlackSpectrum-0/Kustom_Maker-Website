@@ -10,7 +10,8 @@ function genId(prefix = 'node'): string {
 export function parseModule(raw: Record<string, unknown>): Node {
   const originalKeyOrder = Object.keys(raw);
   const type = String(raw.internal_type || 'Unknown');
-  const title = String(raw.internal_title || type);
+  const hasExplicitTitle = raw.internal_title !== undefined;
+  const title = hasExplicitTitle ? String(raw.internal_title) : type;
 
   const toggles = (raw.internal_toggles || {}) as Record<string, number>;
   const formulas = (raw.internal_formulas || {}) as Record<string, string>;
@@ -90,6 +91,7 @@ export function parseModule(raw: Record<string, unknown>): Node {
     id: genId(type.toLowerCase()),
     type,
     title,
+    hasExplicitTitle,
     props,
     extras,
     children,

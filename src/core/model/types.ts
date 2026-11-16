@@ -68,6 +68,7 @@ export interface Node {
   id: string;
   type: string;
   title: string;
+  hasExplicitTitle?: boolean;
   props: Record<string, Prop>;
   extras: Record<string, unknown>;
   children?: Node[];

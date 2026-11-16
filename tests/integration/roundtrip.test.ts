@@ -2,6 +2,7 @@
 import { describe, it, expect } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
+import { unzipSync } from 'fflate';
 import { readPresetArchive } from '../../src/core/archive/reader.ts';
 import { writePresetArchive } from '../../src/core/archive/writer.ts';
 import { areCanonicallyEqual, canonicalJson } from '../../src/core/model/canonical.ts';
@@ -53,8 +54,14 @@ describe('Phase 1 Lossless Round-Trip (L1 & L2)', () => {
   });
 
   for (const sample of sampleFiles) {
-    it(`lossless round-trip for ${sample.name} (${sample.kind})`, () => {
+    it(`V1 lossless round-trip for ${sample.name} (${sample.kind})`, () => {
+      console.log(`[V1 Gate Testing] ${sample.name}`);
       const originalBytes = new Uint8Array(fs.readFileSync(sample.path));
+      const unzipped = unzipSync(originalBytes);
+      const rootJsonName = sample.kind === 'komp' || unzipped['komponent.json'] ? 'komponent.json' : 'preset.json';
+      expect(unzipped[rootJsonName], `Archive missing ${rootJsonName}`).toBeDefined();
+      const rawOriginalJson = JSON.parse(new TextDecoder('utf-8').decode(unzipped[rootJsonName]));
+
       const doc = readPresetArchive(originalBytes, { fileName: sample.name });
 
       expect(doc.info).toBeDefined();
@@ -67,16 +74,13 @@ describe('Phase 1 Lossless Round-Trip (L1 & L2)', () => {
       // Re-read exported bytes
       const reReadDoc = readPresetArchive(exportedBytes, { fileName: sample.name });
 
-      // L1: Canonical JSON equality
-      const origJson = serializePresetJson(doc);
+      // V1: Canonical equality against the original archive preset.json
       const reReadJson = serializePresetJson(reReadDoc);
-
-      const isEqual = areCanonicallyEqual(origJson, reReadJson);
+      const isEqual = areCanonicallyEqual(rawOriginalJson, reReadJson);
       if (!isEqual) {
-        // Detailed diff if failing
-        console.error(`Diff in ${sample.name}`);
+        console.error(`Diff in ${sample.name} against original ${rootJsonName}`);
       }
-      expect(isEqual, `Canonical JSON mismatch in ${sample.name}`).toBe(true);
+      expect(isEqual, `V1 Canonical JSON mismatch in ${sample.name} vs original`).toBe(true);
 
       // L2: Asset byte equality
       expect(reReadDoc.assets.size).toBe(doc.assets.size);

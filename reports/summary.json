@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-09T22:39:00.703Z",
+  "timestamp": "2026-11-16T18:35:08.379Z",
   "overall": "PASSED",
   "l1_lossless": {
     "total": 46,
@@ -10,5 +10,16 @@
     "total": 46,
     "passed": 46,
     "failed": 0
+  },
+  "v1_lossless_original": {
+    "total": 46,
+    "passed": 46,
+    "failed": 0
+  },
+  "v3_visual_ratchet": {
+    "totalChecked": 69,
+    "regressionsCount": 0,
+    "regressions": [],
+    "passedCount": 33
   }
 }

@@ -14,10 +14,10 @@ export function serializeModule(node: Node, isRoot = false, globals?: Record<str
       if (prop.toggle !== undefined) {
         toggles[key] = prop.toggle;
       }
-      if (prop.formula !== undefined && prop.formula !== '') {
+      if (prop.formula !== undefined) {
         formulas[key] = prop.formula;
       }
-      if (prop.global !== undefined && prop.global !== '') {
+      if (prop.global !== undefined) {
         modGlobals[key] = prop.global;
       }
       if (prop.value !== undefined) {
@@ -27,7 +27,9 @@ export function serializeModule(node: Node, isRoot = false, globals?: Record<str
   }
 
   result.internal_type = node.type;
-  result.internal_title = node.title;
+  if (node.hasExplicitTitle !== false && (node.hasExplicitTitle === true || (node.originalKeyOrder && node.originalKeyOrder.includes('internal_title')) || (node.title && node.title !== node.type))) {
+    result.internal_title = node.title;
+  }
 
   if (Object.keys(toggles).length > 0) {
     result.internal_toggles = toggles;
@@ -116,14 +118,6 @@ export function serializePresetJson(
       }
     }
     infoObj = orderedInfo;
-  }
-
-  if (isKomp) {
-    return {
-      preset_info: infoObj,
-      ...serializedRoot,
-      ...(doc.extras || {}),
-    };
   }
 
   return {

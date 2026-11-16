@@ -77,6 +77,7 @@ export async function renderPreset(
       if (!globalThis.Path2D) {
         (globalThis as any).Path2D = napiCanvas.Path2D;
       }
+      (globalThis as any).__kustom_create_canvas = napiCanvas.createCanvas;
       canvas = napiCanvas.createCanvas(effectiveTarget.w, effectiveTarget.h);
       GlobalFonts = napiCanvas.GlobalFonts;
     }

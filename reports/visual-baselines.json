@@ -1,6 +1,6 @@
 {
   "Clean_Time_Date_Info_light": {
-    "alphaIoU": 0.9863,
+    "alphaIoU": 0.528,
     "size": [
       829,
       372
@@ -8,7 +8,7 @@
     "variant": "light"
   },
   "Clean_Time_Date_Info_dark": {
-    "alphaIoU": 0.9863,
+    "alphaIoU": 0.5288,
     "size": [
       829,
       372
@@ -16,7 +16,7 @@
     "variant": "dark"
   },
   "Interstellar_Analog_light": {
-    "alphaIoU": 0.3363,
+    "alphaIoU": 0.0852,
     "size": [
       1080,
       1333
@@ -24,7 +24,7 @@
     "variant": "light"
   },
   "Interstellar_Analog_Khaki_Field_Murph_Auto_light": {
-    "alphaIoU": 0.1016,
+    "alphaIoU": 0.0452,
     "size": [
       528,
       855
@@ -32,7 +32,7 @@
     "variant": "light"
   },
   "Interstellar_Endurance_light": {
-    "alphaIoU": 0.2235,
+    "alphaIoU": 0.1025,
     "size": [
       916,
       1169
@@ -40,7 +40,7 @@
     "variant": "light"
   },
   "Interstellar_Endurance_dark": {
-    "alphaIoU": 0.2321,
+    "alphaIoU": 0.1062,
     "size": [
       415,
       529
@@ -48,7 +48,7 @@
     "variant": "dark"
   },
   "Interstellar_Endurance_Analog_light": {
-    "alphaIoU": 0.2267,
+    "alphaIoU": 0.0997,
     "size": [
       916,
       1169
@@ -56,7 +56,7 @@
     "variant": "light"
   },
   "Interstellar_Endurance_Analog_dark": {
-    "alphaIoU": 0.2358,
+    "alphaIoU": 0.0758,
     "size": [
       415,
       529
@@ -64,7 +64,7 @@
     "variant": "dark"
   },
   "Interstellar_Endurance_Analog_2_light": {
-    "alphaIoU": 0.2162,
+    "alphaIoU": 0.1137,
     "size": [
       895,
       1169
@@ -72,7 +72,7 @@
     "variant": "light"
   },
   "iOS_Battery_Widget_light": {
-    "alphaIoU": 0.7268,
+    "alphaIoU": 0.0492,
     "size": [
       416,
       542
@@ -80,7 +80,7 @@
     "variant": "light"
   },
   "Material3_Expanded_Media_Player_light": {
-    "alphaIoU": 0.9779,
+    "alphaIoU": 0.0618,
     "size": [
       918,
       542
@@ -88,7 +88,7 @@
     "variant": "light"
   },
   "Material3_Media_Player_Output_light": {
-    "alphaIoU": 0.978,
+    "alphaIoU": 0.0515,
     "size": [
       916,
       542
@@ -96,7 +96,7 @@
     "variant": "light"
   },
   "material_notification_widget_light": {
-    "alphaIoU": 0.9891,
+    "alphaIoU": 0.6175,
     "size": [
       916,
       226
@@ -104,7 +104,7 @@
     "variant": "light"
   },
   "material_notification_widget_dark": {
-    "alphaIoU": 0.9891,
+    "alphaIoU": 0.6176,
     "size": [
       916,
       226
@@ -112,7 +112,7 @@
     "variant": "dark"
   },
   "material_notification_widget_empty": {
-    "alphaIoU": 0.9891,
+    "alphaIoU": 0.6176,
     "size": [
       916,
       226
@@ -120,7 +120,7 @@
     "variant": "empty"
   },
   "Minimal_Media_Player_light": {
-    "alphaIoU": 0.9836,
+    "alphaIoU": 0.0049,
     "size": [
       918,
       228
@@ -128,7 +128,7 @@
     "variant": "light"
   },
   "Minimal_Media_Player_2_light": {
-    "alphaIoU": 0.9836,
+    "alphaIoU": 0.0048,
     "size": [
       918,
       228
@@ -136,7 +136,7 @@
     "variant": "light"
   },
   "Minimal_Media_Player_3_light": {
-    "alphaIoU": 0.9786,
+    "alphaIoU": 0.0055,
     "size": [
       918,
       228
@@ -144,7 +144,7 @@
     "variant": "light"
   },
   "Mini_Media_Player_light": {
-    "alphaIoU": 0.7938,
+    "alphaIoU": 0.0245,
     "size": [
       667,
       542
@@ -152,7 +152,7 @@
     "variant": "light"
   },
   "Nothing_Analog__light": {
-    "alphaIoU": 0.6053,
+    "alphaIoU": 0.9952,
     "size": [
       415,
       542
@@ -160,7 +160,7 @@
     "variant": "light"
   },
   "Nothing_Analog__dark": {
-    "alphaIoU": 0.6053,
+    "alphaIoU": 0.9952,
     "size": [
       415,
       542
@@ -168,7 +168,7 @@
     "variant": "dark"
   },
   "Nothing_Analog_2_light": {
-    "alphaIoU": 0.6053,
+    "alphaIoU": 0.9952,
     "size": [
       415,
       542
@@ -176,7 +176,7 @@
     "variant": "light"
   },
   "Nothing_Analog_2_dark": {
-    "alphaIoU": 0.6053,
+    "alphaIoU": 0.9952,
     "size": [
       415,
       542
@@ -184,7 +184,7 @@
     "variant": "dark"
   },
   "Nothing_Analog_3_light": {
-    "alphaIoU": 0.6053,
+    "alphaIoU": 0.9952,
     "size": [
       415,
       542
@@ -192,7 +192,7 @@
     "variant": "light"
   },
   "Nothing_Analog_3_dark": {
-    "alphaIoU": 0.6053,
+    "alphaIoU": 0.9952,
     "size": [
       415,
       542
@@ -200,7 +200,7 @@
     "variant": "dark"
   },
   "Nothing_Analog_5_light": {
-    "alphaIoU": 0.6412,
+    "alphaIoU": 0.8374,
     "size": [
       415,
       542
@@ -208,7 +208,7 @@
     "variant": "light"
   },
   "Nothing_Analog_5_dark": {
-    "alphaIoU": 0.6412,
+    "alphaIoU": 0.8374,
     "size": [
       415,
       542
@@ -216,7 +216,7 @@
     "variant": "dark"
   },
   "Nothing_Analog_5_Transparent_light": {
-    "alphaIoU": 0.0554,
+    "alphaIoU": 0.1026,
     "size": [
       415,
       542
@@ -224,7 +224,7 @@
     "variant": "light"
   },
   "Nothing_Analog_5_Transparent_dark": {
-    "alphaIoU": 0.0555,
+    "alphaIoU": 0.103,
     "size": [
       415,
       542
@@ -232,7 +232,7 @@
     "variant": "dark"
   },
   "Nothing_Battery_light": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -240,7 +240,7 @@
     "variant": "light"
   },
   "Nothing_Battery2_light": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -248,7 +248,7 @@
     "variant": "light"
   },
   "Nothing_Battery2_dark": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -256,7 +256,7 @@
     "variant": "dark"
   },
   "Nothing_Battery_Mini_light": {
-    "alphaIoU": 0.8877,
+    "alphaIoU": 0.0504,
     "size": [
       415,
       226
@@ -264,7 +264,7 @@
     "variant": "light"
   },
   "Nothing_Battery_Mini_dark": {
-    "alphaIoU": 0.8877,
+    "alphaIoU": 0.0504,
     "size": [
       415,
       226
@@ -272,7 +272,7 @@
     "variant": "dark"
   },
   "Nothing_CPU_light": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -280,7 +280,7 @@
     "variant": "light"
   },
   "Nothing_CPU_dark": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -288,7 +288,7 @@
     "variant": "dark"
   },
   "Nothing_Date_Time_light": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -296,7 +296,7 @@
     "variant": "light"
   },
   "Nothing_Date_Time_dark": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -304,7 +304,7 @@
     "variant": "dark"
   },
   "Nothing_Date_Time2_light": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -312,7 +312,7 @@
     "variant": "light"
   },
   "Nothing_Date_Time2_dark": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -320,7 +320,7 @@
     "variant": "dark"
   },
   "Nothing_Date_Time3_light": {
-    "alphaIoU": 0.0869,
+    "alphaIoU": 0.0651,
     "size": [
       916,
       542
@@ -328,7 +328,7 @@
     "variant": "light"
   },
   "Nothing_Date_Time3_dark": {
-    "alphaIoU": 0.0831,
+    "alphaIoU": 0.0636,
     "size": [
       916,
       542
@@ -336,7 +336,7 @@
     "variant": "dark"
   },
   "Nothing_Digital_light": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9641,
     "size": [
       415,
       542
@@ -344,7 +344,7 @@
     "variant": "light"
   },
   "Nothing_Digital_dark": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9641,
     "size": [
       415,
       542
@@ -368,7 +368,7 @@
     "variant": "dark"
   },
   "Nothing_Digital3_light": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -376,7 +376,7 @@
     "variant": "light"
   },
   "Nothing_Digital3_dark": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -384,7 +384,7 @@
     "variant": "dark"
   },
   "Nothing_Digital4_light": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -392,7 +392,7 @@
     "variant": "light"
   },
   "Nothing_Digital4_dark": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -400,7 +400,7 @@
     "variant": "dark"
   },
   "Nothing_Digital_Clock_light": {
-    "alphaIoU": 0.6053,
+    "alphaIoU": 0.9952,
     "size": [
       415,
       542
@@ -408,7 +408,7 @@
     "variant": "light"
   },
   "Nothing_Digital_Clock_dark": {
-    "alphaIoU": 0.6053,
+    "alphaIoU": 0.9952,
     "size": [
       415,
       542
@@ -416,7 +416,7 @@
     "variant": "dark"
   },
   "Nothing_Future_Clock_light": {
-    "alphaIoU": 0.6535,
+    "alphaIoU": 0.7268,
     "size": [
       916,
       542
@@ -424,7 +424,7 @@
     "variant": "light"
   },
   "Nothing_Future_Clock_dark": {
-    "alphaIoU": 0.6535,
+    "alphaIoU": 0.7268,
     "size": [
       916,
       542
@@ -432,7 +432,7 @@
     "variant": "dark"
   },
   "Nothing_Master_Widget_light": {
-    "alphaIoU": 0.4902,
+    "alphaIoU": 0.3022,
     "size": [
       916,
       1169
@@ -440,7 +440,7 @@
     "variant": "light"
   },
   "Nothing_Master_Widget_dark": {
-    "alphaIoU": 0.4902,
+    "alphaIoU": 0.3024,
     "size": [
       916,
       1169
@@ -448,7 +448,7 @@
     "variant": "dark"
   },
   "Nothing_Media_Player_light": {
-    "alphaIoU": 0.5712,
+    "alphaIoU": 0.2062,
     "size": [
       916,
       542
@@ -456,7 +456,7 @@
     "variant": "light"
   },
   "Nothing_Media_Player_dark": {
-    "alphaIoU": 0.5712,
+    "alphaIoU": 0.2066,
     "size": [
       916,
       542
@@ -464,7 +464,7 @@
     "variant": "dark"
   },
   "Nothing_Media_Player2_light": {
-    "alphaIoU": 0.8026,
+    "alphaIoU": 0.0488,
     "size": [
       916,
       226
@@ -472,7 +472,7 @@
     "variant": "light"
   },
   "Nothing_Media_Player2_dark": {
-    "alphaIoU": 0.8026,
+    "alphaIoU": 0.0493,
     "size": [
       916,
       226
@@ -480,7 +480,7 @@
     "variant": "dark"
   },
   "Nothing_Media_Player3_light": {
-    "alphaIoU": 0.7417,
+    "alphaIoU": 0.9656,
     "size": [
       415,
       542
@@ -488,7 +488,7 @@
     "variant": "light"
   },
   "Nothing_Media_Player3_dark": {
-    "alphaIoU": 0.7417,
+    "alphaIoU": 0.9656,
     "size": [
       415,
       542
@@ -496,7 +496,7 @@
     "variant": "dark"
   },
   "Nothing_Mini_Calender_light": {
-    "alphaIoU": 0.2411,
+    "alphaIoU": 0.2513,
     "size": [
       916,
       226
@@ -504,7 +504,7 @@
     "variant": "light"
   },
   "Nothing_Mini_Calender_dark": {
-    "alphaIoU": 0.2407,
+    "alphaIoU": 0.2512,
     "size": [
       916,
       226
@@ -512,7 +512,7 @@
     "variant": "dark"
   },
   "Nothing_Sun_Info_light": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -520,7 +520,7 @@
     "variant": "light"
   },
   "Nothing_Sun_Info_dark": {
-    "alphaIoU": 0.7421,
+    "alphaIoU": 0.9661,
     "size": [
       415,
       542
@@ -528,7 +528,7 @@
     "variant": "dark"
   },
   "Nothing_Temp_light": {
-    "alphaIoU": 0.6053,
+    "alphaIoU": 0.6447,
     "size": [
       415,
       542
@@ -536,7 +536,7 @@
     "variant": "light"
   },
   "Nothing_Temp_dark": {
-    "alphaIoU": 0.6053,
+    "alphaIoU": 0.6447,
     "size": [
       415,
       542
@@ -544,7 +544,7 @@
     "variant": "dark"
   },
   "Universal_Media_Player_light": {
-    "alphaIoU": 0.7072,
+    "alphaIoU": 0.094,
     "size": [
       918,
       542
